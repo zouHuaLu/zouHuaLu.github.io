@@ -10,15 +10,15 @@ comments: true
 {% endblockquote %}
 
 19年搭过一个博客，可惜不好用，上传的图片经常不显示，于是就放弃使用了，后来把地址搞丢了找不回来了。
-所以我又重新用hexo框架重新搭了一个。
+所以我又重新搭了一个。
 后续会把写过的文档陆续上传到这边
 
 以下是功能测试：
 
-嵌入视频
+嵌入YOUTUBE视频
 {% youtube lJIrF4YjHfQ %}
 
-嵌入B站视频测试
+嵌入B站视频
 {% raw %}
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
 <iframe src="//player.bilibili.com/player.html?aid=846655043&bvid=BV1e54y1n7XK&cid=371989206&page=1" scrolling="no" border="0" frameborder="no" framespacing="0"allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;"> </iframe></div>
@@ -26,7 +26,8 @@ comments: true
 
 
 嵌入图片
-![](/img/bg/bg.jpg)
+![背景图](/img/bg/bg.jpg)
+![长颈鹿](/img/user/zoo.jpeg)
 
 
 代码块
