@@ -903,7 +903,7 @@ links:
     - {
       title: "大眼怪",
       intro: "我的微博，欢迎关注和点赞",
-      link: "https://weibo.com/u/5596130246",
+      link: "https://weibo.com/u/5596130246?is_all=1",
       avatar: "/img/user/webo.jpg"
     }
 
