@@ -900,12 +900,12 @@ links:
       link: "https://space.bilibili.com/10841979",
       avatar: "/img/user/bilibili.jpeg"
     }
-    - {
-      title: "大眼怪",
-      intro: "我的微博，欢迎关注和点赞",
-      link: "https://weibo.com/u/5596130246",
-      avatar: "/img/user/webo.jpg"
-    }
+    # - {
+    #   title: "大眼怪",
+    #   intro: "我的微博，欢迎关注和点赞",
+    #   link: "https://weibo.com/u/5596130246",
+    #   avatar: "/img/user/webo.jpg"
+    # }
 
   # 当成员头像加载失败时，替换为指定图片
   # When the member avatar fails to load, replace the specified image
