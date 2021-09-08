@@ -628,8 +628,7 @@ post:
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis
-    type: disqus
-
+    type: twikoo
 
 #---------------------------
 # 评论插件
@@ -656,11 +655,12 @@ utterances:
 # Based on third-party service
 # See: https://disqus.com
 disqus:
-  shortname: zouHuaLu
+  shortname: 'zouhualu'
+  count: true
   # 以下为 Disqusjs 支持, 国内用户如果想使用 Disqus 建议配合使用
   # The following are Disqusjs configurations, please ignore if DisqusJS is not required
   # See: https://github.com/SukkaW/DisqusJS
-  disqusjs: true
+  disqusjs: false
   apikey: MsZhyBwYrU0R1Om8yJJwgqhaltCM8O5EtvbViqTGcYweWMXbJeT5XX0ehQ8L2aMs
 
 # Gitalk
@@ -920,11 +920,11 @@ links:
   # 评论插件
   # Comment plugin
   comments:
-    enable: false
+    enable: true
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis
-    type: disqus
+    type: twikoo
 
 
 #---------------------------

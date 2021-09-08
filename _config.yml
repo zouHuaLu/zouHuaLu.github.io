@@ -5,20 +5,33 @@
 # Site
 title: 走花路的长颈鹿
 subtitle: '走花路的长颈鹿'
-description: 'My Blog'
-keywords: blog,走花路的长颈鹿
+description: '走花路的长颈鹿,博客'
+keywords: blog,走花路的长颈鹿,博客
 author: 走花路的长颈鹿
 language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
-permalink: :year/:month/:day/:title/
+url: https://zouhualu.github.io/
+permalink: :year:month:day/:title/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
   trailing_html: true # Set to false to remove trailing '.html' from permalinks
+
+baidu_url_submit:
+  count: 1 ## 提交最新的一个链接
+  host: zouhualu.github.io ## 在百度站长平台中注册的域名
+  token: U7jX4uyemaaDayli ## 请注意这是您的秘钥， 所以请不要把博客源代码发布在公众仓库里!
+  path: baidu_urls.txt ## 文本文档的地址， 新链接会保存在此文本文档里
+
+
+# 自动生成sitemap
+sitemap: 
+  path: sitemap.xml
+baidusitemap: 
+  path: baidusitemap.xml
 
 # Directory
 source_dir: source
@@ -102,6 +115,7 @@ theme: fluid
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: 'git'
-  repo: https://github.com/zouHuaLu/zouHuaLu.github.io
-  branch: master
+  - type: 'git'
+    repo: https://github.com/zouHuaLu/zouHuaLu.github.io
+    branch: master
+  - type: baidu_url_submitter
