@@ -10,7 +10,7 @@ categories: 技术类-TypeScript
 const add = (a:number,b:number)=> a+b
 ```
 上述只定义了函数的两个参数类型，这个时候整个函数虽然没有被显式定义，但是实际上TypeScript 编译器是能够通过类型推断到这个函数的类型，如下图所示：
-![微信图片_20210910144515.jpg](https://i.loli.net/2021/09/10/jzWf3SXsP4UqLpY.jpg)
+![TypeScript编译器的提示](https://i.loli.net/2021/09/10/jzWf3SXsP4UqLpY.jpg)
 当鼠标放置在第三行 `add` 函数名的时候，会出现完整的函数定义类型，通过 `:` 的形式来定义参数类型，通过 `=>` 连接参数和返回值类型
 
 我们也可以显式地写上返回类型，如下：
