@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>通读vue3文档记录</title>
+    <link href="/20210915/vue3%E6%96%87%E6%A1%A3%E8%AE%B0%E5%BD%95/"/>
+    <url>/20210915/vue3%E6%96%87%E6%A1%A3%E8%AE%B0%E5%BD%95/</url>
+    
+    <content type="html"><![CDATA[<p>之前学习过vue2，这次项目使用vue3我只是快速粗略的看过改变的部分。今天有空就把vue3文档从头到尾看了一遍。就当做对vue从头开始的学习和补漏，理解了一些用法改变的原理。最明显的地方就是响应式的改变，vue2用的是<code>Object.defineProperty()</code>，vue3用的是<code>Proxy</code>。vue3还新增了<code>组合式API</code>等等。</p><p>这次记录主要是记录一些基础的，面试常被问到的，查漏补缺。</p><p>持续更新ing</p><h1 id="应用-amp-组件实例"><a href="#应用-amp-组件实例" class="headerlink" title="应用&amp;组件实例"></a>应用&amp;组件实例</h1><h2 id="应用实例"><a href="#应用实例" class="headerlink" title="应用实例"></a>应用实例</h2><p>每个 Vue 应用都是通过用 createApp 函数创建一个新的<strong>应用实例</strong>开始的：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> app = Vue.createApp(&#123; <span class="hljs-comment">/* 选项 */</span> &#125;)<br></code></pre></td></tr></table></figure><p>该应用实例是用来在应用中注册“全局”组件的。我们将在后面的指南中详细讨论，简单的例子：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> app = Vue.createApp(&#123;&#125;)<br>app.component(<span class="hljs-string">&#x27;SearchInput&#x27;</span>, SearchInputComponent)<br>app.directive(<span class="hljs-string">&#x27;focus&#x27;</span>, FocusDirective)<br>app.use(LocalePlugin)<br></code></pre></td></tr></table></figure><p>应用实例暴露的大多数方法都会返回该同一实例，允许链式：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">Vue.createApp(&#123;&#125;)<br>  .component(<span class="hljs-string">&#x27;SearchInput&#x27;</span>, SearchInputComponent)<br>  .directive(<span class="hljs-string">&#x27;focus&#x27;</span>, FocusDirective)<br>  .use(LocalePlugin)<br></code></pre></td></tr></table></figure><h2 id="根组件实例"><a href="#根组件实例" class="headerlink" title="根组件实例"></a>根组件实例</h2><p>传递给 createApp 的选项用于配置根组件。当我们挂载应用时，该组件被用作渲染的起点。</p><p>一个应用需要被挂载到一个 DOM 元素中。例如，如果我们想把一个 Vue 应用挂载到 <code>&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</code>，我们应该传递 <code>#app</code>：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> RootComponent = &#123; <span class="hljs-comment">/* 选项 */</span> &#125;<br><span class="hljs-keyword">const</span> app = Vue.createApp(RootComponent)<br><span class="hljs-keyword">const</span> vm = app.mount(<span class="hljs-string">&#x27;#app&#x27;</span>)<br></code></pre></td></tr></table></figure><p>与大多数应用方法不同的是，<code>mount</code> 不返回应用本身。相反，它返回的是<strong>根组件实例</strong>。</p><p>虽然没有完全遵循 <code>MVVM</code> 模型，但是 Vue 的设计也受到了它的启发。因此在文档中经常会使用 vm (ViewModel 的缩写) 这个变量名表示组件实例。</p><h1 id="计算属性-amp-侦听器"><a href="#计算属性-amp-侦听器" class="headerlink" title="计算属性&amp;侦听器"></a>计算属性&amp;侦听器</h1><h2 id="计算属性缓存-vs-方法"><a href="#计算属性缓存-vs-方法" class="headerlink" title="计算属性缓存 vs 方法"></a>计算属性缓存 vs 方法</h2><p>你可能已经注意到我们可以通过在表达式中调用方法来达到同样的效果：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;&#123; calculateBooksMessage() &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 在组件中</span><br><span class="hljs-attr">methods</span>: &#123;<br>  <span class="hljs-function"><span class="hljs-title">calculateBooksMessage</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.author.books.length &gt; <span class="hljs-number">0</span> ? <span class="hljs-string">&#x27;Yes&#x27;</span> : <span class="hljs-string">&#x27;No&#x27;</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的。然而，不同的是计算属性是基于它们的反应依赖关系缓存的。计算属性只在相关响应式依赖发生改变时它们才会重新求值。这就意味着只要<code>author.books</code> 还没有发生改变，多次访问 <code>publishedBookMessage</code> 计算属性会立即返回之前的计算结果，而不必再次执行函数。 </p><p>这也同样意味着下面的计算属性将不再更新，因为 <strong>Date.now () 不是响应式依赖</strong>：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">computed: &#123;<br>  <span class="hljs-function"><span class="hljs-title">now</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Date</span>.now()<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>相比之下，每当触发重新渲染时，调用方法将总会再次执行函数。</p><p>我们为什么需要缓存？假设我们有一个性能开销比较大的计算属性 <code>list</code>，它需要遍历一个巨大的数组并做大量的计算。然后我们可能有其他的计算属性依赖于 <code>list</code>。如果没有缓存，我们将不可避免的多次执行 <code>list</code> 的 getter！如果你不希望有缓存，请用 method 来替代</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术类-Vue</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Vue3</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>叔本华《人生的智慧》第一章节</title>
     <link href="/20210913/%E5%8F%94%E6%9C%AC%E5%8D%8E%E3%80%8A%E4%BA%BA%E7%94%9F%E7%9A%84%E6%99%BA%E6%85%A7%E3%80%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E8%8A%82/"/>
     <url>/20210913/%E5%8F%94%E6%9C%AC%E5%8D%8E%E3%80%8A%E4%BA%BA%E7%94%9F%E7%9A%84%E6%99%BA%E6%85%A7%E3%80%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E8%8A%82/</url>
