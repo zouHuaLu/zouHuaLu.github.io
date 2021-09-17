@@ -12,12 +12,9 @@ comments: true
 19年搭过一个博客，可惜不好用，上传的图片经常不显示，于是就放弃使用了，后来把地址搞丢了找不回来了。
 所以我又重新搭了一个。
 后续会把写过的文档陆续上传到这边
+本博客主要记录学习过程，技术文档以及日常。
 
 以下是功能测试：
-
-嵌入YOUTUBE视频
-{% youtube lJIrF4YjHfQ %}
-
 嵌入B站视频
 {% raw %}
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
@@ -25,13 +22,8 @@ comments: true
 {% endraw %}
 
 
-嵌入图片
-![背景图](/img/bg/bg.jpg)
-![长颈鹿](/img/user/zoo.jpeg)
-
-
 代码块
-```javaScript
+```js
 console.log('zouHuaLu')
 hexo g
 hexo g -w
@@ -39,5 +31,4 @@ hexo server
 hexo clean
 hexo deploy
 ```
-
-如果你看到`We were unable to load Disqus. If you are a moderator please see our troubleshooting guide.`,说明本博客的评论功能有问题，后续有时间再改吧
+有时间弄一下评论功能
