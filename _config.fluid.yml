@@ -412,7 +412,7 @@ footer:
 index:
   # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
-  banner_img: /img/bg/zoo.jpeg
+  banner_img: /img/bg/shashou.jpeg
 
   # 头图高度，屏幕百分比
   # Height ratio of banner image
@@ -915,7 +915,7 @@ links:
   # Custom content at the bottom of the links
   custom:
     enable: true
-    content: '<hr><p>你要如何我们就如何</p>'
+    content: '<hr><p>你要如何我们就如何</p><hr><p>我一直都在</p>'
 
   # 评论插件
   # Comment plugin
