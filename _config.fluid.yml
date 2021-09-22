@@ -915,7 +915,7 @@ links:
   # Custom content at the bottom of the links
   custom:
     enable: true
-    content: '<hr><p>请点赞&关注</p>'
+    content: '<hr><p>你要如何我们就如何</p>'
 
   # 评论插件
   # Comment plugin
