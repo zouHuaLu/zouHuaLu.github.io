@@ -7,6 +7,8 @@ tags:
     - [原型链]
 categories: 技术类
 ---
+<meta name="referrer" content="no-referrer"/>
+
 # 原型与原型链与constructor
 
 本文参考自：[https://blog.csdn.net/cc18868876837/article/details/81211729](https://blog.csdn.net/cc18868876837/article/details/81211729)
