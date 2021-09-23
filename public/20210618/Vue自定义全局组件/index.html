@@ -20,7 +20,7 @@
   <meta name="google-site-verification" content="W1p2MOXTq9JK5NxmGNBsJhiHxBLISPbujB8JEEmnSgs" />
   <meta name="keywords" content="blog,走花路的长颈鹿,博客">
   
-  <title>本博客说明书 - 走花路的长颈鹿</title>
+  <title>Vue自定义全局组件 - 走花路的长颈鹿</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="本博客说明书">
+            <span class="h2" id="subtitle" title="Vue自定义全局组件">
               
             </span>
 
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-07 11:19" pubdate>
-        2021年9月7日 上午
+      <time datetime="2021-06-18 15:15" pubdate>
+        2021年6月18日 下午
       </time>
     </span>
   
@@ -204,7 +204,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      160 字
+      578 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      10
        分钟
     </span>
   
@@ -256,24 +256,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">本博客说明书</h1>
+            <h1 style="display: none">Vue自定义全局组件</h1>
             
             <div class="markdown-body">
-              <blockquote><p>幸福不是一件容易的事：她很难求之于自身，但要想在别处得到则不可能。——尚福尔</p>
-</blockquote>
-
-<p>19年搭过一个博客，可惜不好用，上传的图片经常不显示，于是就放弃使用了，后来把地址搞丢了找不回来了。<br>所以我又重新搭了一个。<br>后续会把写过的文档陆续上传到这边<br>本博客主要记录学习过程，技术文档以及日常。</p>
-<p>以下是功能测试：<br>嵌入B站视频</p>
-
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=846655043&bvid=BV1e54y1n7XK&cid=371989206&page=1" scrolling="no" border="0" frameborder="no" framespacing="0"allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;"> </iframe></div>
-
-
-
-<p>代码块</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;zouHuaLu&#x27;</span>)<br>hexo g<br>hexo g -w<br>hexo server<br>hexo clean<br>hexo deploy<br></code></pre></td></tr></table></figure>
-<p>有时间弄一下评论功能</p>
-
+              <h1 id="vue自定义全局弹框组件"><a href="#vue自定义全局弹框组件" class="headerlink" title="vue自定义全局弹框组件"></a>vue自定义全局弹框组件</h1><ol>
+<li><p>在components文件夹下新增一个组件文件夹Dialog，新建一个模板组件Dialog.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div class=&quot;u_dialog_panel&quot; @touchmove.stop=&quot;noop&quot;&gt;<br>    &lt;div class=&quot;mask&quot; v-if=&quot;visible&quot; @click=&quot;handleClose&quot;&gt;&lt;/div&gt;<br>    &lt;transition name=&quot;open&quot;&gt;<br>      &lt;div v-if=&quot;visible&quot; class=&quot;dialog_body&quot;&gt;<br>        &lt;slot&gt;&lt;/slot&gt;<br>        &lt;div class=&quot;btns&quot; v-if=&quot;confirmText || cancleText&quot;&gt;<br>          &lt;div class=&quot;cancle btn&quot; v-if=&quot;cancleText&quot; @click=&quot;handleCancle&quot;&gt;&#123;&#123;cancleText&#125;&#125;&lt;/div&gt;<br>          &lt;div class=&quot;confirm btn&quot; :style=&quot;confirmStyle&quot; v-if=&quot;confirmText&quot; @click=&quot;handleConfirm&quot;&gt;&#123;&#123;confirmText&#125;&#125;&lt;/div&gt;<br>        &lt;/div&gt;<br>      &lt;/div&gt;<br>    &lt;/transition&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br>&lt;script&gt;<br>export default &#123;<br>  name: &#x27;UDialog&#x27;,<br>  props: &#123;<br>    visible: &#123; type: Boolean, default: false, required: true &#125;,<br>    // 确定按钮的文案<br>    confirmText: &#123; type: String, default: &#x27;确定&#x27; &#125;,<br>    confirmStyle: &#123; type: String, default: &#x27;&#x27; &#125;,<br>    // 取消按钮的文案<br>    cancleText: &#123; type: String, default: &#x27;取消&#x27; &#125;,<br>    cancleStyle: &#123; type: String, default: &#x27;&#x27; &#125;,<br>  &#125;,<br>  created () &#123;<br>    this.$nextTick(() =&gt; &#123;<br>      document.body.insertBefore(this.$el, document.body.lastChild)<br>    &#125;)<br>  &#125;,<br>  beforeDestroy () &#123;<br>    document.body.removeChild(this.$el)<br>  &#125;,<br>  methods: &#123;<br>    // 关闭弹窗<br>    handleClose () &#123; this.$emit(&#x27;close&#x27;) &#125;,<br>    // 确定按钮<br>    handleConfirm () &#123; this.$emit(&#x27;confirm&#x27;) &#125;,<br>    // 取消按钮<br>    handleCancle () &#123; this.$emit(&#x27;cancle&#x27;) &#125;,<br>    noop () &#123;&#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style lang=&quot;less&quot; scoped&gt;<br>.u_dialog_panel &#123;<br>  .mask &#123;<br>    width: 100vw;<br>    height: 100vh;<br>    background-color: rgba(0, 0, 0, 0.5);<br>    position: fixed;<br>    left: 0;<br>    top: 0;<br>    z-index: 100;<br>    backdrop-filter: blur(5px);<br>  &#125;<br>  .dialog_body&#123;<br>    width: 80vw;<br>    background-color: #fff;<br>    position: fixed;<br>    left: 50vw;<br>    top: 50vh;<br>    z-index: 100;<br>    transform: translate(-50%, -50%);<br>    transform-origin: 0 0;<br>    border-radius: .875rem;<br>    &amp;.open-enter &#123;<br>      opacity: 0;<br>      transform: scale(0.7) translate(-50%, -50%);<br>      transition: all 0.3s;<br>    &#125;<br>    &amp;.open-enter-to &#123;<br>      opacity: 1;<br>      transform: scale(1) translate(-50%, -50%);<br>      transition: all 0.3s;<br>    &#125;<br>    .btns &#123;<br>      display: flex;<br>      justify-content: space-between;<br>      align-items: center;<br>      .btn &#123;<br>        display: flex;<br>        justify-content: center;<br>        align-items: center;<br>        flex-grow: 1;<br>        width: 50%;<br>        height: 2.875rem;<br>        border-top: 1px solid #ddd;<br>        box-sizing: border-box;<br>        display: flex;<br>        justify-content: center;<br>        align-items: center;<br>        font-size: .875rem;<br>        &amp; + .btn &#123;<br>          border-left: 1px solid #ddd;<br>        &#125;<br>        &amp;.cancle &#123;<br>          color: #666666;<br>        &#125;<br>        &amp;.confirm &#123;<br>          color: #FF5883;<br>        &#125;<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/style&gt;<br><br></code></pre></td></tr></table></figure></li>
+<li><p>在此文件夹再新建一个index.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vue">import Dialog from &#x27;./Dialog&#x27;<br><br>Dialog.install = function (Vue, options) &#123;<br>  Vue.component(`$&#123;Dialog.name&#125;`, Dialog)<br>&#125;<br><br>export default Dialog<br><br></code></pre></td></tr></table></figure></li>
+<li><p>最后再main.js里注册为全局组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vue">import Dialog from &#x27;./components/Dialog/index.js&#x27;<br><br>Vue.use(Dialog)<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="这样就可以在其他组件里无需声明而使用此组件"><a href="#这样就可以在其他组件里无需声明而使用此组件" class="headerlink" title="这样就可以在其他组件里无需声明而使用此组件"></a>这样就可以在其他组件里无需声明而使用此组件</h2>
             </div>
             <hr>
             <div>
@@ -282,7 +276,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%8D%9A%E5%AE%A2%E8%AF%B4%E6%98%8E/">博客说明</a>
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E7%B1%BB-Vue/">技术类-Vue</a>
                     
                   </div>
                 
@@ -290,7 +284,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8D%9A%E5%AE%A2%E8%AF%B4%E6%98%8E/">博客说明</a>
+                      <a class="hover-with-bg" href="/tags/Vue3/">Vue3</a>
                     
                   </div>
                 
@@ -307,21 +301,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/20210910/TypeScript%E4%B8%AD%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3/">
+                      <a href="/20210618/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E4%B8%8Econstructor/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">TypeScript中函数的理解</span>
+                        <span class="hidden-mobile">原型与原型链与constructor</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/20210906/TypeScript%E4%B8%AD%E7%B1%BB%E7%9A%84%E7%90%86%E8%A7%A3/">
-                        <span class="hidden-mobile">TypeScript中类的理解</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>

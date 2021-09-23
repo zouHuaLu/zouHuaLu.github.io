@@ -20,7 +20,7 @@
   <meta name="google-site-verification" content="W1p2MOXTq9JK5NxmGNBsJhiHxBLISPbujB8JEEmnSgs" />
   <meta name="keywords" content="blog,走花路的长颈鹿,博客">
   
-  <title>本博客说明书 - 走花路的长颈鹿</title>
+  <title>原型与原型链与constructor - 走花路的长颈鹿</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="本博客说明书">
+            <span class="h2" id="subtitle" title="原型与原型链与constructor">
               
             </span>
 
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-07 11:19" pubdate>
-        2021年9月7日 上午
+      <time datetime="2021-06-18 15:16" pubdate>
+        2021年6月18日 下午
       </time>
     </span>
   
@@ -204,7 +204,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      160 字
+      1.2k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      12
        分钟
     </span>
   
@@ -256,24 +256,45 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">本博客说明书</h1>
+            <h1 style="display: none">原型与原型链与constructor</h1>
             
             <div class="markdown-body">
-              <blockquote><p>幸福不是一件容易的事：她很难求之于自身，但要想在别处得到则不可能。——尚福尔</p>
-</blockquote>
+              <h1 id="原型与原型链与constructor"><a href="#原型与原型链与constructor" class="headerlink" title="原型与原型链与constructor"></a>原型与原型链与constructor</h1><p>本文参考自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/cc18868876837/article/details/81211729">https://blog.csdn.net/cc18868876837/article/details/81211729</a></p>
+<h2 id="先来个总结："><a href="#先来个总结：" class="headerlink" title="先来个总结："></a>先来个总结：</h2><ol>
+<li><p> 我们需要牢记两点：①<code>__proto__</code>和<code>constructor</code>属性是对象所独有的；② <code>prototype</code>属性是函数所独有的，因为函数也是一种对象，所以函数也拥有<code>__proto__</code>和<code>constructor</code>属性。</p>
+</li>
+<li><p> __<code>proto__</code>属性的作用就是当访问一个对象的属性时，如果该对象内部不存在这个属性，那么就会去它的<code>__proto__</code>属性所指向的那个对象（父对象）里找，一直找，直到<code>__proto__</code>属性的终点null，再往上找就相当于在null上取值，会报错。通过<code>__proto__</code>属性将对象连接起来的这条链路即我们所谓的原型链。</p>
+</li>
+<li><p> <code>prototype</code>属性的作用就是让该函数所实例化的对象们都可以找到公用的属性和方法，即<code>f1.__proto__ === Foo.prototype</code>。</p>
+</li>
+<li><p> <code>constructor</code>属性的含义就是指向该对象的构造函数，所有函数（此时看成对象了）最终的构造函数都指向<code>Function</code>。</p>
+</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/13931286-5467dbdb42fd91ef?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="整体的联系"> </p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p><code>__proto__</code>翻译为<strong>原型</strong>，多个<code>__proto__</code>串连起来的叫做<strong>原型链</strong>。</p>
+<p><code>prototype</code>翻译为<strong>原型对象</strong>。</p>
+<h2 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf()"></a>Object.getPrototypeOf()</h2><p><code>Object.getPrototypeOf()</code> 方法返回指定对象的原型（内部<code>[[Prototype]]</code>属性的值）。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">const prototype1 = &#123;&#125;;<br>const object1 = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Object</span>.</span></span>create(prototype1);<br><br>console.log(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Object</span>.</span></span>get<span class="hljs-constructor">PrototypeOf(<span class="hljs-params">object1</span>)</span><span class="hljs-operator"> === </span>prototype1);<br><span class="hljs-comment">// expected output: true</span><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Object</span>.</span></span>get<span class="hljs-constructor">PrototypeOf(<span class="hljs-params">object1</span>)</span><span class="hljs-operator"> === </span>object1.__proto__<br></code></pre></td></tr></table></figure>
 
-<p>19年搭过一个博客，可惜不好用，上传的图片经常不显示，于是就放弃使用了，后来把地址搞丢了找不回来了。<br>所以我又重新搭了一个。<br>后续会把写过的文档陆续上传到这边<br>本博客主要记录学习过程，技术文档以及日常。</p>
-<p>以下是功能测试：<br>嵌入B站视频</p>
+<h2 id="正式开始"><a href="#正式开始" class="headerlink" title="正式开始"></a>正式开始</h2><figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nim">function <span class="hljs-type">Foo</span>() <span class="hljs-meta">&#123;...&#125;</span>;<br><span class="hljs-keyword">let</span> f1 = new <span class="hljs-type">Foo</span>();<br></code></pre></td></tr></table></figure>
 
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=846655043&bvid=BV1e54y1n7XK&cid=371989206&page=1" scrolling="no" border="0" frameborder="no" framespacing="0"allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;"> </iframe></div>
-
-
-
-<p>代码块</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;zouHuaLu&#x27;</span>)<br>hexo g<br>hexo g -w<br>hexo server<br>hexo clean<br>hexo deploy<br></code></pre></td></tr></table></figure>
-<p>有时间弄一下评论功能</p>
-
+<p>以上代码表示创建一个构造函数Foo()，并用new关键字实例化该构造函数得到一个实例化对象f1。这里稍微补充一下new操作符将函数作为构造器进行调用时的过程：<strong>函数被调用，然后新创建一个对象，并且成了函数的上下文（也就是此时函数内部的this是指向该新创建的对象，这意味着我们可以在构造器函数内部通过this参数初始化值），最后返回该新对象的引用。</strong></p>
+<h2 id="proto-属性"><a href="#proto-属性" class="headerlink" title="__proto__属性"></a><code>__proto__</code>属性</h2><p>首先要记住两点：</p>
+<ol>
+<li><p> <code>__proto__</code>和<code>constructor</code>是对象才有的属性，在JavaScript中函数也是一种对象。</p>
+</li>
+<li><p> <code>prototype</code>是函数才有的属性。</p>
+</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/13931286-9355e730b53d1879?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="__proto__"> </p>
+<p>这里我们仅留下 <code>__proto__</code> 属性，它是对象所独有的，可以看到<code>__proto__</code>属性都是由<strong>一个对象指向一个对象</strong>，即指向它们构造函数的<strong>原型对象</strong>（也可以理解为父对象），那么这个属性的作用是什么呢？它的<strong>作用就是当访问一个对象的属性时，如果该对象内部不存在这个属性，那么就会去它的<code>__proto__</code>属性所指向的那个对象（可以理解为父对象）里找，如果父对象也不存在这个属性，则继续往父对象的<code>__proto__</code>属性所指向的那个对象（可以理解为爷爷对象）里找，如果还没找到，则继续往上找…直到原型链顶端null（可以理解为原始人。。。），再往上找就相当于在null上取值，会报错（可以理解为，再往上就已经不是“人”的范畴了，找不到了，到此结束，null为原型链的终点）</strong>，由以上这种通过<code>__proto__</code>属性来连接对象直到null的一条链即为我们所谓的原型链。    其实我们平时调用的字符串方法、数组方法、对象方法、函数方法等都是靠<code>__proto__</code>继承而来的。</p>
+<h2 id="prototype属性"><a href="#prototype属性" class="headerlink" title="prototype属性"></a><code>prototype</code>属性</h2><p><img src="https://upload-images.jianshu.io/upload_images/13931286-a68d7e7851adf580?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="prototype属性"> </p>
+<p><code>prototype</code>属性是函数独有的。他是从一个函数指向一个对象，他的含义是函数的原型对象</p>
+<p><code>f1.__proto__ === Foo.prototype</code>，它们两个完全一样。那prototype属性的作用又是什么呢？<strong>它的作用就是包含可以由特定类型的所有实例共享的属性和方法，也就是让该函数所实例化的对象们都可以找到公用的属性和方法。</strong>任何函数在创建的时候，其实会默认同时创建该函数的prototype对象。</p>
+<h2 id="constructor属性"><a href="#constructor属性" class="headerlink" title="constructor属性"></a>constructor属性</h2><p><img src="https://upload-images.jianshu.io/upload_images/13931286-8de481f4fbc04fee?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="constructor属性"> </p>
+<p><code>constructor</code>属性也是对象才拥有的，它是从一个对象指向一个函数，含义就是指向该对象的构造函数，每个对象都有构造函数（本身拥有或继承而来，继承而来的要结合<code>__proto__</code>属性查看会更清楚点，如下图所示），从上图中可以看出<code>Function</code>这个对象比较特殊，它的构造函数就是它自己（因为<code>Function</code>可以看成是一个函数，也可以是一个对象），所有函数和对象最终都是由<code>Function</code>构造函数得来，所以<code>constructor</code>属性的终点就是<code>Function</code>这个函数。</p>
+<p><code>函数创建的对象.__proto__ === 该函数.prototype，该函数.prototype.constructor===该函数本身</code></p>
+<h2 id="完"><a href="#完" class="headerlink" title="完~"></a>完~</h2>
             </div>
             <hr>
             <div>
@@ -282,7 +303,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%8D%9A%E5%AE%A2%E8%AF%B4%E6%98%8E/">博客说明</a>
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E7%B1%BB/">技术类</a>
                     
                   </div>
                 
@@ -290,7 +311,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8D%9A%E5%AE%A2%E8%AF%B4%E6%98%8E/">博客说明</a>
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%9E%8B/">原型</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/">原型链</a>
                     
                   </div>
                 
@@ -307,9 +332,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/20210910/TypeScript%E4%B8%AD%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3/">
+                      <a href="/20210619/new%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%AE%9E%E7%8E%B0/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">TypeScript中函数的理解</span>
+                        <span class="hidden-mobile">new操作符的实现</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -317,8 +342,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/20210906/TypeScript%E4%B8%AD%E7%B1%BB%E7%9A%84%E7%90%86%E8%A7%A3/">
-                        <span class="hidden-mobile">TypeScript中类的理解</span>
+                      <a href="/20210618/Vue%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E7%BB%84%E4%BB%B6/">
+                        <span class="hidden-mobile">Vue自定义全局组件</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

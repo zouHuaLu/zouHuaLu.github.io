@@ -20,7 +20,7 @@
   <meta name="google-site-verification" content="W1p2MOXTq9JK5NxmGNBsJhiHxBLISPbujB8JEEmnSgs" />
   <meta name="keywords" content="blog,走花路的长颈鹿,博客">
   
-  <title>本博客说明书 - 走花路的长颈鹿</title>
+  <title>new操作符的实现 - 走花路的长颈鹿</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="本博客说明书">
+            <span class="h2" id="subtitle" title="new操作符的实现">
               
             </span>
 
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-07 11:19" pubdate>
-        2021年9月7日 上午
+      <time datetime="2021-06-19 05:23" pubdate>
+        2021年6月19日 凌晨
       </time>
     </span>
   
@@ -204,7 +204,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      160 字
+      766 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      10
        分钟
     </span>
   
@@ -256,23 +256,48 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">本博客说明书</h1>
+            <h1 style="display: none">new操作符的实现</h1>
             
             <div class="markdown-body">
-              <blockquote><p>幸福不是一件容易的事：她很难求之于自身，但要想在别处得到则不可能。——尚福尔</p>
-</blockquote>
+              <h1 id="JavaScript中的new操作符的原理"><a href="#JavaScript中的new操作符的原理" class="headerlink" title="JavaScript中的new操作符的原理"></a>JavaScript中的new操作符的原理</h1><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span> (<span class="hljs-params">name, age</span>) </span>&#123;<br> <span class="hljs-built_in">this</span>.name = name<br> <span class="hljs-built_in">this</span>.age = age<br>&#125;<br><span class="hljs-keyword">const</span> person1 = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&#x27;走花路的长颈鹿&#x27;</span>, <span class="hljs-number">26</span>)<br><span class="hljs-built_in">console</span>.log(person1) <span class="hljs-comment">//Person&#123;name:&#x27;走花路的长颈鹿&#x27;,age:26&#125;</span><br></code></pre></td></tr></table></figure>
 
-<p>19年搭过一个博客，可惜不好用，上传的图片经常不显示，于是就放弃使用了，后来把地址搞丢了找不回来了。<br>所以我又重新搭了一个。<br>后续会把写过的文档陆续上传到这边<br>本博客主要记录学习过程，技术文档以及日常。</p>
-<p>以下是功能测试：<br>嵌入B站视频</p>
+<p>先定义了一个构造函数<code>Person</code>，然后通过<code>new</code>操作符生成Person构造函数的一个实例并将其引用赋值给变量<code>person1</code>。然后控制台打印出<code>person1</code>的内容，可以看到该实例对象具有<code>name</code>和<code>age</code>属性，它们的值就是我们在调用构造函数时传入的值。</p>
+<h2 id="new关键字进行的操作"><a href="#new关键字进行的操作" class="headerlink" title="new关键字进行的操作"></a>new关键字进行的操作</h2><ol>
+<li><p> 先创建一个空对象<code>obj=&#123;&#125;</code></p>
+</li>
+<li><p> 将obj的<code>__proto__</code>原型指向构造函数Person的<code>prototype</code>原型对象，即<code>obj.__proto__ = Person.prototype</code></p>
+</li>
+<li><p> 将构造函数Person内部的this指向obj，然后执行构造函数<code>Person()</code>（也就是跟调用普通函数一样，只是此时函数的this为新创建的对象<code>obj</code>而已，就好像执行<code>obj.Person()</code>一样）</p>
+</li>
+<li><p> 若构造函数没有返回非原始值（即不是引用类型的值），则返回该新建的对象<code>obj</code>（默认会添加<code>return this</code>）。否则，返回引用类型的值。</p>
+</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/13931286-2638e8196f6e699b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="new操作符的执行过程"> </p>
+<h2 id="自己实现一个new操作符"><a href="#自己实现一个new操作符" class="headerlink" title="自己实现一个new操作符"></a>自己实现一个new操作符</h2><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs actionscript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myNew</span> <span class="hljs-params">(constr, <span class="hljs-rest_arg">...args</span>)</span> </span>&#123;<br> <span class="hljs-comment">// 1,2 创建一个对象obj，将obj的__proto__属性指向构造函数的原型对象</span><br> <span class="hljs-comment">// 即实现：obj.__proto__ === constructor.prototype</span><br> <span class="hljs-keyword">var</span> obj = Object.create(constr.prototype)<br> <span class="hljs-comment">// 3.将constrc内部的this（即执行上下文）指向obj，并执行</span><br> <span class="hljs-keyword">var</span> result = constr.apply(obj, args)<br> <span class="hljs-comment">// 4\. 如果构造函数返回的是对象，则使用构造函数执行的结果。否则，返回新创建的对象</span><br> <span class="hljs-keyword">return</span> result <span class="hljs-keyword">instanceof</span> Object ? result : obj<br>&#125;<br><br><span class="hljs-comment">// 使用的例子：</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span><span class="hljs-params">(name, age)</span></span>&#123;<br> <span class="hljs-keyword">this</span>.name = name;<br> <span class="hljs-keyword">this</span>.age = age;<br>&#125;<br><span class="hljs-keyword">const</span> person1 = myNew(Person, <span class="hljs-string">&#x27;Tom&#x27;</span>, <span class="hljs-number">20</span>)<br>console.log(person1)  <span class="hljs-comment">// Person &#123;name: &quot;Tom&quot;, age: 20&#125;</span><br></code></pre></td></tr></table></figure>
 
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-<iframe src="//player.bilibili.com/player.html?aid=846655043&bvid=BV1e54y1n7XK&cid=371989206&page=1" scrolling="no" border="0" frameborder="no" framespacing="0"allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; Left: 0; top: 0;"> </iframe></div>
+<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><ol>
+<li><p> 将新创建对象的原型链设置正确，这样我们才能使用原型链上的方法。</p>
+</li>
+<li><p> 将新创建的对象作为构造函数执行的上下文，这样我们才能正确地进行一些初始化操作。</p>
+</li>
+</ol>
+<hr>
 
-
-
-<p>代码块</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;zouHuaLu&#x27;</span>)<br>hexo g<br>hexo g -w<br>hexo server<br>hexo clean<br>hexo deploy<br></code></pre></td></tr></table></figure>
-<p>有时间弄一下评论功能</p>
+<h2 id="2021年7月1日补充"><a href="#2021年7月1日补充" class="headerlink" title="2021年7月1日补充"></a>2021年7月1日补充</h2><p>看一个例子</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">function</span> <span class="hljs-constructor">Player(<span class="hljs-params">color</span>)</span> &#123;<br>  this.color = color<br>&#125;<br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Player</span>.</span></span>prototype.start = <span class="hljs-keyword">function</span><span class="hljs-literal">()</span> &#123;&#125;<br><br>const white = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Player(&#x27;<span class="hljs-params">white</span>&#x27;)</span><br>const black = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Player(&#x27;<span class="hljs-params">black</span>&#x27;)</span><br><br>console.log(black.__proto__)  <span class="hljs-comment">// start()</span><br>console.log(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Object</span>.</span></span>get<span class="hljs-constructor">PrototypeOf(<span class="hljs-params">black</span>)</span>) <span class="hljs-comment">// start()</span><br>console.log(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Player</span>.</span></span>prototype) <span class="hljs-comment">// start()</span><br>console.log(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Player</span>.</span><span class="hljs-module"><span class="hljs-identifier">__proto__</span>)</span></span> <span class="hljs-comment">// &#123;&#125;</span><br></code></pre></td></tr></table></figure>
+<p>根据反推可以写一下思路</p>
+<ol>
+<li>一个继承自<code>Player.prototype</code>的新对象 p1/p2被创建</li>
+<li><code>p1.__proto__ === Player.prototype</code>，<code>p1.__proto__</code>指向<code>Player.prototype</code></li>
+<li>将this指向新创建的对象p1/p2</li>
+<li>返回一个新对象：<ol>
+<li>如果构造函数没有显示的返回值，那么返回this</li>
+<li>如果有显式的返回值，是基本类型，那么还是返回this</li>
+<li>如果构造函数有显式的返回值，是对象类型，比如是{a:1}，那么就返回{a:1}<br>现在我们再来实现一个new指令的功能<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Player</span>(<span class="hljs-params">name</span>)</span>&#123;<br>  <span class="hljs-built_in">this</span>.name = name<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">objectFactory</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> o = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>()<br>  <span class="hljs-keyword">let</span> FunctionConstructor = [].shift.call(<span class="hljs-built_in">arguments</span>)<br>  o.__proto__ = FunctionConstructor.prototype<br>  <span class="hljs-keyword">let</span> resultObj = FunctionConstructor.apply(o, <span class="hljs-built_in">arguments</span>) <br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> resultObj === <span class="hljs-string">&#x27;object&#x27;</span> ? resultObj : o<br>&#125;<br><span class="hljs-keyword">const</span> p1 = objectFactory(Player, <span class="hljs-string">&#x27;花鹿&#x27;</span>)<br><span class="hljs-built_in">console</span>.log(p1) <span class="hljs-comment">// 花鹿</span><br></code></pre></td></tr></table></figure>
+<h2 id="完"><a href="#完" class="headerlink" title="完~"></a>完~</h2></li>
+</ol>
+</li>
+</ol>
 
             </div>
             <hr>
@@ -282,7 +307,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%8D%9A%E5%AE%A2%E8%AF%B4%E6%98%8E/">博客说明</a>
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E7%B1%BB/">技术类</a>
                     
                   </div>
                 
@@ -290,7 +315,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8D%9A%E5%AE%A2%E8%AF%B4%E6%98%8E/">博客说明</a>
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
                     
                   </div>
                 
@@ -307,9 +332,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/20210910/TypeScript%E4%B8%AD%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3/">
+                      <a href="/20210906/TypeScript%E4%B8%AD%E7%B1%BB%E7%9A%84%E7%90%86%E8%A7%A3/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">TypeScript中函数的理解</span>
+                        <span class="hidden-mobile">TypeScript中类的理解</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -317,8 +342,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/20210906/TypeScript%E4%B8%AD%E7%B1%BB%E7%9A%84%E7%90%86%E8%A7%A3/">
-                        <span class="hidden-mobile">TypeScript中类的理解</span>
+                      <a href="/20210618/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E4%B8%8Econstructor/">
+                        <span class="hidden-mobile">原型与原型链与constructor</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
