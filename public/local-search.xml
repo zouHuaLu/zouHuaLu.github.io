@@ -210,6 +210,33 @@
   
   
   <entry>
+    <title>export与export default的区别</title>
+    <link href="/20210701/export%E4%B8%8Eexport-default%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <url>/20210701/export%E4%B8%8Eexport-default%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    
+    <content type="html"><![CDATA[<p>node中导入模块：var 名称 = require(‘模块标识符’)</p><p>node中向外暴露成员的形式：module.exports = {}</p><p>在ES6中，也通过规范的形式，规定了ES6中如何导入和导出模块</p><p>ES6中导入模块，使用 import 模块名称 from ‘模块标识符’    import ‘表示路径’</p><p>import * from * 是ES6中导入模块的方式</p><h3 id="在ES6中，使用export-default-和-export-向外暴露成员"><a href="#在ES6中，使用export-default-和-export-向外暴露成员" class="headerlink" title="在ES6中，使用export default 和 export 向外暴露成员"></a>在ES6中，使用export default 和 export 向外暴露成员</h3><p>例如：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// test.js</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;zs&#x27;</span>,<br>    <span class="hljs-attr">age</span>: <span class="hljs-number">20</span><br>&#125;<br></code></pre></td></tr></table></figure><p>或是</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// test.js</span><br><span class="hljs-keyword">var</span> info = &#123;<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;zs&#x27;</span>,<br>    <span class="hljs-attr">age</span>: <span class="hljs-number">20</span><br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> info<br></code></pre></td></tr></table></figure><p>在main.js中接收，test.js使用export default 向外暴露的成员</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> person <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./test.js&#x27;</span><br><span class="hljs-built_in">console</span>.log(person);<br></code></pre></td></tr></table></figure><h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><p>1、export default 向外暴露的成员，可以使用任意变量来接收</p><p>2、在一个模块中，export default 只允许向外暴露一次</p><p>3、在一个模块中，可以同时使用export default 和export 向外暴露成员</p><p>4、使用export向外暴露的成员，只能使用{  }的形式来接收，这种形式，叫做【按需导出】</p><p>5、export可以向外暴露多个成员，同时，如果某些成员，在import导入时，不需要，可以不在{ }中定义</p><p>6、使用export导出的成员，必须严格按照导出时候的名称，来使用{ }按需接收</p><p>7、使用export导出的成员，如果想换个变量名称接收，可以使用as来起别名</p><p>例如：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// test.js</span><br><span class="hljs-keyword">var</span> info = &#123;<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;zs&#x27;</span>,<br>    <span class="hljs-attr">age</span>: <span class="hljs-number">20</span><br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> info<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">var</span> title = <span class="hljs-string">&#x27;小星星&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">var</span> content = <span class="hljs-string">&#x27;哈哈哈&#x27;</span><br></code></pre></td></tr></table></figure><p>在main.js中接收，test.js使用export default 和 export 向外暴露的成员</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> person, &#123;title, content <span class="hljs-keyword">as</span> content1&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./test.js&#x27;</span><br><span class="hljs-built_in">console</span>.log(person);<br><span class="hljs-built_in">console</span>.log(title + <span class="hljs-string">&#x27;=======&#x27;</span> + content1);<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术类</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+      <tag>ES6</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>new操作符的实现</title>
     <link href="/20210619/new%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
     <url>/20210619/new%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
@@ -281,6 +308,31 @@
     <tags>
       
       <tag>Vue3</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>JavaScript中的堆栈以及数据类型</title>
+    <link href="/20210617/JavaScript%E4%B8%AD%E7%9A%84%E5%A0%86%E6%A0%88%E4%BB%A5%E5%8F%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
+    <url>/20210617/JavaScript%E4%B8%AD%E7%9A%84%E5%A0%86%E6%A0%88%E4%BB%A5%E5%8F%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/><h1 id="JavaScript的堆栈以及数据类型"><a href="#JavaScript的堆栈以及数据类型" class="headerlink" title="JavaScript的堆栈以及数据类型"></a>JavaScript的堆栈以及数据类型</h1><p><a href="https://www.jianshu.com/p/5e0e8d183102">本文参考此链接</a></p><p><strong>堆</strong> 是堆内存的简称。<strong>堆</strong>是动态分配内存，内存大小不一，也不会自动释放。<br><strong>栈</strong> 是栈内存的简称。<strong>栈</strong>是自动分配相对固定大小的内存空间，并由系统自动释放。<strong>后进先出</strong></p><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p><code>javascript</code>的<strong>基本类型</strong>就5种:<code>Undefined</code>、<code>Null</code>、<code>Boolean</code>、<code>Number</code>和<code>String</code>，它们都是直接按值存储在栈中的，每种类型的数据占用的内存空间的大小是<strong>确定</strong>的，并由系统自动分配和自动释放。这样带来的好处就是，内存可以及时得到回收，相对于堆来说，更加容易管理内存空间。</p><h3 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h3><p><code>javascript</code>中其他类型的数据被称为<strong>引用类型</strong>的数据 : 如对象(Object)、数组(Array)、函数(Function) …，它们是通过拷贝和new出来的，这样的数据存储于堆中。其实，说存储于堆中，也不太准确，因为，引用类型的数据的地址指针是存储于栈中的，当我们想要访问引用类型的值的时候，需要先从栈中获得对象的地址指针，然后，在通过地址指针找到堆中的所需要的数据。</p><h3 id="传值与传址"><a href="#传值与传址" class="headerlink" title="传值与传址"></a>传值与传址</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> arr1 = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>]; <br><span class="hljs-keyword">var</span> arr2 = arr1 ; <br><span class="hljs-keyword">var</span> str1 = arr1[<span class="hljs-number">2</span>]; <br><span class="hljs-built_in">console</span>.log(arr2);<span class="hljs-comment">//1,2,5,8</span><br><span class="hljs-built_in">console</span>.log(str1);<span class="hljs-comment">//5</span><br>arr2[<span class="hljs-number">4</span>] = <span class="hljs-number">99</span>; <br>str1 = <span class="hljs-number">6</span>; <br><span class="hljs-built_in">console</span>.log(arr1);<span class="hljs-comment">//1,2,5,8,99</span><br><span class="hljs-built_in">console</span>.log(arr1[<span class="hljs-number">2</span>]);<span class="hljs-comment">//5</span><br></code></pre></td></tr></table></figure><p>当我改变arr2中的数据时，arr1中数据也发生了变化，当改变str1的数据值时，arr1却没有发生改变。为什么？这就是<strong>传值与传址</strong>的区别。</p><p>因为arr1是数组，属于引用类型，所以它赋予给arr2的时候传的是栈中的地址（相当于新建了一个不同名“指针”），而不是堆内存中的对象的值。str1得到的是一个基本类型的赋值，因此，str1仅仅是从arr1堆内存中获取了一个数值，并直接保存在栈中。arr1、arr2都指向同一块堆内存，arr2修改的堆内存的时候，也就会影响到arr1，str1是直接在栈中修改，并且不能影响到arr1堆内存中的数据。</p><p><img src="https://images2018.cnblogs.com/blog/1402663/201808/1402663-20180802132101478-2092833591.png" alt="img"></p><h3 id="深拷贝和浅拷贝"><a href="#深拷贝和浅拷贝" class="headerlink" title="深拷贝和浅拷贝"></a>深拷贝和浅拷贝</h3><p>上边说到的赋值方式就是浅拷贝，那么什么叫作深拷贝呢？就是要将arr1的每个基本类型的数据都遍历一遍，依次的赋值给arr2的对应字段。避免产生因为地址引用带来的问题。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> arr1 = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>]; <br><span class="hljs-keyword">var</span> arr2 = []; <br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;arr1.length;i++)&#123;<br>   arr2[i]=arr1[i];<br>&#125;;<br><span class="hljs-built_in">console</span>.log(arr2)<span class="hljs-comment">//1,2,5,8</span><br>arr2[<span class="hljs-number">4</span>]=<span class="hljs-number">99</span>;<br><span class="hljs-built_in">console</span>.log(arr2)<span class="hljs-comment">//1,2,5,8,99</span><br><span class="hljs-built_in">console</span>.log(arr1)<span class="hljs-comment">//1,2,5,8</span><br></code></pre></td></tr></table></figure><p>javascript面向对象的语言本身在处理对象和非对象上就进行了划分，从数据结构的角度来讲，对象就是栈的指针和堆中的数值。</p><h1 id="完"><a href="#完" class="headerlink" title="完~"></a>完~</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术类</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
       
     </tags>
     

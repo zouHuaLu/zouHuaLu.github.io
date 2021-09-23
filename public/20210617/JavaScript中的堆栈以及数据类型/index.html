@@ -20,7 +20,7 @@
   <meta name="google-site-verification" content="W1p2MOXTq9JK5NxmGNBsJhiHxBLISPbujB8JEEmnSgs" />
   <meta name="keywords" content="blog,走花路的长颈鹿,博客">
   
-  <title>Vue自定义全局组件 - 走花路的长颈鹿</title>
+  <title>JavaScript中的堆栈以及数据类型 - 走花路的长颈鹿</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Vue自定义全局组件">
+            <span class="h2" id="subtitle" title="JavaScript中的堆栈以及数据类型">
               
             </span>
 
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-06-18 15:15" pubdate>
-        2021年6月18日 下午
+      <time datetime="2021-06-17 15:08" pubdate>
+        2021年6月17日 下午
       </time>
     </span>
   
@@ -204,7 +204,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      578 字
+      744 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      8
        分钟
     </span>
   
@@ -256,18 +256,25 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Vue自定义全局组件</h1>
+            <h1 style="display: none">JavaScript中的堆栈以及数据类型</h1>
             
             <div class="markdown-body">
-              <h1 id="vue自定义全局弹框组件"><a href="#vue自定义全局弹框组件" class="headerlink" title="vue自定义全局弹框组件"></a>vue自定义全局弹框组件</h1><ol>
-<li><p>在components文件夹下新增一个组件文件夹Dialog，新建一个模板组件Dialog.vue</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div class=&quot;u_dialog_panel&quot; @touchmove.stop=&quot;noop&quot;&gt;<br>    &lt;div class=&quot;mask&quot; v-if=&quot;visible&quot; @click=&quot;handleClose&quot;&gt;&lt;/div&gt;<br>    &lt;transition name=&quot;open&quot;&gt;<br>      &lt;div v-if=&quot;visible&quot; class=&quot;dialog_body&quot;&gt;<br>        &lt;slot&gt;&lt;/slot&gt;<br>        &lt;div class=&quot;btns&quot; v-if=&quot;confirmText || cancleText&quot;&gt;<br>          &lt;div class=&quot;cancle btn&quot; v-if=&quot;cancleText&quot; @click=&quot;handleCancle&quot;&gt;&#123;&#123;cancleText&#125;&#125;&lt;/div&gt;<br>          &lt;div class=&quot;confirm btn&quot; :style=&quot;confirmStyle&quot; v-if=&quot;confirmText&quot; @click=&quot;handleConfirm&quot;&gt;&#123;&#123;confirmText&#125;&#125;&lt;/div&gt;<br>        &lt;/div&gt;<br>      &lt;/div&gt;<br>    &lt;/transition&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br>&lt;script&gt;<br>export default &#123;<br>  name: &#x27;UDialog&#x27;,<br>  props: &#123;<br>    visible: &#123; type: Boolean, default: false, required: true &#125;,<br>    // 确定按钮的文案<br>    confirmText: &#123; type: String, default: &#x27;确定&#x27; &#125;,<br>    confirmStyle: &#123; type: String, default: &#x27;&#x27; &#125;,<br>    // 取消按钮的文案<br>    cancleText: &#123; type: String, default: &#x27;取消&#x27; &#125;,<br>    cancleStyle: &#123; type: String, default: &#x27;&#x27; &#125;,<br>  &#125;,<br>  created () &#123;<br>    this.$nextTick(() =&gt; &#123;<br>      document.body.insertBefore(this.$el, document.body.lastChild)<br>    &#125;)<br>  &#125;,<br>  beforeDestroy () &#123;<br>    document.body.removeChild(this.$el)<br>  &#125;,<br>  methods: &#123;<br>    // 关闭弹窗<br>    handleClose () &#123; this.$emit(&#x27;close&#x27;) &#125;,<br>    // 确定按钮<br>    handleConfirm () &#123; this.$emit(&#x27;confirm&#x27;) &#125;,<br>    // 取消按钮<br>    handleCancle () &#123; this.$emit(&#x27;cancle&#x27;) &#125;,<br>    noop () &#123;&#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style lang=&quot;less&quot; scoped&gt;<br>.u_dialog_panel &#123;<br>  .mask &#123;<br>    width: 100vw;<br>    height: 100vh;<br>    background-color: rgba(0, 0, 0, 0.5);<br>    position: fixed;<br>    left: 0;<br>    top: 0;<br>    z-index: 100;<br>    backdrop-filter: blur(5px);<br>  &#125;<br>  .dialog_body&#123;<br>    width: 80vw;<br>    background-color: #fff;<br>    position: fixed;<br>    left: 50vw;<br>    top: 50vh;<br>    z-index: 100;<br>    transform: translate(-50%, -50%);<br>    transform-origin: 0 0;<br>    border-radius: .875rem;<br>    &amp;.open-enter &#123;<br>      opacity: 0;<br>      transform: scale(0.7) translate(-50%, -50%);<br>      transition: all 0.3s;<br>    &#125;<br>    &amp;.open-enter-to &#123;<br>      opacity: 1;<br>      transform: scale(1) translate(-50%, -50%);<br>      transition: all 0.3s;<br>    &#125;<br>    .btns &#123;<br>      display: flex;<br>      justify-content: space-between;<br>      align-items: center;<br>      .btn &#123;<br>        display: flex;<br>        justify-content: center;<br>        align-items: center;<br>        flex-grow: 1;<br>        width: 50%;<br>        height: 2.875rem;<br>        border-top: 1px solid #ddd;<br>        box-sizing: border-box;<br>        display: flex;<br>        justify-content: center;<br>        align-items: center;<br>        font-size: .875rem;<br>        &amp; + .btn &#123;<br>          border-left: 1px solid #ddd;<br>        &#125;<br>        &amp;.cancle &#123;<br>          color: #666666;<br>        &#125;<br>        &amp;.confirm &#123;<br>          color: #FF5883;<br>        &#125;<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/style&gt;<br><br></code></pre></td></tr></table></figure></li>
-<li><p>在此文件夹再新建一个index.js</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vue">import Dialog from &#x27;./Dialog&#x27;<br><br>Dialog.install = function (Vue, options) &#123;<br>  Vue.component(`$&#123;Dialog.name&#125;`, Dialog)<br>&#125;<br><br>export default Dialog<br><br></code></pre></td></tr></table></figure></li>
-<li><p>最后再main.js里注册为全局组件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vue">import Dialog from &#x27;./components/Dialog/index.js&#x27;<br><br>Vue.use(Dialog)<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="这样就可以在其他组件里无需声明而使用此组件"><a href="#这样就可以在其他组件里无需声明而使用此组件" class="headerlink" title="这样就可以在其他组件里无需声明而使用此组件"></a>这样就可以在其他组件里无需声明而使用此组件</h2>
+              <meta name="referrer" content="no-referrer"/>
+
+<h1 id="JavaScript的堆栈以及数据类型"><a href="#JavaScript的堆栈以及数据类型" class="headerlink" title="JavaScript的堆栈以及数据类型"></a>JavaScript的堆栈以及数据类型</h1><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5e0e8d183102">本文参考此链接</a></p>
+<p><strong>堆</strong> 是堆内存的简称。<strong>堆</strong>是动态分配内存，内存大小不一，也不会自动释放。<br><strong>栈</strong> 是栈内存的简称。<strong>栈</strong>是自动分配相对固定大小的内存空间，并由系统自动释放。<strong>后进先出</strong></p>
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p><code>javascript</code>的<strong>基本类型</strong>就5种:<code>Undefined</code>、<code>Null</code>、<code>Boolean</code>、<code>Number</code>和<code>String</code>，它们都是直接按值存储在栈中的，每种类型的数据占用的内存空间的大小是<strong>确定</strong>的，并由系统自动分配和自动释放。这样带来的好处就是，内存可以及时得到回收，相对于堆来说，更加容易管理内存空间。</p>
+<h3 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h3><p><code>javascript</code>中其他类型的数据被称为<strong>引用类型</strong>的数据 : 如对象(Object)、数组(Array)、函数(Function) …，它们是通过拷贝和new出来的，这样的数据存储于堆中。其实，说存储于堆中，也不太准确，因为，引用类型的数据的地址指针是存储于栈中的，当我们想要访问引用类型的值的时候，需要先从栈中获得对象的地址指针，然后，在通过地址指针找到堆中的所需要的数据。</p>
+<h3 id="传值与传址"><a href="#传值与传址" class="headerlink" title="传值与传址"></a>传值与传址</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> arr1 = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>]; <br><span class="hljs-keyword">var</span> arr2 = arr1 ; <br><span class="hljs-keyword">var</span> str1 = arr1[<span class="hljs-number">2</span>]; <br><span class="hljs-built_in">console</span>.log(arr2);<span class="hljs-comment">//1,2,5,8</span><br><span class="hljs-built_in">console</span>.log(str1);<span class="hljs-comment">//5</span><br>arr2[<span class="hljs-number">4</span>] = <span class="hljs-number">99</span>; <br>str1 = <span class="hljs-number">6</span>; <br><span class="hljs-built_in">console</span>.log(arr1);<span class="hljs-comment">//1,2,5,8,99</span><br><span class="hljs-built_in">console</span>.log(arr1[<span class="hljs-number">2</span>]);<span class="hljs-comment">//5</span><br></code></pre></td></tr></table></figure>
+
+<p>当我改变arr2中的数据时，arr1中数据也发生了变化，当改变str1的数据值时，arr1却没有发生改变。为什么？这就是<strong>传值与传址</strong>的区别。</p>
+<p>因为arr1是数组，属于引用类型，所以它赋予给arr2的时候传的是栈中的地址（相当于新建了一个不同名“指针”），而不是堆内存中的对象的值。str1得到的是一个基本类型的赋值，因此，str1仅仅是从arr1堆内存中获取了一个数值，并直接保存在栈中。arr1、arr2都指向同一块堆内存，arr2修改的堆内存的时候，也就会影响到arr1，str1是直接在栈中修改，并且不能影响到arr1堆内存中的数据。</p>
+<p><img src="https://images2018.cnblogs.com/blog/1402663/201808/1402663-20180802132101478-2092833591.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="深拷贝和浅拷贝"><a href="#深拷贝和浅拷贝" class="headerlink" title="深拷贝和浅拷贝"></a>深拷贝和浅拷贝</h3><p>上边说到的赋值方式就是浅拷贝，那么什么叫作深拷贝呢？就是要将arr1的每个基本类型的数据都遍历一遍，依次的赋值给arr2的对应字段。避免产生因为地址引用带来的问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> arr1 = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>]; <br><span class="hljs-keyword">var</span> arr2 = []; <br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;arr1.length;i++)&#123;<br>   arr2[i]=arr1[i];<br>&#125;;<br><span class="hljs-built_in">console</span>.log(arr2)<span class="hljs-comment">//1,2,5,8</span><br>arr2[<span class="hljs-number">4</span>]=<span class="hljs-number">99</span>;<br><span class="hljs-built_in">console</span>.log(arr2)<span class="hljs-comment">//1,2,5,8,99</span><br><span class="hljs-built_in">console</span>.log(arr1)<span class="hljs-comment">//1,2,5,8</span><br></code></pre></td></tr></table></figure>
+
+<p>javascript面向对象的语言本身在处理对象和非对象上就进行了划分，从数据结构的角度来讲，对象就是栈的指针和堆中的数值。</p>
+<h1 id="完"><a href="#完" class="headerlink" title="完~"></a>完~</h1>
             </div>
             <hr>
             <div>
@@ -276,7 +283,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E7%B1%BB-Vue/">技术类-Vue</a>
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E7%B1%BB/">技术类</a>
                     
                   </div>
                 
@@ -284,7 +291,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Vue3/">Vue3</a>
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
                     
                   </div>
                 
@@ -301,21 +308,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/20210618/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E4%B8%8Econstructor/">
+                      <a href="/20210618/Vue%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E7%BB%84%E4%BB%B6/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">原型与原型链与constructor</span>
+                        <span class="hidden-mobile">Vue自定义全局组件</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/20210617/JavaScript%E4%B8%AD%E7%9A%84%E5%A0%86%E6%A0%88%E4%BB%A5%E5%8F%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
-                        <span class="hidden-mobile">JavaScript中的堆栈以及数据类型</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>
