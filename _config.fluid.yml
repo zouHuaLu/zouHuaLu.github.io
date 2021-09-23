@@ -373,7 +373,7 @@ footer:
   content: '
     <a href="https://music.163.com/#/song?id=441491828" target="_blank" rel="nofollow noopener"><span>Love</span></a>
     <i class="iconfont icon-love"></i>
-    <a href="https://music.163.com/#/song?id=1859339684" target="_blank" rel="nofollow noopener"><span>Share</span></a>
+    <a href="http://music.163.com/song?id=186145&userid=34198090" target="_blank" rel="nofollow noopener"><span>Share</span></a>
   '
 
   # 展示网站的 PV、UV 统计数
@@ -628,7 +628,7 @@ post:
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis
-    type: twikoo
+    type: utterances
 
 #---------------------------
 # 评论插件
@@ -643,7 +643,7 @@ post:
 # Based on GitHub Issues
 # See: https://utteranc.es
 utterances:
-  repo:
+  repo: zouHuaLu/blog_comments
   issue_term: pathname
   label: utterances
   theme: github-light
@@ -915,7 +915,7 @@ links:
   # Custom content at the bottom of the links
   custom:
     enable: true
-    content: '<hr><p>你要如何我们就如何</p><hr><p>我一直都在</p>'
+    content: '<hr><p>我一直在</p>'
 
   # 评论插件
   # Comment plugin
@@ -924,7 +924,7 @@ links:
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis
-    type: twikoo
+    type: utterances
 
 
 #---------------------------
