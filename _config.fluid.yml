@@ -841,7 +841,7 @@ about:
   subtitle:
   avatar: /img/user/user.jpg
   name: "走花路的长颈鹿"
-  intro: "雨还没停你就转身要走"
+  intro: "我一直在"
   # 更多图标可从 https://hexo.fluid-dev.com/docs/icon/ 查找，`class` 代表图标的 css class，添加 `qrcode` 后，图标不再是链接而是悬浮二维码
   # More icons can be found from https://hexo.fluid-dev.com/docs/en/icon/  `class` is the css class of the icon. If adding `qrcode`, The icon is no longer a link, but a hovering QR code
   icons:
@@ -915,7 +915,7 @@ links:
   # Custom content at the bottom of the links
   custom:
     enable: true
-    content: '<hr><p>我一直在</p>'
+    content: '<hr><p>20210923新增了评论功能</p>'
 
   # 评论插件
   # Comment plugin
