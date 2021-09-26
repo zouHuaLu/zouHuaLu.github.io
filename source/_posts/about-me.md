@@ -4,6 +4,7 @@ date: 2021-09-07 11:19:02
 tags: 博客说明
 categories: 博客说明
 comments: true
+sticky: 100
 ---
 {% blockquote %}
 幸福不是一件容易的事：她很难求之于自身，但要想在别处得到则不可能。——尚福尔
@@ -31,4 +32,7 @@ hexo server
 hexo clean
 hexo deploy
 ```
-有时间弄一下评论功能
+以后有时间弄一下评论功能
+
+---
+2021-09-23 本博客新增评论功能，支持评论啦！
