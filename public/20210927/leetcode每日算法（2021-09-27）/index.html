@@ -20,7 +20,7 @@
   <meta name="google-site-verification" content="W1p2MOXTq9JK5NxmGNBsJhiHxBLISPbujB8JEEmnSgs" />
   <meta name="keywords" content="blog,走花路的长颈鹿,博客">
   
-  <title>浮生一日-最爱的电影 - 走花路的长颈鹿</title>
+  <title>leetcode每日算法（2021-09-27） - 走花路的长颈鹿</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="浮生一日-最爱的电影">
+            <span class="h2" id="subtitle" title="leetcode每日算法（2021-09-27）">
               
             </span>
 
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-25 18:07" pubdate>
-        2021年9月25日 晚上
+      <time datetime="2021-09-27 11:06" pubdate>
+        2021年9月27日 上午
       </time>
     </span>
   
@@ -204,7 +204,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      93 字
+      164 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      2
        分钟
     </span>
   
@@ -256,15 +256,17 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">浮生一日-最爱的电影</h1>
+            <h1 style="display: none">leetcode每日算法（2021-09-27）</h1>
             
             <div class="markdown-body">
               <meta name="referrer" content="no-referrer"/>
 
-<p><img src="https://img9.doubanio.com/view/photo/l/public/p2220184425.webp" srcset="/img/loading.gif" lazyload alt="第六感海报"><br>今天重温了电影《第六感》，一部披着灵异外皮的心灵治愈电影。</p>
-<p>有些电影无论第几遍看还是让人感动<br><img src="https://img2.doubanio.com/view/photo/l/public/p2351243392.webp" srcset="/img/loading.gif" lazyload alt="第六感剧照"><br><img src="https://img1.doubanio.com/view/photo/l/public/p2356175109.webp" srcset="/img/loading.gif" lazyload alt="第六感剧照"></p>
-<hr>
-<p>起码看过三遍以上的电影：<br>《喜剧之王》<br>《新喜剧之王》<br>《双旗镇刀客》<br>《致命ID》<br>《误杀瞒天记》<br>《禁闭岛》<br>《天若有情》<br>《本杰明巴顿奇事》<br>《志明与春娇》<br>…</p>
+<h1 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1.两数之和"></a>1.两数之和</h1><p><img src="https://upload-images.jianshu.io/upload_images/13931286-470a4c38230853eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="两数之和"></p>
+<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>我首先想到的是暴力解法，就是对数组嵌套循环（时间复杂度是 O(n²)）：<br><img src="https://upload-images.jianshu.io/upload_images/13931286-efa42480453cddb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="我首先想到的方法"><br>肯定有更好的办法<br>看到评论区有人说用逆向解法，用target减去数组中的一个数，然后判断得到的结果是否在数组中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> twoSum = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nums, target</span>) </span>&#123;<br>    map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>()<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>        x = target - nums[i]<br>        <span class="hljs-keyword">if</span>(map.has(x)) &#123;<br>            <span class="hljs-keyword">return</span> [map.get(x),i]<br>        &#125;<br>        map.set(nums[i],i)<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> twoSum = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">nums, target</span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> hash = &#123;&#125;;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>    <span class="hljs-keyword">if</span> (hash[target - nums[i]] !== <span class="hljs-literal">undefined</span>) &#123;<br>      <span class="hljs-keyword">return</span> [i, hash[target - nums[i]]];<br>    &#125;<br>    hash[nums[i]] = i;<br>  &#125;<br>  <span class="hljs-keyword">return</span> [];<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+
 
             </div>
             <hr>
@@ -274,7 +276,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%B5%AE%E7%94%9F%E4%B8%80%E6%97%A5/">浮生一日</a>
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95%E7%B1%BB/">算法类</a>
                     
                   </div>
                 
@@ -282,9 +284,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%B5%AE%E7%94%9F%E4%B8%80%E6%97%A5/">浮生一日</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%97%A5%E5%B8%B8/">日常</a>
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95-leetcode/">算法 leetcode</a>
                     
                   </div>
                 
@@ -301,18 +301,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/20210927/leetcode%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%EF%BC%882021-09-27%EF%BC%89/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">leetcode每日算法（2021-09-27）</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/20210923/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97%E7%9A%84%E7%90%86%E8%A7%A3%E4%BB%A5%E5%8F%8A%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/">
-                        <span class="hidden-mobile">栈与队列的理解以及应用场景</span>
+                      <a href="/20210925/%E6%B5%AE%E7%94%9F%E4%B8%80%E6%97%A5-%E6%9C%80%E7%88%B1%E7%9A%84%E7%94%B5%E5%BD%B1/">
+                        <span class="hidden-mobile">浮生一日-最爱的电影</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

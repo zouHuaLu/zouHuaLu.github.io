@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>leetcode每日算法（2021-09-27）</title>
+    <link href="/20210927/leetcode%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%EF%BC%882021-09-27%EF%BC%89/"/>
+    <url>/20210927/leetcode%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%EF%BC%882021-09-27%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/><h1 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1.两数之和"></a>1.两数之和</h1><p><img src="https://upload-images.jianshu.io/upload_images/13931286-470a4c38230853eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="两数之和"></p><h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>我首先想到的是暴力解法，就是对数组嵌套循环（时间复杂度是 O(n²)）：<br><img src="https://upload-images.jianshu.io/upload_images/13931286-efa42480453cddb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="我首先想到的方法"><br>肯定有更好的办法<br>看到评论区有人说用逆向解法，用target减去数组中的一个数，然后判断得到的结果是否在数组中</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> twoSum = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nums, target</span>) </span>&#123;<br>    map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>()<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>        x = target - nums[i]<br>        <span class="hljs-keyword">if</span>(map.has(x)) &#123;<br>            <span class="hljs-keyword">return</span> [map.get(x),i]<br>        &#125;<br>        map.set(nums[i],i)<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> twoSum = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">nums, target</span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> hash = &#123;&#125;;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>    <span class="hljs-keyword">if</span> (hash[target - nums[i]] !== <span class="hljs-literal">undefined</span>) &#123;<br>      <span class="hljs-keyword">return</span> [i, hash[target - nums[i]]];<br>    &#125;<br>    hash[nums[i]] = i;<br>  &#125;<br>  <span class="hljs-keyword">return</span> [];<br>&#125;;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法类</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法 leetcode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>浮生一日-最爱的电影</title>
     <link href="/20210925/%E6%B5%AE%E7%94%9F%E4%B8%80%E6%97%A5-%E6%9C%80%E7%88%B1%E7%9A%84%E7%94%B5%E5%BD%B1/"/>
     <url>/20210925/%E6%B5%AE%E7%94%9F%E4%B8%80%E6%97%A5-%E6%9C%80%E7%88%B1%E7%9A%84%E7%94%B5%E5%BD%B1/</url>
