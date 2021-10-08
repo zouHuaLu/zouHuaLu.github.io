@@ -5,7 +5,7 @@ tags:
     - [JavaScript]
     - [原型]
     - [原型链]
-categories: 技术类
+categories: 技术类-前端
 ---
 <meta name="referrer" content="no-referrer"/>
 

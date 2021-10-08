@@ -2,7 +2,7 @@
 title: JavaScript中的堆栈以及数据类型
 date: 2021-06-17 15:08:21
 tags: JavaScript
-categories: 技术类
+categories: 技术类-前端
 ---
 <meta name="referrer" content="no-referrer"/>
 

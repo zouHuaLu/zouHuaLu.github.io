@@ -4,7 +4,7 @@ date: 2021-07-1 14:21:44
 tags: 
     - [JavaScript]
     - [ES6]
-categories: 技术类
+categories: 技术类-前端
 ---
 
 node中导入模块：var 名称 = require('模块标识符')
