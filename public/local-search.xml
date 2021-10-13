@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>深入理解javascript之typeof和instanceof</title>
+    <link href="/20211013/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3javascript%E4%B9%8Btypeof%E5%92%8Cinstanceof/"/>
+    <url>/20211013/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3javascript%E4%B9%8Btypeof%E5%92%8Cinstanceof/</url>
+    
+    <content type="html"><![CDATA[<h1 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h1><p>typeof方法<strong>返回一个字符串</strong>，来表示<strong>数据的类型</strong>。</p><p>各个数据类型对应typeof的值：</p><table><thead><tr><th><strong>数据类型</strong></th><th><strong>Type</strong></th></tr></thead><tbody><tr><td>Undefined</td><td>“undefined”</td></tr><tr><td>Null</td><td>“object”</td></tr><tr><td>Boolean</td><td>“boolean”</td></tr><tr><td>Number</td><td>“number”</td></tr><tr><td>String</td><td>“string”</td></tr><tr><td>Symbol</td><td>“symbol”</td></tr><tr><td>宿主对象(JS环境提供的，比如浏览器)</td><td>Implementation-dependent</td></tr><tr><td>函数对象Function</td><td>“function”</td></tr><tr><td>任何其他对象Object</td><td>“object”</td></tr></tbody></table><p>下面是代码示例：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// Numbers</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-number">37</span> === <span class="hljs-string">&#x27;number&#x27;</span>;<br><span class="hljs-keyword">typeof</span> <span class="hljs-number">3.14</span> === <span class="hljs-string">&#x27;number&#x27;</span>;<br><span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Math</span>.LN2 === <span class="hljs-string">&#x27;number&#x27;</span>;<br><span class="hljs-keyword">typeof</span> <span class="hljs-literal">Infinity</span> === <span class="hljs-string">&#x27;number&#x27;</span>;<br><span class="hljs-keyword">typeof</span> <span class="hljs-literal">NaN</span> === <span class="hljs-string">&#x27;number&#x27;</span>; <span class="hljs-comment">// 尽管NaN是&quot;Not-A-Number&quot;的缩写,意思是&quot;不是一个数字&quot;</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Number</span>(<span class="hljs-number">1</span>) === <span class="hljs-string">&#x27;number&#x27;</span>; <span class="hljs-comment">// 不要这样使用!</span><br><br><span class="hljs-comment">// Strings</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-string">&quot;&quot;</span> === <span class="hljs-string">&#x27;string&#x27;</span>;<br><span class="hljs-keyword">typeof</span> <span class="hljs-string">&quot;bla&quot;</span> === <span class="hljs-string">&#x27;string&#x27;</span>;<br><span class="hljs-keyword">typeof</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-number">1</span>) === <span class="hljs-string">&#x27;string&#x27;</span>; <span class="hljs-comment">// typeof返回的肯定是一个字符串</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">&quot;abc&quot;</span>) === <span class="hljs-string">&#x27;string&#x27;</span>; <span class="hljs-comment">// 不要这样使用!</span><br><br><span class="hljs-comment">// Booleans</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-literal">true</span> === <span class="hljs-string">&#x27;boolean&#x27;</span>;<br><span class="hljs-keyword">typeof</span> <span class="hljs-literal">false</span> === <span class="hljs-string">&#x27;boolean&#x27;</span>;<br><span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">true</span>) === <span class="hljs-string">&#x27;boolean&#x27;</span>; <span class="hljs-comment">// 不要这样使用!</span><br><br><span class="hljs-comment">// Symbols</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span>() === <span class="hljs-string">&#x27;symbol&#x27;</span>;<br><span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">&#x27;foo&#x27;</span>) === <span class="hljs-string">&#x27;symbol&#x27;</span>;<br><span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span>.iterator === <span class="hljs-string">&#x27;symbol&#x27;</span>;<br><br><span class="hljs-comment">// Undefined</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-literal">undefined</span> === <span class="hljs-string">&#x27;undefined&#x27;</span>;<br><span class="hljs-keyword">typeof</span> blabla === <span class="hljs-string">&#x27;undefined&#x27;</span>; <span class="hljs-comment">// 一个未定义的变量,或者一个定义了却未赋初值的变量</span><br><br><span class="hljs-comment">// Objects</span><br><span class="hljs-keyword">typeof</span> &#123;<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>&#125; === <span class="hljs-string">&#x27;object&#x27;</span>;<br><br><span class="hljs-comment">// 使用Array.isArray或者Object.prototype.toString.call方法可以从基本的对象中区分出数组类型</span><br><span class="hljs-keyword">typeof</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>] === <span class="hljs-string">&#x27;object&#x27;</span>;<br><br><span class="hljs-keyword">typeof</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>() === <span class="hljs-string">&#x27;object&#x27;</span>;<br><br><span class="hljs-comment">// 下面的容易令人迷惑，不要这样使用！</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">true</span>) === <span class="hljs-string">&#x27;object&#x27;</span>;<br><span class="hljs-keyword">typeof</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Number</span>(<span class="hljs-number">1</span>) ==== <span class="hljs-string">&#x27;object&#x27;</span>;<br><span class="hljs-keyword">typeof</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">&quot;abc&quot;</span>) === <span class="hljs-string">&#x27;object&#x27;</span>;<br><br><span class="hljs-comment">// 函数</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;&#125; === <span class="hljs-string">&#x27;function&#x27;</span>;<br><span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Math</span>.sin === <span class="hljs-string">&#x27;function&#x27;</span>;<br></code></pre></td></tr></table></figure><p>发现typeof来判断数据类型其实并不准确。比如数组、正则、日期、对象hj的typeof返回值都是object</p><h1 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h1><p>instanceof运算符可以用来判断某个构造函数的prototype属性<strong>是否存在于另外一个</strong>要检测对象<strong>的原型链上</strong>。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 定义构造函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">C</span>(<span class="hljs-params"></span>)</span>&#123;&#125; <br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">D</span>(<span class="hljs-params"></span>)</span>&#123;&#125; <br><br><span class="hljs-keyword">var</span> o = <span class="hljs-keyword">new</span> C();<br><br><span class="hljs-comment">// true，因为 Object.getPrototypeOf(o) === C.prototype</span><br>o <span class="hljs-keyword">instanceof</span> C; <br><br><span class="hljs-comment">// false，因为 D.prototype不在o的原型链上</span><br>o <span class="hljs-keyword">instanceof</span> D; <br><br>o <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span>; <span class="hljs-comment">// true,因为Object.prototype.isPrototypeOf(o)返回true</span><br>C.prototype <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span> <span class="hljs-comment">// true,同上</span><br><br>C.prototype = &#123;&#125;;<br><span class="hljs-keyword">var</span> o2 = <span class="hljs-keyword">new</span> C();<br><br>o2 <span class="hljs-keyword">instanceof</span> C; <span class="hljs-comment">// true</span><br><br>o <span class="hljs-keyword">instanceof</span> C; <span class="hljs-comment">// false,C.prototype指向了一个空对象,这个空对象不在o的原型链上.</span><br><br>D.prototype = <span class="hljs-keyword">new</span> C(); <span class="hljs-comment">// 继承</span><br><span class="hljs-keyword">var</span> o3 = <span class="hljs-keyword">new</span> D();<br>o3 <span class="hljs-keyword">instanceof</span> D; <span class="hljs-comment">// true</span><br>o3 <span class="hljs-keyword">instanceof</span> C; <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术类-前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+      <tag>面试</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>互联网是如何运作的</title>
     <link href="/20211007/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E4%BD%9C%E7%9A%84/"/>
     <url>/20211007/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E4%BD%9C%E7%9A%84/</url>
@@ -21,8 +48,6 @@
     <tags>
       
       <tag>计算机基础</tag>
-      
-      <tag>互联网</tag>
       
     </tags>
     
@@ -176,11 +201,7 @@
     
     <tags>
       
-      <tag>人生的智慧</tag>
-      
-      <tag>叔本华</tag>
-      
-      <tag>哲学</tag>
+      <tag>阅读</tag>
       
     </tags>
     
@@ -361,6 +382,8 @@
       
       <tag>JavaScript</tag>
       
+      <tag>面试</tag>
+      
     </tags>
     
   </entry>
@@ -386,9 +409,7 @@
       
       <tag>JavaScript</tag>
       
-      <tag>原型</tag>
-      
-      <tag>原型链</tag>
+      <tag>面试</tag>
       
     </tags>
     

@@ -3,8 +3,7 @@ title: 原型与原型链与constructor
 date: 2021-06-18 15:16:53
 tags: 
     - [JavaScript]
-    - [原型]
-    - [原型链]
+    - [面试]
 categories: 技术类-前端
 ---
 <meta name="referrer" content="no-referrer"/>
