@@ -7,7 +7,7 @@ categories: 技术类-前端
 
 <meta name="referrer" content="no-referrer"/>
 
-这一篇讲的也特别清楚，建议看看：[这一次，彻底弄懂 JavaScript 执行机制](链接地址)
+这一篇讲的也特别清楚，建议看看：[这一次，彻底弄懂 JavaScript 执行机制](https://juejin.cn/post/6844903512845860872)
 
 ## 一、是什么
 
