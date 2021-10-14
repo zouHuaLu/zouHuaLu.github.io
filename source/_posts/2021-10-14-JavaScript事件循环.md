@@ -7,6 +7,8 @@ categories: 技术类-前端
 
 <meta name="referrer" content="no-referrer"/>
 
+这一篇讲的也特别清楚，建议看看：[这一次，彻底弄懂 JavaScript 执行机制](链接地址)
+
 ## 一、是什么
 
 `JavaScript` 在设计之初便是单线程，即指程序运行时，只有一个线程存在，同一时间只能做一件事
