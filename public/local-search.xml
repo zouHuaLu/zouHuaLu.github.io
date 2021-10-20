@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Array数组的一些发现</title>
+    <link href="/20211020/Array%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%91%E7%8E%B0/"/>
+    <url>/20211020/Array%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%91%E7%8E%B0/</url>
+    
+    <content type="html"><![CDATA[<p>今天对一些元素都是纯数字的数组做<code>forEach</code>遍历操作，发现无法改变原数组，查找了一些资料发现，<code>forEach</code>只能处理数组中的引用类型，元素为基础类型的需要另外的写法。如下：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br><span class="hljs-keyword">let</span> arr1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br><span class="hljs-keyword">let</span> arr2 = [&#123;<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">b</span>:<span class="hljs-number">2</span>&#125;]<br><br><span class="hljs-comment">// 元素为基础类型number，原数组不变</span><br>arr.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;<br>    item += <span class="hljs-number">1</span><br>&#125;)<br><br><span class="hljs-comment">// 这种写法可行</span><br>arr1.forEach(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span> &#123;<br>    arr1[index] += <span class="hljs-number">1</span><br>&#125;)<br><br><span class="hljs-comment">// 元素为引用类型的，原数组会改变</span><br>arr2.forEach(<span class="hljs-function"><span class="hljs-params">item</span>=&gt;</span>&#123;<br>    item.a = <span class="hljs-number">66</span><br>&#125;)<br><span class="hljs-built_in">console</span>.log(arr);<br><span class="hljs-built_in">console</span>.log(arr1);<br><span class="hljs-built_in">console</span>.log(arr2);<br></code></pre></td></tr></table></figure><p>这主要是和计算机的堆栈有关。基础类型是存储在栈中，<code>forEach</code>中得到item也是存储于栈中，所以它就和数组中的元素毫无关系了；而对象是存储于堆中，遍历的时候item虽然在栈中但是它的指针会指向堆中的位置，所以可以直接修改原数组。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术类-前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>JavaScript事件循环</title>
     <link href="/20211014/JavaScript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/"/>
     <url>/20211014/JavaScript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/</url>
@@ -114,7 +139,7 @@
     <link href="/20210925/%E6%B5%AE%E7%94%9F%E4%B8%80%E6%97%A5-%E6%9C%80%E7%88%B1%E7%9A%84%E7%94%B5%E5%BD%B1/"/>
     <url>/20210925/%E6%B5%AE%E7%94%9F%E4%B8%80%E6%97%A5-%E6%9C%80%E7%88%B1%E7%9A%84%E7%94%B5%E5%BD%B1/</url>
     
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/><p><img src="https://img9.doubanio.com/view/photo/l/public/p2220184425.webp" alt="第六感海报"><br>今天重温了电影《第六感》，一部披着灵异外皮的心灵治愈电影。</p><p>有些电影无论第几遍看还是让人感动<br><img src="https://img2.doubanio.com/view/photo/l/public/p2351243392.webp" alt="第六感剧照"><br><img src="https://img1.doubanio.com/view/photo/l/public/p2356175109.webp" alt="第六感剧照"></p><hr><p>起码看过三遍以上的电影：<br>《喜剧之王》<br>《新喜剧之王》<br>《双旗镇刀客》<br>《致命ID》<br>《误杀瞒天记》<br>《禁闭岛》<br>《天若有情》<br>《本杰明巴顿奇事》<br>《志明与春娇》<br>…</p>]]></content>
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/><p><img src="https://img9.doubanio.com/view/photo/l/public/p2220184425.webp" alt="第六感海报"><br>今天重温了电影《第六感》，一部披着灵异外皮的心灵治愈电影。</p><p>有些电影无论第几遍看还是让人感动<br><img src="https://img2.doubanio.com/view/photo/l/public/p2351243392.webp" alt="第六感剧照"><br><img src="https://img1.doubanio.com/view/photo/l/public/p2356175109.webp" alt="第六感剧照"></p>]]></content>
     
     
     <categories>
