@@ -1,1 +1,1 @@
-https://zouhualu.github.io/20211020/Array%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%91%E7%8E%B0/
+https://zouhualu.github.io/20211021/call-apply%E5%92%8Cbind/
