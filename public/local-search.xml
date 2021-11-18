@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>最近在忙什么</title>
+    <link href="/20211118/%E6%9C%80%E8%BF%91%E5%9C%A8%E5%BF%99%E4%BB%80%E4%B9%88/"/>
+    <url>/20211118/%E6%9C%80%E8%BF%91%E5%9C%A8%E5%BF%99%E4%BB%80%E4%B9%88/</url>
+    
+    <content type="html"><![CDATA[<p>最近在做一个个人的全栈项目</p><p>前端技术栈是：Vite+Vue3+TypeScript+Scss</p><p>后端技术栈是：NodeJs+Express+MySQL</p><p>已经上线一部分功能,部署在阿里云上了</p><p>目前没啥功能。后续会慢慢完善优化</p><p>地址在：<a href="http://www.hjzouhualu.com/">www.hjzouhualu.com</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>日常</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>日常</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Node.js学习记录</title>
     <link href="/20211031/Node-js%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     <url>/20211031/Node-js%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
@@ -187,7 +212,7 @@
   
   
   <entry>
-    <title>浮生一日-最爱的电影</title>
+    <title>日常-最爱的电影</title>
     <link href="/20210925/%E6%B5%AE%E7%94%9F%E4%B8%80%E6%97%A5-%E6%9C%80%E7%88%B1%E7%9A%84%E7%94%B5%E5%BD%B1/"/>
     <url>/20210925/%E6%B5%AE%E7%94%9F%E4%B8%80%E6%97%A5-%E6%9C%80%E7%88%B1%E7%9A%84%E7%94%B5%E5%BD%B1/</url>
     
@@ -196,14 +221,12 @@
     
     <categories>
       
-      <category>浮生一日</category>
+      <category>日常</category>
       
     </categories>
     
     
     <tags>
-      
-      <tag>浮生一日</tag>
       
       <tag>日常</tag>
       
@@ -348,14 +371,12 @@
     
     <categories>
       
-      <category>浮生一日</category>
+      <category>日常</category>
       
     </categories>
     
     
     <tags>
-      
-      <tag>浮生一日</tag>
       
       <tag>日常</tag>
       
