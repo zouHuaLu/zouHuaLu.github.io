@@ -26,7 +26,7 @@ categories: 技术类-React
 
     报错如下：
 
-    ![npm安装sass报错](https://files.catbox.moe/p8buw3.png)
+    ![npm安装sass报错](https://upload-images.jianshu.io/upload_images/13931286-44bf5ea859ce44fd.png?imageMogr2/auto-orient/strip|imageView2/2/w/672/format/webp)
 
     我的vscode和node版本都是最新的
 
@@ -50,9 +50,9 @@ categories: 技术类-React
 
 4. 在`config/webpack.config.js`文件中配置postcss，位置及方法如下图：
 
-![引入postcss](https://files.catbox.moe/pwa11l.png)
+![引入postcss](https://upload-images.jianshu.io/upload_images/13931286-da7732a5f0bf175d.png?imageMogr2/auto-orient/strip|imageView2/2/w/554/format/webp)
 
-![配置postcss](https://files.catbox.moe/o71hjj.png)
+![配置postcss](https://upload-images.jianshu.io/upload_images/13931286-7f538e5227508fa5.png?imageMogr2/auto-orient/strip|imageView2/2/w/630/format/webp)
 
 UI库使用antdesign
 
