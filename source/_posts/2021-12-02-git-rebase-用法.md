@@ -5,6 +5,9 @@ tags: [JavaScript,面试]
 categories: 技术类-前端
 ---
 
+<meta name="referrer" content="no-referrer"/>
+
+
 [参考自此文章](https://zhuanlan.zhihu.com/p/34197548)
 
 以前提交代码一直是用命令行提交的
