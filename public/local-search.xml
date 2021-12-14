@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>JavaScript的同步与异步</title>
+    <link href="/20211214/JavaScript%E7%9A%84%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5/"/>
+    <url>/20211214/JavaScript%E7%9A%84%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Asynchronous/Introducing">更详细的可以点这里</a></p><h2 id="异步JavaScript"><a href="#异步JavaScript" class="headerlink" title="异步JavaScript"></a><a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Asynchronous">异步JavaScript</a></h2><p><strong>异步</strong>指两个或两个以上的对象或事件<strong>不</strong>同时存在或发生（或多个相关事物的发生<strong>无需</strong>等待其前一事物的完成）</p><h2 id="同步JavaScript"><a href="#同步JavaScript" class="headerlink" title="同步JavaScript"></a><a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Synchronous">同步JavaScript</a></h2><p>各方都实时（或者尽可能实时）地收取（而且必要的话也处理或者回复）信息的即时沟通方式，即为<strong>同步</strong>。</p><p>电话即为一个日常的例子：人们都倾向于在使用电话时即时地作出回应。</p><p>许多程序指令也是实时的：例如当输入一个算式时，除非编程人员有意为止，否则环境都会立即将结果反馈回来。</p><h2 id="事件队列"><a href="#事件队列" class="headerlink" title="事件队列"></a>事件队列</h2><p>像<code>promise</code>这样的异步操作被放入事件队列中，事件队列在主线程完成处理后运行，这样它们就不会阻止后续JavaScript代码的运行。排队操作将尽快完成，然后将结果返回到JavaScript环境。</p><h2 id="Promises-对比-callbacks"><a href="#Promises-对比-callbacks" class="headerlink" title="Promises 对比 callbacks"></a>Promises 对比 callbacks</h2><p>promises与旧式callbacks有一些相似之处。它们本质上是一个返回的对象，您可以将回调函数附加到该对象上，而不必将回调作为参数传递给另一个函数。</p><p>然而，Promise是专门为异步操作而设计的，与旧式回调相比具有许多优点:</p><ul><li>您可以使用多个then()操作将多个异步操作链接在一起，并将其中一个操作的结果作为输入传递给下一个操作。这种链接方式对回调来说要难得多，会使回调以混乱的“末日金字塔”告终。 (也称为回调地狱)。</li><li>Promise总是严格按照它们放置在事件队列中的顺序调用。</li><li>错误处理要好得多——所有的错误都由块末尾的一个.catch()块处理，而不是在“金字塔”的每一层单独处理。</li></ul><h2 id="异步代码的本质"><a href="#异步代码的本质" class="headerlink" title="异步代码的本质"></a>异步代码的本质</h2><p>让我们研究一个示例，它进一步说明了异步代码的本质，展示了当我们不完全了解代码执行顺序以及将异步代码视为同步代码时可能发生的问题</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log (<span class="hljs-string">&#x27;Starting&#x27;</span>);<br><span class="hljs-keyword">let</span> image;<br><br>fetch(<span class="hljs-string">&#x27;coffee.jpg&#x27;</span>).then(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;It worked :)&#x27;</span>)<br>  <span class="hljs-keyword">return</span> response.blob();<br>&#125;).then(<span class="hljs-function">(<span class="hljs-params">myBlob</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">let</span> objectURL = URL.createObjectURL(myBlob);<br>  image = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;img&#x27;</span>);<br>  image.src = objectURL;<br>  <span class="hljs-built_in">document</span>.body.appendChild(image);<br>&#125;).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;There has been a problem with your fetch operation: &#x27;</span> + error.message);<br>&#125;);<br><br><span class="hljs-built_in">console</span>.log (<span class="hljs-string">&#x27;All done!&#x27;</span>);<br></code></pre></td></tr></table></figure><p>浏览器将会执行代码，看见第一个<code>console.log()</code> 输出<code>Starting</code> ，然后创建<code>image</code>变量。</p><p>然后，它将移动到下一行并开始执行<code>fetch()</code>块，但是，因为<code>fetch()</code>是异步执行的，没有阻塞，所以在<code>promise</code>相关代码之后程序继续执行，从而到达最后的<code>console.log()</code>语句<code>All done!</code>并将其输出到控制台。</p><p>只有当<code>fetch()</code> 块完成运行返回结果给<code>.then()</code>，我们才最后看到第二个<code>console.log()</code>消息 <code>It worked ;)</code>。所以 这些消息可能以和你预期不同的顺序出现：</p><ul><li>Starting</li><li>All done!</li><li>It worked :)</li></ul><p>如果你感到疑惑，考虑下面这个小例子：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;registering click handler&quot;</span>);<br><br>button.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;get click&quot;</span>);<br>&#125;);<br><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;all done&quot;</span>);<br></code></pre></td></tr></table></figure><p>这在行为上非常相似——第一个和第三个<code>console.log()</code>消息将立即显示，但是第二个消息将被阻塞，直到有人单击鼠标按钮。前面的示例以相同的方式工作，只是在这种情况下，第二个消息在<code>promise</code>链上被阻塞，直到获取资源后再显示在屏幕上，而不是单击。</p><p>要查看实际情况，并将第三个<code>console.log()</code>调用更改为以下命令：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log (<span class="hljs-string">&#x27;All done! &#x27;</span> + image.src + <span class="hljs-string">&#x27;displayed.&#x27;</span>);<br></code></pre></td></tr></table></figure><p>此时控制台将会报错，而不会显示第三个 console.log 的信息：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">TypeError</span>: image is <span class="hljs-literal">undefined</span>; can<span class="hljs-string">&#x27;t access its &quot;src&quot; property</span><br></code></pre></td></tr></table></figure><p>这是因为：浏览器运行第三个console.log()的时候，fetch() 语句块还没有完成，因此image还没有赋值。</p><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><code>JavaScript</code>是一种同步的、阻塞的、单线程的语言，在这种语言中，一次只能执行一个操作。</p><p>但web浏览器定义了函数和API，允许我们当某些事件发生时不是按照同步方式，而是异步地调用函数(比如，时间的推移，用户通过鼠标的交互，或者获取网络数据)。</p><p>这意味着您的代码可以同时做几件事情，而不需要停止或阻塞主线程。</p><h3 id="异步还是同步执行代码，取决于我们要做什么"><a href="#异步还是同步执行代码，取决于我们要做什么" class="headerlink" title="异步还是同步执行代码，取决于我们要做什么"></a>异步还是同步执行代码，取决于我们要做什么</h3><ul><li><p>同步-如果我们希望事情能够立即加载并发生。例如，当将一些用户定义的样式应用到一个页面时，您希望这些样式能够尽快被应用。</p></li><li><p>异步-如果我们正在运行一个需要时间的操作，比如查询数据库并使用结果填充模板，那么最好将该操作从主线程中移开使用异步完成任务。</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术类-前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+      <tag>面试</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>git rebase 用法</title>
     <link href="/20211202/git-rebase-%E7%94%A8%E6%B3%95/"/>
     <url>/20211202/git-rebase-%E7%94%A8%E6%B3%95/</url>
@@ -356,31 +383,6 @@
     <tags>
       
       <tag>Vue3</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>叔本华《人生的智慧》第一章节</title>
-    <link href="/20210913/%E5%8F%94%E6%9C%AC%E5%8D%8E%E3%80%8A%E4%BA%BA%E7%94%9F%E7%9A%84%E6%99%BA%E6%85%A7%E3%80%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E8%8A%82/"/>
-    <url>/20210913/%E5%8F%94%E6%9C%AC%E5%8D%8E%E3%80%8A%E4%BA%BA%E7%94%9F%E7%9A%84%E6%99%BA%E6%85%A7%E3%80%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E8%8A%82/</url>
-    
-    <content type="html"><![CDATA[<p>对于阅读人生哲理这一类的书，我一直坚信“尽信书则不如无书”。<br>书名叫做《人生的智慧》，第一眼见到就觉得命题有点过于庞大而且作者有些自大。倘若人生的智慧真能总结在一本书中，那我想我们真的应该每个人都手捧一本，而不是什么《红宝书/圣经》。<br>但是又不是每个人都爱去阅读，阅读从来都是用来克制自己的而不是去监管别人的。<br>许多人把叔本华哲学归为悲观主义，但读完第一章节，他一直在指引我们如何去追求人生的乐趣。<br>文章逻辑性强，有理有据，说服力强，看得出叔本华的哲学深度以及译者的功力。<br>至少第一章我读下来，确实有不少启发。<br>以下是部分抄录</p><hr><p><img src="/img/20210913/renshengdezhihui.png" alt="叔本华人生的智慧"></p><hr><h1 id="第一章-基本的划分"><a href="#第一章-基本的划分" class="headerlink" title="第一章 基本的划分"></a>第一章 基本的划分</h1><p>决定凡人命运的根本差别在于三项内容：</p><ul><li>人的自身，即在最广泛意义上属于人的个性的东西。因此，它包括人的健康、力量、外貌、气质、道德品格、精神智力及其潜在发展。</li><li>人所拥有的身外之物，亦即财产和其他占有物。</li><li>人向其他人所显示的样子，人在其他人眼中所呈现的样子，亦即人们对他的看法。他人的看法又可分为名誉、地位和名声。</li></ul><hr><p>对于一个人的幸福，甚至对于他的整个生存的方式，最主要的明显就是这个人自身的内在素质，它直接决定了这个人是否能够得到内心的幸福，因为人的内心快乐抑或内心痛苦首先就是人的感情、意欲和思想的产物。而人自身之外的所有事物，对于人的幸福都只是间接地发挥影响。因此，同一样外在的事物和同一样的境遇，对于我们每一个人的影响都不尽相同；处在同一样的环境每一个人，都生活在不同的世界中。因为与一个人直接相关的是这一个人对事物的看法、他的感情以及他的意欲活动。外在事物只有在刺激起他的上述东西时才能发挥作用</p><hr><blockquote><p>“对完全一样的客体时，不同的主体就意味着所构成的现实完全不同，反之亦然”<br>摘录来自: 叔本华(Arthur Schopenhauer). “人生的智慧。” Apple Books. </p></blockquote><p>注：不同的人对发生的同一件事会有不同的态度和想法</p><hr><p>一个人只能直接活在自己的意识之中。因此，外在世界对他帮助不大</p><hr><blockquote><p>“对于人来说，存在和发生的一切事情总是直接存在和发生在他的意识里面，所以，很明显，人的意识的构成是首要关键”<br>摘录来自: 叔本华(Arthur Schopenhauer). “人生的智慧。” Apple Books.</p></blockquote><p>注：你的下意识会对发生的事情产生看法。</p><hr><blockquote><p>“尽管在人的一生中，外在变化不断发生，但人的性格却始终如一，这好比虽然有一连串的变奏，但主旋律却维持不变。无人能够脱离自身个性 ”<br>摘录来自: 叔本华(Arthur Schopenhauer). “人生的智慧。” Apple Books. </p></blockquote><hr><blockquote><p>“对我们的生活幸福而言，我们的自身个性才是最重要和最关键的，因为我们的个性持久不变，它在任何情况下都在发挥着作用”<br>摘录来自: 叔本华(Arthur Schopenhauer). “人生的智慧。” Apple Books. </p></blockquote><hr><blockquote><p>“我们唯一能够做到的就是尽可能充分地利用我们既定的个性。因此，我们应该循着符合我们个性的方向，努力争取适合个性的发展，除此之外则一概避免。所以，我们必须选择与我们个性相配的地位、职业和生活方式。”<br>摘录来自: 叔本华(Arthur Schopenhauer). “人生的智慧。” Apple Books. </p></blockquote><hr><blockquote><p>“人的自身比起财产和他人对自己的看法具有压倒性的优势；由此可知，注重保持身体健康和发挥个人自身才能比全力投入获得财富更为明智”<br>摘录来自: 叔本华(Arthur Schopenhauer). “人生的智慧。” Apple Books. </p></blockquote><hr><blockquote><p>“人生最高的乐趣——精神方面的乐趣——对他们来说，是遥不可及的事情。既然如此，他们就只能忙里偷闲地寻求那些短暂的、感官的乐趣——它们费时很少，却耗钱很多。”<br>摘录来自: 叔本华(Arthur Schopenhauer). “人生的智慧。” Apple Books. </p></blockquote><hr><blockquote><p>“人的内在拥有对于人的幸福才是最关键的”<br>摘录来自: 叔本华(Arthur Schopenhauer). “人生的智慧。” Apple Books. </p></blockquote><hr><blockquote><p>“无聊——它源自上述的精神贫乏和空虚”<br>摘录来自: 叔本华(Arthur Schopenhauer). “人生的智慧。” Apple Books. </p></blockquote><hr><blockquote><p>“人自身内在的贫乏由此导致了外在财富的贫乏。”<br>摘录来自: 叔本华(Arthur Schopenhauer). “人生的智慧。” Apple Books. </p></blockquote><hr><blockquote><p>“彼德尼斯【3】说过：“一个人所拥有的财产决定了这个人在他人眼中的价值。”如果这句话是正确的话，那么，反过来，他人对自己的良好评价，能以各种形式帮助自己获取财产。”<br>摘录来自: 叔本华(Arthur Schopenhauer). “人生的智慧。” Apple Books. </p></blockquote><hr><p><img src="/img/20210913/renshengdezhihui2.png" alt="今日阅读"></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>阅读</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>阅读</tag>
       
     </tags>
     
