@@ -16,11 +16,9 @@
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="走花路的长颈鹿,博客">
   <meta name="author" content="走花路的长颈鹿">
-  <meta name="baidu-site-verification" content="code-TmkkRxX4ps" />
-  <meta name="google-site-verification" content="W1p2MOXTq9JK5NxmGNBsJhiHxBLISPbujB8JEEmnSgs" />
   <meta name="keywords" content="blog,走花路的长颈鹿,博客">
   
-  <title>React随笔 - 走花路的长颈鹿</title>
+  <title>React笔记 - 走花路的长颈鹿</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -177,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="React随笔">
+            <span class="h2" id="subtitle" title="React笔记">
               
             </span>
 
@@ -204,7 +202,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      888 字
+      949 字
     </span>
   
 
@@ -214,7 +212,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      12
        分钟
     </span>
   
@@ -256,7 +254,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">React随笔</h1>
+            <h1 style="display: none">React笔记</h1>
             
             <div class="markdown-body">
               <h2 id="React-中的this"><a href="#React-中的this" class="headerlink" title="React 中的this"></a>React 中的<code>this</code></h2><p>React 的官方文档里写的自定义的方法都需要用 bind 方法绑定一下才能使用，否则 this 会出现指向问题，那究竟是为什么呢？</p>
@@ -290,7 +288,11 @@
 <p>再看等号左侧，将返回的新函数赋值给了 this，这个 this 也是 Person 实例对象，用相同的方法名接收一下</p>
 <p>这样就可以使用了</p>
 <p>我们这样再去看<code>onClick=&#123;this.demo&#125;</code>,这下再点击后执行的就是实例自身上的 demo 方法了。</p>
-<h2 id="完"><a href="#完" class="headerlink" title="完"></a>完</h2>
+<hr>
+<h2 id="2021-12-25-更新-React17-对比新旧生命周期"><a href="#2021-12-25-更新-React17-对比新旧生命周期" class="headerlink" title="2021-12-25 更新 React17 对比新旧生命周期"></a>2021-12-25 更新 React17 对比新旧生命周期</h2><p>新的生命周期和旧的生命周期相比，即将废弃三个钩子：<code>componentWillMount</code>、<code>componentWillUpdate</code>、<code>componentWillReceiveProps</code></p>
+<p>新增了两个新的钩子：<code>getDerivedStateFromProps</code>、<code>getSnapshotBeforeUpdate</code></p>
+<p>剩下的都和之前的一样的</p>
+
             </div>
             <hr>
             <div>
