@@ -202,7 +202,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      949 字
+      1.1k 字
     </span>
   
 
@@ -212,7 +212,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      15
        分钟
     </span>
   
@@ -289,9 +289,14 @@
 <p>这样就可以使用了</p>
 <p>我们这样再去看<code>onClick=&#123;this.demo&#125;</code>,这下再点击后执行的就是实例自身上的 demo 方法了。</p>
 <hr>
-<h2 id="2021-12-25-更新-React17-对比新旧生命周期"><a href="#2021-12-25-更新-React17-对比新旧生命周期" class="headerlink" title="2021-12-25 更新 React17 对比新旧生命周期"></a>2021-12-25 更新 React17 对比新旧生命周期</h2><p>新的生命周期和旧的生命周期相比，即将废弃三个钩子：<code>componentWillMount</code>、<code>componentWillUpdate</code>、<code>componentWillReceiveProps</code></p>
+<h2 id="2021-12-25-更新——-React17-对比新旧生命周期"><a href="#2021-12-25-更新——-React17-对比新旧生命周期" class="headerlink" title="2021-12-25 更新—— React17 对比新旧生命周期"></a>2021-12-25 更新—— React17 对比新旧生命周期</h2><p>新的生命周期和旧的生命周期相比，即将废弃三个钩子：<code>componentWillMount</code>、<code>componentWillUpdate</code>、<code>componentWillReceiveProps</code></p>
 <p>新增了两个新的钩子：<code>getDerivedStateFromProps</code>、<code>getSnapshotBeforeUpdate</code></p>
 <p>剩下的都和之前的一样的</p>
+<h2 id="2021-12-16-更新——-React-配置代理"><a href="#2021-12-16-更新——-React-配置代理" class="headerlink" title="2021-12-16 更新—— React 配置代理"></a>2021-12-16 更新—— React 配置代理</h2><p>单个代理可以直接在<code>package.json</code>文件中配置<code>proxy</code></p>
+<p>多个代理则需要新建一个<code>setupProxy.js</code>文件，配置如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> proxy = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;http-proxy-middleware&quot;</span>);<br><br><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>&#123;<br>  app.use(<br>    proxy(<span class="hljs-string">&quot;/api1&quot;</span>, &#123;<br>      <span class="hljs-comment">//遇见api1前缀的请求，就会触发这个代理配置</span><br>      <span class="hljs-attr">target</span>: <span class="hljs-string">&quot;http://localhost:5000&quot;</span>, <span class="hljs-comment">// 请求转发给谁，也就是服务器地址</span><br>      <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 控制服务器收到的请求头中Host的值，这里是localhost:5000</span><br>      <span class="hljs-attr">pathRewrite</span>: &#123; <span class="hljs-string">&quot;^/api1&quot;</span>: <span class="hljs-string">&quot;&quot;</span> &#125;, <span class="hljs-comment">// 重写请求路径</span><br>    &#125;),<br>    proxy(<span class="hljs-string">&quot;/api2&quot;</span>, &#123;<br>      <span class="hljs-attr">target</span>: <span class="hljs-string">&quot;http://localhost:5001&quot;</span>,<br>      <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>,<br>      <span class="hljs-attr">pathRewrite</span>: &#123; <span class="hljs-string">&quot;^/api2&quot;</span>: <span class="hljs-string">&quot;&quot;</span> &#125;,<br>    &#125;)<br>  );<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p><code>create-react-app</code>脚手架会自动找到<code>setupProxy.js</code>文件，并将配置加入到 webpack 中</p>
 
             </div>
             <hr>
