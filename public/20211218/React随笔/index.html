@@ -202,7 +202,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      1.2k 字
     </span>
   
 
@@ -212,7 +212,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15
+      16
        分钟
     </span>
   
@@ -297,6 +297,8 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> proxy = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;http-proxy-middleware&quot;</span>);<br><br><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>&#123;<br>  app.use(<br>    proxy(<span class="hljs-string">&quot;/api1&quot;</span>, &#123;<br>      <span class="hljs-comment">//遇见api1前缀的请求，就会触发这个代理配置</span><br>      <span class="hljs-attr">target</span>: <span class="hljs-string">&quot;http://localhost:5000&quot;</span>, <span class="hljs-comment">// 请求转发给谁，也就是服务器地址</span><br>      <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 控制服务器收到的请求头中Host的值，这里是localhost:5000</span><br>      <span class="hljs-attr">pathRewrite</span>: &#123; <span class="hljs-string">&quot;^/api1&quot;</span>: <span class="hljs-string">&quot;&quot;</span> &#125;, <span class="hljs-comment">// 重写请求路径</span><br>    &#125;),<br>    proxy(<span class="hljs-string">&quot;/api2&quot;</span>, &#123;<br>      <span class="hljs-attr">target</span>: <span class="hljs-string">&quot;http://localhost:5001&quot;</span>,<br>      <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>,<br>      <span class="hljs-attr">pathRewrite</span>: &#123; <span class="hljs-string">&quot;^/api2&quot;</span>: <span class="hljs-string">&quot;&quot;</span> &#125;,<br>    &#125;)<br>  );<br>&#125;;<br></code></pre></td></tr></table></figure>
 
 <p><code>create-react-app</code>脚手架会自动找到<code>setupProxy.js</code>文件，并将配置加入到 webpack 中</p>
+<h2 id="2021-12-27-更新——React-路由原理"><a href="#2021-12-27-更新——React-路由原理" class="headerlink" title="2021-12-27 更新——React 路由原理"></a>2021-12-27 更新——React 路由原理</h2><p>靠的是 H5 推出的 history 上的 API</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//路由跳转</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">push</span>(<span class="hljs-params">path</span>) </span>&#123;<br>  history.push(path);<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br><br><span class="hljs-comment">// 路由替换</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">replace</span>(<span class="hljs-params">path</span>) </span>&#123;<br>  history.replace(path);<br>&#125;<br><br><span class="hljs-comment">// 路由回退</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">back</span>(<span class="hljs-params"></span>) </span>&#123;<br>  history.goBack();<br>&#125;<br><br><span class="hljs-comment">// 路由前进</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">forword</span>(<span class="hljs-params"></span>) </span>&#123;<br>  history.goForward();<br>&#125;<br><br><span class="hljs-comment">// 监听路由变化</span><br>history.listen(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;监听路由变化&quot;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
