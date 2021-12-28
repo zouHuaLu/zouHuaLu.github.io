@@ -16,6 +16,8 @@
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="走花路的长颈鹿,博客">
   <meta name="author" content="走花路的长颈鹿">
+  <meta name="baidu-site-verification" content="code-TmkkRxX4ps" />
+  <meta name="google-site-verification" content="W1p2MOXTq9JK5NxmGNBsJhiHxBLISPbujB8JEEmnSgs" />
   <meta name="keywords" content="blog,走花路的长颈鹿,博客">
   
   <title>React笔记 - 走花路的长颈鹿</title>
@@ -202,7 +204,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.3k 字
     </span>
   
 
@@ -299,6 +301,8 @@
 <p><code>create-react-app</code>脚手架会自动找到<code>setupProxy.js</code>文件，并将配置加入到 webpack 中</p>
 <h2 id="2021-12-27-更新——React-路由原理"><a href="#2021-12-27-更新——React-路由原理" class="headerlink" title="2021-12-27 更新——React 路由原理"></a>2021-12-27 更新——React 路由原理</h2><p>靠的是 H5 推出的 history 上的 API</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//路由跳转</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">push</span>(<span class="hljs-params">path</span>) </span>&#123;<br>  history.push(path);<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br><br><span class="hljs-comment">// 路由替换</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">replace</span>(<span class="hljs-params">path</span>) </span>&#123;<br>  history.replace(path);<br>&#125;<br><br><span class="hljs-comment">// 路由回退</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">back</span>(<span class="hljs-params"></span>) </span>&#123;<br>  history.goBack();<br>&#125;<br><br><span class="hljs-comment">// 路由前进</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">forword</span>(<span class="hljs-params"></span>) </span>&#123;<br>  history.goForward();<br>&#125;<br><br><span class="hljs-comment">// 监听路由变化</span><br>history.listen(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;监听路由变化&quot;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h2 id="2021-12-28-更新——全局事件总线"><a href="#2021-12-28-更新——全局事件总线" class="headerlink" title="2021-12-28 更新——全局事件总线"></a>2021-12-28 更新——全局事件总线</h2><p>用第三方库<code>mitt</code>或者<code>pubsub</code>，可以实现多层级的组件之间的通信</p>
 
             </div>
             <hr>
