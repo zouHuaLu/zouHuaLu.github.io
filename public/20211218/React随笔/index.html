@@ -204,7 +204,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      1.7k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
+      22
        分钟
     </span>
   
@@ -315,6 +315,28 @@
 <p>setState()方法里的第二个参数是一个回调函数，该函数能拿到设置之后的值</p>
 <h2 id="2021-12-31-更新——-无副作用"><a href="#2021-12-31-更新——-无副作用" class="headerlink" title="2021-12-31 更新—— 无副作用"></a>2021-12-31 更新—— 无副作用</h2><p>在React里经常看到<code>无副作用</code>这个词，它表示它只对自身有影响对自身以外的无影响，所有的输出都是由我的输入来决定的。</p>
 <p>发一个请求，设置了localstorage，对外部进行了操作这都叫做<strong>副作用</strong></p>
+<h2 id="React生命周期"><a href="#React生命周期" class="headerlink" title="React生命周期"></a>React生命周期</h2><ol>
+<li>组件初始化阶段 initialization, 比如constructor</li>
+<li>组件挂载阶段 mount<ol>
+<li>componentWillMount  组件挂载到DOM前调用,只会被调用一次, 这里写setState不会引起组件重新渲染</li>
+<li>render 返回一个react元素, react根据此函数的返回值渲染DOM. 不能在这里setState</li>
+<li>componentDidMount 组件挂载到DOM后调用, 且只会被调用一次</li>
+</ol>
+</li>
+<li>组件的更新阶段 update<ol>
+<li>componentWillReceiveProps(nextProps) 触发于props引起的组件更新过程中</li>
+<li>shouldComponentUpdate(nextProps, nextState) 比较之前和当前的props state是否有变化</li>
+<li>componentWillUpdate(nextProps, nextState) render方法前执行</li>
+<li>render</li>
+<li>componentDidUpdate(preProps, preState)</li>
+</ol>
+</li>
+<li>组件的卸载阶段 unmount<ol>
+<li>componentWillUnmount 卸载前调用, 在这里可以清理一些定时器</li>
+</ol>
+</li>
+</ol>
+<p><code>componentWillMount</code>,<code>componentWillReceiveProps</code>,<code>componentWillUnmount</code>在React17不建议使用，即将被废弃</p>
 
             </div>
             <hr>
