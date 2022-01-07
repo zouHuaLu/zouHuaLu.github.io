@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Vue随笔</title>
+    <link href="/20220107/Vue%E9%9A%8F%E7%AC%94/"/>
+    <url>/20220107/Vue%E9%9A%8F%E7%AC%94/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文记录的是我个人认为在实际项目中不常用的，但是重要或者会在面试中遇到的。</p><h2 id="表单输入绑定"><a href="#表单输入绑定" class="headerlink" title="表单输入绑定"></a>表单输入绑定</h2><p><code>v-model</code>在内部为不同的输入元素使用不同的 property 并抛出不同的事件：</p><ul><li>text 和 textarea 元素使用 value property 和 input 事件；</li><li>checkbox 和 radio 使用 checked property 和 change 事件；</li><li>select 字段将 value 作为 prop 并将 change 作为事件。</li></ul><h3 id="lazy"><a href="#lazy" class="headerlink" title=".lazy"></a>.lazy</h3><p>在默认情况下，<code>v-model</code> 在每次 <code>input</code> 事件触发后将输入框的值与数据进行同步。你可以添加 <code>lazy</code> 修饰符，从而转为在 <code>change</code> 事件之后进行同步：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;!-- 在“change”时而非“input”时更新 --&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model.lazy</span>=<span class="hljs-string">&quot;msg&quot;</span> /&gt;</span></span><br></code></pre></td></tr></table></figure><h3 id="number"><a href="#number" class="headerlink" title=".number"></a>.number</h3><p>如果想自动将用户的输入值转为数值类型，可以给 <code>v-model</code> 添加 <code>number</code> 修饰符：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;input v-model.number=<span class="hljs-string">&quot;age&quot;</span> type=<span class="hljs-string">&quot;text&quot;</span> /&gt;<br></code></pre></td></tr></table></figure><p>当输入类型为 <code>text</code> 时这通常很有用。如果输入类型是 <code>number</code>，Vue 能够自动将原始字符串转换为数字，无需为 <code>v-model</code> 添加 <code>.number</code> 修饰符。如果这个值无法被 <code>parseFloat()</code> 解析，则返回原始的值。</p><h3 id="trim"><a href="#trim" class="headerlink" title=".trim"></a>.trim</h3><p>如果要自动过滤用户输入的首尾空白字符，可以给 <code>v-model</code> 添加 <code>trim</code> 修饰符：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;input v-model.trim=<span class="hljs-string">&quot;msg&quot;</span> /&gt;<br></code></pre></td></tr></table></figure><h2 id="全局API"><a href="#全局API" class="headerlink" title="全局API"></a>全局API</h2><h2 id="h"><a href="#h" class="headerlink" title="h"></a>h</h2><p>返回一个”虚拟节点“，通常缩写为<strong>VNode</strong>：一个普通对象，其中包含向 Vue 描述它应在页面上渲染哪种节点的信息，包括所有子节点的描述。它的目的是用于手动编写的渲染函数：</p><p>render() {<br>  return h(‘h1’, {}, ‘Some title’)<br>}</p><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>接收三个参数：<code>type</code>，<code>props</code> 和 <code>children</code></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术类-Vue</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>面试</tag>
+      
+      <tag>React</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>装饰器的使用</title>
     <link href="/20211223/%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     <url>/20211223/%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
