@@ -4,6 +4,46 @@
   
   
   <entry>
+    <title>vue-router随笔</title>
+    <link href="/20220119/vue-router%E9%9A%8F%E7%AC%94/"/>
+    <url>/20220119/vue-router%E9%9A%8F%E7%AC%94/</url>
+    
+    <content type="html"><![CDATA[<h2 id="编程式导航"><a href="#编程式导航" class="headerlink" title="编程式导航"></a>编程式导航</h2><h3 id="导航到不同的位置"><a href="#导航到不同的位置" class="headerlink" title="导航到不同的位置"></a>导航到不同的位置</h3><p>除了使用 <code>&lt;router-link&gt;</code> 创建 a 标签来定义导航链接，我们还可以借助 router 的实例方法，通过编写代码来实现。</p><p>在 Vue 实例中，你可以通过 <code>$router</code> 访问路由实例。因此你可以调用 <code>this.$router.push</code>。</p><p>该方法的参数可以是一个字符串路径，或者一个描述地址的对象。例如：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 字符串路径</span><br>router.push(<span class="hljs-string">&#x27;/users/eduardo&#x27;</span>)<br><br><span class="hljs-comment">// 带有路径的对象</span><br>router.push(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/users/eduardo&#x27;</span> &#125;)<br><br><span class="hljs-comment">// 命名的路由，并加上参数，让路由建立 url</span><br>router.push(&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-attr">params</span>: &#123; <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;eduardo&#x27;</span> &#125; &#125;)<br><br><span class="hljs-comment">// 带查询参数，结果是 /register?plan=private</span><br>router.push(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/register&#x27;</span>, <span class="hljs-attr">query</span>: &#123; <span class="hljs-attr">plan</span>: <span class="hljs-string">&#x27;private&#x27;</span> &#125; &#125;)<br><br><span class="hljs-comment">// 带 hash，结果是 /about#team</span><br>router.push(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/about&#x27;</span>, <span class="hljs-attr">hash</span>: <span class="hljs-string">&#x27;#team&#x27;</span> &#125;)<br></code></pre></td></tr></table></figure><p>如果提供了 path，params 会被忽略，上述例子中的 query 并不属于这种情况。取而代之的是下面例子的做法，你需要提供路由的 name 或手写完整的带有参数的 path ：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> username = <span class="hljs-string">&#x27;eduardo&#x27;</span><br><span class="hljs-comment">// 我们可以手动建立 url，但我们必须自己处理编码</span><br>router.push(<span class="hljs-string">`/user/<span class="hljs-subst">$&#123;username&#125;</span>`</span>) <span class="hljs-comment">// -&gt; /user/eduardo</span><br><span class="hljs-comment">// 同样</span><br>router.push(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">`/user/<span class="hljs-subst">$&#123;username&#125;</span>`</span> &#125;) <span class="hljs-comment">// -&gt; /user/eduardo</span><br><span class="hljs-comment">// 如果可能的话，使用 `name` 和 `params` 从自动 URL 编码中获益</span><br>router.push(&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-attr">params</span>: &#123; username &#125; &#125;) <span class="hljs-comment">// -&gt; /user/eduardo</span><br><span class="hljs-comment">// `params` 不能与 `path` 一起使用</span><br>router.push(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/user&#x27;</span>, <span class="hljs-attr">params</span>: &#123; username &#125; &#125;) <span class="hljs-comment">// -&gt; /user</span><br></code></pre></td></tr></table></figure><h3 id="替换当前位置router-replace"><a href="#替换当前位置router-replace" class="headerlink" title="替换当前位置router.replace()"></a>替换当前位置<code>router.replace()</code></h3><p>它的作用类似于 router.push，唯一不同的是，它在导航时不会向 history 添加新记录，正如它的名字所暗示的那样——它取代了当前的条目。</p><p>也可以直接在传递给 <code>router.push</code> 的 <code>routeLocation</code> 中增加一个属性 <code>replace: true</code> ：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">router.push(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/home&#x27;</span>, <span class="hljs-attr">replace</span>: <span class="hljs-literal">true</span> &#125;)<br><span class="hljs-comment">// 相当于</span><br>router.replace(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/home&#x27;</span> &#125;)<br></code></pre></td></tr></table></figure><h2 id="命名视图"><a href="#命名视图" class="headerlink" title="命名视图"></a>命名视图</h2><p>有时候想同时 (同级) 展示多个视图，而不是嵌套展示，例如创建一个布局，有 <code>sidebar (侧导航)</code> 和 <code>main (主内容)</code> 两个视图，这个时候命名视图就派上用场了。你可以在界面中拥有多个单独命名的视图，而不是只有一个单独的出口。<strong>如果 router-view 没有设置名字，那么默认为 default</strong></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><br>&lt;router-view <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;view left-sidebar&quot;</span> name=<span class="hljs-string">&quot;LeftSidebar&quot;</span>&gt;&lt;/router-view&gt;<br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">router-view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;view main-content&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">router-view</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">router-view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;view right-sidebar&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;RightSidebar&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">router-view</span>&gt;</span></span><br><br></code></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> router = createRouter(&#123;<br>  <span class="hljs-attr">history</span>: createWebHashHistory(),<br>  <span class="hljs-attr">routes</span>: [<br>    &#123;<br>      <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>,<br>      <span class="hljs-attr">components</span>: &#123;<br>        <span class="hljs-attr">default</span>: Home,<br>        <span class="hljs-comment">// LeftSidebar: LeftSidebar 的缩写</span><br>        LeftSidebar,<br>        <span class="hljs-comment">// 它们与 `&lt;router-view&gt;` 上的 `name` 属性匹配</span><br>        RightSidebar,<br>      &#125;,<br>    &#125;,<br>  ],<br>&#125;)<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术类-Vue</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>面试</tag>
+      
+      <tag>Vue</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ES6随笔</title>
+    <link href="/20220114/ES6%E9%9A%8F%E7%AC%94/"/>
+    <url>/20220114/ES6%E9%9A%8F%E7%AC%94/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.bookstack.cn/read/es6-3rd/sidebar.md">参考资料：阮一峰ES6标准入门教程第三版</a></p><blockquote><p>本文用于记录我觉得ES6中重要的原理和使用技巧以及可能在面试中会问到的</p></blockquote><h2 id="class的继承"><a href="#class的继承" class="headerlink" title="class的继承"></a>class的继承</h2><p>Class 可以通过extends关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y, color</span>)</span> &#123;<br>    <span class="hljs-built_in">super</span>(x, y); <span class="hljs-comment">// 调用父类的constructor(x, y)</span><br>    <span class="hljs-built_in">this</span>.color = color;<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.color + <span class="hljs-string">&#x27; &#x27;</span> + <span class="hljs-built_in">super</span>.toString(); <span class="hljs-comment">// 调用父类的toString()</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类自己的this对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，加上子类自己的实例属性和方法。如果不调用super方法，子类就得不到this对象。</p><p>*ES5 的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面（Parent.apply(this)）。ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到this上面（所以必须先调用super方法），然后再用子类的构造函数修改this。</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>浏览器相关面试知识点</title>
     <link href="/20220111/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
     <url>/20220111/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
@@ -49,7 +89,7 @@
       
       <tag>面试</tag>
       
-      <tag>React</tag>
+      <tag>Vue</tag>
       
     </tags>
     
@@ -129,7 +169,7 @@
   
   
   <entry>
-    <title>React笔记</title>
+    <title>React随笔</title>
     <link href="/20211218/React%E9%9A%8F%E7%AC%94/"/>
     <url>/20211218/React%E9%9A%8F%E7%AC%94/</url>
     

@@ -20,7 +20,7 @@
   <meta name="google-site-verification" content="W1p2MOXTq9JK5NxmGNBsJhiHxBLISPbujB8JEEmnSgs" />
   <meta name="keywords" content="blog,走花路的长颈鹿,博客">
   
-  <title>JavaScript的同步与异步 - 走花路的长颈鹿</title>
+  <title>vue-router随笔 - 走花路的长颈鹿</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="JavaScript的同步与异步">
+            <span class="h2" id="subtitle" title="vue-router随笔">
               
             </span>
 
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-12-14 15:10" pubdate>
-        2021年12月14日 下午
+      <time datetime="2022-01-19 17:13" pubdate>
+        2022年1月19日 下午
       </time>
     </span>
   
@@ -204,7 +204,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      676 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      9
        分钟
     </span>
   
@@ -256,53 +256,25 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">JavaScript的同步与异步</h1>
+            <h1 style="display: none">vue-router随笔</h1>
             
             <div class="markdown-body">
-              <p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Asynchronous/Introducing">更详细的可以点这里</a></p>
-<h2 id="异步JavaScript"><a href="#异步JavaScript" class="headerlink" title="异步JavaScript"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Glossary/Asynchronous">异步JavaScript</a></h2><p><strong>异步</strong>指两个或两个以上的对象或事件<strong>不</strong>同时存在或发生（或多个相关事物的发生<strong>无需</strong>等待其前一事物的完成）</p>
-<h2 id="同步JavaScript"><a href="#同步JavaScript" class="headerlink" title="同步JavaScript"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Glossary/Synchronous">同步JavaScript</a></h2><p>各方都实时（或者尽可能实时）地收取（而且必要的话也处理或者回复）信息的即时沟通方式，即为<strong>同步</strong>。</p>
-<p>电话即为一个日常的例子：人们都倾向于在使用电话时即时地作出回应。</p>
-<p>许多程序指令也是实时的：例如当输入一个算式时，除非编程人员有意为止，否则环境都会立即将结果反馈回来。</p>
-<h2 id="事件队列"><a href="#事件队列" class="headerlink" title="事件队列"></a>事件队列</h2><p>像<code>promise</code>这样的异步操作被放入事件队列中，事件队列在主线程完成处理后运行，这样它们就不会阻止后续JavaScript代码的运行。排队操作将尽快完成，然后将结果返回到JavaScript环境。</p>
-<h2 id="Promises-对比-callbacks"><a href="#Promises-对比-callbacks" class="headerlink" title="Promises 对比 callbacks"></a>Promises 对比 callbacks</h2><p>promises与旧式callbacks有一些相似之处。它们本质上是一个返回的对象，您可以将回调函数附加到该对象上，而不必将回调作为参数传递给另一个函数。</p>
-<p>然而，Promise是专门为异步操作而设计的，与旧式回调相比具有许多优点:</p>
-<ul>
-<li>您可以使用多个then()操作将多个异步操作链接在一起，并将其中一个操作的结果作为输入传递给下一个操作。这种链接方式对回调来说要难得多，会使回调以混乱的“末日金字塔”告终。 (也称为回调地狱)。</li>
-<li>Promise总是严格按照它们放置在事件队列中的顺序调用。</li>
-<li>错误处理要好得多——所有的错误都由块末尾的一个.catch()块处理，而不是在“金字塔”的每一层单独处理。</li>
-</ul>
-<h2 id="异步代码的本质"><a href="#异步代码的本质" class="headerlink" title="异步代码的本质"></a>异步代码的本质</h2><p>让我们研究一个示例，它进一步说明了异步代码的本质，展示了当我们不完全了解代码执行顺序以及将异步代码视为同步代码时可能发生的问题</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log (<span class="hljs-string">&#x27;Starting&#x27;</span>);<br><span class="hljs-keyword">let</span> image;<br><br>fetch(<span class="hljs-string">&#x27;coffee.jpg&#x27;</span>).then(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;It worked :)&#x27;</span>)<br>  <span class="hljs-keyword">return</span> response.blob();<br>&#125;).then(<span class="hljs-function">(<span class="hljs-params">myBlob</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">let</span> objectURL = URL.createObjectURL(myBlob);<br>  image = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;img&#x27;</span>);<br>  image.src = objectURL;<br>  <span class="hljs-built_in">document</span>.body.appendChild(image);<br>&#125;).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;There has been a problem with your fetch operation: &#x27;</span> + error.message);<br>&#125;);<br><br><span class="hljs-built_in">console</span>.log (<span class="hljs-string">&#x27;All done!&#x27;</span>);<br></code></pre></td></tr></table></figure>
+              <h2 id="编程式导航"><a href="#编程式导航" class="headerlink" title="编程式导航"></a>编程式导航</h2><h3 id="导航到不同的位置"><a href="#导航到不同的位置" class="headerlink" title="导航到不同的位置"></a>导航到不同的位置</h3><p>除了使用 <code>&lt;router-link&gt;</code> 创建 a 标签来定义导航链接，我们还可以借助 router 的实例方法，通过编写代码来实现。</p>
+<p>在 Vue 实例中，你可以通过 <code>$router</code> 访问路由实例。因此你可以调用 <code>this.$router.push</code>。</p>
+<p>该方法的参数可以是一个字符串路径，或者一个描述地址的对象。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 字符串路径</span><br>router.push(<span class="hljs-string">&#x27;/users/eduardo&#x27;</span>)<br><br><span class="hljs-comment">// 带有路径的对象</span><br>router.push(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/users/eduardo&#x27;</span> &#125;)<br><br><span class="hljs-comment">// 命名的路由，并加上参数，让路由建立 url</span><br>router.push(&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-attr">params</span>: &#123; <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;eduardo&#x27;</span> &#125; &#125;)<br><br><span class="hljs-comment">// 带查询参数，结果是 /register?plan=private</span><br>router.push(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/register&#x27;</span>, <span class="hljs-attr">query</span>: &#123; <span class="hljs-attr">plan</span>: <span class="hljs-string">&#x27;private&#x27;</span> &#125; &#125;)<br><br><span class="hljs-comment">// 带 hash，结果是 /about#team</span><br>router.push(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/about&#x27;</span>, <span class="hljs-attr">hash</span>: <span class="hljs-string">&#x27;#team&#x27;</span> &#125;)<br></code></pre></td></tr></table></figure>
 
-<p>浏览器将会执行代码，看见第一个<code>console.log()</code> 输出<code>Starting</code> ，然后创建<code>image</code>变量。</p>
-<p>然后，它将移动到下一行并开始执行<code>fetch()</code>块，但是，因为<code>fetch()</code>是异步执行的，没有阻塞，所以在<code>promise</code>相关代码之后程序继续执行，从而到达最后的<code>console.log()</code>语句<code>All done!</code>并将其输出到控制台。</p>
-<p>只有当<code>fetch()</code> 块完成运行返回结果给<code>.then()</code>，我们才最后看到第二个<code>console.log()</code>消息 <code>It worked ;)</code>。所以 这些消息可能以和你预期不同的顺序出现：</p>
-<ul>
-<li>Starting</li>
-<li>All done!</li>
-<li>It worked :)</li>
-</ul>
-<p>如果你感到疑惑，考虑下面这个小例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;registering click handler&quot;</span>);<br><br>button.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;get click&quot;</span>);<br>&#125;);<br><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;all done&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p>如果提供了 path，params 会被忽略，上述例子中的 query 并不属于这种情况。取而代之的是下面例子的做法，你需要提供路由的 name 或手写完整的带有参数的 path ：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> username = <span class="hljs-string">&#x27;eduardo&#x27;</span><br><span class="hljs-comment">// 我们可以手动建立 url，但我们必须自己处理编码</span><br>router.push(<span class="hljs-string">`/user/<span class="hljs-subst">$&#123;username&#125;</span>`</span>) <span class="hljs-comment">// -&gt; /user/eduardo</span><br><span class="hljs-comment">// 同样</span><br>router.push(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">`/user/<span class="hljs-subst">$&#123;username&#125;</span>`</span> &#125;) <span class="hljs-comment">// -&gt; /user/eduardo</span><br><span class="hljs-comment">// 如果可能的话，使用 `name` 和 `params` 从自动 URL 编码中获益</span><br>router.push(&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-attr">params</span>: &#123; username &#125; &#125;) <span class="hljs-comment">// -&gt; /user/eduardo</span><br><span class="hljs-comment">// `params` 不能与 `path` 一起使用</span><br>router.push(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/user&#x27;</span>, <span class="hljs-attr">params</span>: &#123; username &#125; &#125;) <span class="hljs-comment">// -&gt; /user</span><br></code></pre></td></tr></table></figure>
 
-<p>这在行为上非常相似——第一个和第三个<code>console.log()</code>消息将立即显示，但是第二个消息将被阻塞，直到有人单击鼠标按钮。前面的示例以相同的方式工作，只是在这种情况下，第二个消息在<code>promise</code>链上被阻塞，直到获取资源后再显示在屏幕上，而不是单击。</p>
-<p>要查看实际情况，并将第三个<code>console.log()</code>调用更改为以下命令：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log (<span class="hljs-string">&#x27;All done! &#x27;</span> + image.src + <span class="hljs-string">&#x27;displayed.&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<h3 id="替换当前位置router-replace"><a href="#替换当前位置router-replace" class="headerlink" title="替换当前位置router.replace()"></a>替换当前位置<code>router.replace()</code></h3><p>它的作用类似于 router.push，唯一不同的是，它在导航时不会向 history 添加新记录，正如它的名字所暗示的那样——它取代了当前的条目。</p>
+<p>也可以直接在传递给 <code>router.push</code> 的 <code>routeLocation</code> 中增加一个属性 <code>replace: true</code> ：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">router.push(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/home&#x27;</span>, <span class="hljs-attr">replace</span>: <span class="hljs-literal">true</span> &#125;)<br><span class="hljs-comment">// 相当于</span><br>router.replace(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/home&#x27;</span> &#125;)<br></code></pre></td></tr></table></figure>
 
-<p>此时控制台将会报错，而不会显示第三个 console.log 的信息：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">TypeError</span>: image is <span class="hljs-literal">undefined</span>; can<span class="hljs-string">&#x27;t access its &quot;src&quot; property</span><br></code></pre></td></tr></table></figure>
+<h2 id="命名视图"><a href="#命名视图" class="headerlink" title="命名视图"></a>命名视图</h2><p>有时候想同时 (同级) 展示多个视图，而不是嵌套展示，例如创建一个布局，有 <code>sidebar (侧导航)</code> 和 <code>main (主内容)</code> 两个视图，这个时候命名视图就派上用场了。你可以在界面中拥有多个单独命名的视图，而不是只有一个单独的出口。<strong>如果 router-view 没有设置名字，那么默认为 default</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><br>&lt;router-view <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;view left-sidebar&quot;</span> name=<span class="hljs-string">&quot;LeftSidebar&quot;</span>&gt;&lt;/router-view&gt;<br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">router-view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;view main-content&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">router-view</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">router-view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;view right-sidebar&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;RightSidebar&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">router-view</span>&gt;</span></span><br><br></code></pre></td></tr></table></figure>
 
-<p>这是因为：浏览器运行第三个console.log()的时候，fetch() 语句块还没有完成，因此image还没有赋值。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><code>JavaScript</code>是一种同步的、阻塞的、单线程的语言，在这种语言中，一次只能执行一个操作。</p>
-<p>但web浏览器定义了函数和API，允许我们当某些事件发生时不是按照同步方式，而是异步地调用函数(比如，时间的推移，用户通过鼠标的交互，或者获取网络数据)。</p>
-<p>这意味着您的代码可以同时做几件事情，而不需要停止或阻塞主线程。</p>
-<h3 id="异步还是同步执行代码，取决于我们要做什么"><a href="#异步还是同步执行代码，取决于我们要做什么" class="headerlink" title="异步还是同步执行代码，取决于我们要做什么"></a>异步还是同步执行代码，取决于我们要做什么</h3><ul>
-<li><p>同步-如果我们希望事情能够立即加载并发生。例如，当将一些用户定义的样式应用到一个页面时，您希望这些样式能够尽快被应用。</p>
-</li>
-<li><p>异步-如果我们正在运行一个需要时间的操作，比如查询数据库并使用结果填充模板，那么最好将该操作从主线程中移开使用异步完成任务。</p>
-</li>
-</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> router = createRouter(&#123;<br>  <span class="hljs-attr">history</span>: createWebHashHistory(),<br>  <span class="hljs-attr">routes</span>: [<br>    &#123;<br>      <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>,<br>      <span class="hljs-attr">components</span>: &#123;<br>        <span class="hljs-attr">default</span>: Home,<br>        <span class="hljs-comment">// LeftSidebar: LeftSidebar 的缩写</span><br>        LeftSidebar,<br>        <span class="hljs-comment">// 它们与 `&lt;router-view&gt;` 上的 `name` 属性匹配</span><br>        RightSidebar,<br>      &#125;,<br>    &#125;,<br>  ],<br>&#125;)<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -312,7 +284,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E7%B1%BB-%E5%89%8D%E7%AB%AF/">技术类-前端</a>
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E7%B1%BB-Vue/">技术类-Vue</a>
                     
                   </div>
                 
@@ -320,9 +292,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
-                    
                       <a class="hover-with-bg" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
                     
                   </div>
                 
@@ -339,18 +311,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/20211218/React%E9%9A%8F%E7%AC%94/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">React随笔</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/20211202/git-rebase-%E7%94%A8%E6%B3%95/">
-                        <span class="hidden-mobile">git rebase 用法</span>
+                      <a href="/20220114/ES6%E9%9A%8F%E7%AC%94/">
+                        <span class="hidden-mobile">ES6随笔</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
