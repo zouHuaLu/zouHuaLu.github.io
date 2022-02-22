@@ -271,10 +271,11 @@
           
             
           
-          为什么data是函数，而components是对象？data函数如果没有返回值会报错吗？为什么props定义的数据不能和data同名?
-vue源码路径：vue\src\core\instance\state.js
+          为什么data是函数，而components是对象？data函数如果没有返回值会报错吗？答：会
 
-1234567891011121314151617181920212223242526// proxy data on instance  const keys = Object.ke
+vue源码位置：src\core\instance\state.js
+
+1234567891011121314151617181920function initData (vm: Component) &#123;  let data = vm.$options.data  data = vm._da
         </a>
       </p>
 
