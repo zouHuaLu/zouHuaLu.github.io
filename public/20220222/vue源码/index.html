@@ -204,7 +204,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      880 字
+      993 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      15
        分钟
     </span>
   
@@ -300,6 +300,13 @@
 <p>可见在<code>beforeCreate</code>与<code>created</code>之间初始化了<code>inject</code>,<code>props</code>,<code>methods</code>,<code>data</code>,<code>computed</code>,<code>watch</code></p>
 <h2 id="基于Vue2的proxy，自己实现一个代理"><a href="#基于Vue2的proxy，自己实现一个代理" class="headerlink" title="基于Vue2的proxy，自己实现一个代理"></a>基于Vue2的proxy，自己实现一个代理</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> noop = &#123;&#125; <br><br><span class="hljs-keyword">const</span> propertyDefinition = &#123;<br>    <span class="hljs-attr">enumerable</span>:<span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">configurable</span>:<span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">get</span>:noop,<br>    <span class="hljs-attr">set</span>:noop<br>&#125;<br><br><span class="hljs-keyword">const</span> <span class="hljs-built_in">Proxy</span> = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">target,sourceKey,key</span>)</span>&#123;<br>    propertyDefinition.get = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getter</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-keyword">return</span> target[sourceKey][key]<br>    &#125;<br><br>    propertyDefinition.set = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setter</span> (<span class="hljs-params">val</span>) </span>&#123;        <br>        target[sourceKey][key] = val<br>    &#125;<br><br>    <span class="hljs-built_in">Object</span>.defineProperty(target,key,propertyDefinition)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Vue</span>(<span class="hljs-params">data</span>)</span>&#123;<br>    <span class="hljs-built_in">this</span>._data = data<br>    <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>._data).forEach(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> &#123;<br>        <span class="hljs-built_in">Proxy</span>(<span class="hljs-built_in">this</span>,<span class="hljs-string">&#x27;_data&#x27;</span>,key)<br>    &#125;)<br>&#125;<br><br><span class="hljs-keyword">const</span> vueIns = <span class="hljs-keyword">new</span> Vue(&#123;<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">b</span>:<span class="hljs-number">2</span>&#125;)<br><br>vueIns._data.b = <span class="hljs-string">&#x27;hhh&#x27;</span><br>vueIns.a = <span class="hljs-number">2222</span><br><span class="hljs-built_in">console</span>.log(vueIns._data.a)<br><span class="hljs-built_in">console</span>.log(vueIns.b)<br><br></code></pre></td></tr></table></figure>
 
+<h2 id="Vue的实例为什么不能挂载在body或根节点上？挂载了会报错吗？"><a href="#Vue的实例为什么不能挂载在body或根节点上？挂载了会报错吗？" class="headerlink" title="Vue的实例为什么不能挂载在body或根节点上？挂载了会报错吗？"></a>Vue的实例为什么不能挂载在body或根节点上？挂载了会报错吗？</h2><p>答：挂载节点会被虚拟dom生成的Dom替换，会报错</p>
+<blockquote>
+<p>Vue源码位置：src\platforms\web\entry-runtime-with-compiler.js</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">if</span> (el === <span class="hljs-built_in">document</span>.body || el === <span class="hljs-built_in">document</span>.documentElement) &#123;<br>    process.env.NODE_ENV !== <span class="hljs-string">&#x27;production&#x27;</span> &amp;&amp; warn(<br>      <span class="hljs-string">`Do not mount Vue to &lt;html&gt; or &lt;body&gt; - mount to normal elements instead.`</span><br>    )<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span><br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="什么是虚拟节点，简述虚拟dom构成？"><a href="#什么是虚拟节点，简述虚拟dom构成？" class="headerlink" title="什么是虚拟节点，简述虚拟dom构成？"></a>什么是虚拟节点，简述虚拟dom构成？</h2><h2 id="vue和react虚拟dom的区别？"><a href="#vue和react虚拟dom的区别？" class="headerlink" title="vue和react虚拟dom的区别？"></a>vue和react虚拟dom的区别？</h2>
             </div>
             <hr>
             <div>
