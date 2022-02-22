@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>vue源码</title>
+    <link href="/20220222/vue%E6%BA%90%E7%A0%81/"/>
+    <url>/20220222/vue%E6%BA%90%E7%A0%81/</url>
+    
+    <content type="html"><![CDATA[<h2 id="为什么data是函数，而components是对象？"><a href="#为什么data是函数，而components是对象？" class="headerlink" title="为什么data是函数，而components是对象？"></a>为什么data是函数，而components是对象？</h2><h2 id="data函数如果没有返回值会报错吗？"><a href="#data函数如果没有返回值会报错吗？" class="headerlink" title="data函数如果没有返回值会报错吗？"></a>data函数如果没有返回值会报错吗？</h2><h2 id="为什么props定义的数据不能和data同名"><a href="#为什么props定义的数据不能和data同名" class="headerlink" title="为什么props定义的数据不能和data同名?"></a>为什么props定义的数据不能和data同名?</h2><blockquote><p>vue源码路径：vue\src\core\instance\state.js</p></blockquote><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs js"><br><span class="hljs-comment">// proxy data on instance</span><br>  <span class="hljs-keyword">const</span> keys = <span class="hljs-built_in">Object</span>.keys(data)<br>  <span class="hljs-keyword">const</span> props = vm.$options.props<br>  <span class="hljs-keyword">const</span> methods = vm.$options.methods<br>  <span class="hljs-keyword">let</span> i = keys.length<br>  <span class="hljs-keyword">while</span> (i--) &#123;<br>    <span class="hljs-keyword">const</span> key = keys[i]<br>    <span class="hljs-keyword">if</span> (process.env.NODE_ENV !== <span class="hljs-string">&#x27;production&#x27;</span>) &#123;<br>      <span class="hljs-keyword">if</span> (methods &amp;&amp; hasOwn(methods, key)) &#123;<br>        warn(<br>          <span class="hljs-string">`Method &quot;<span class="hljs-subst">$&#123;key&#125;</span>&quot; has already been defined as a data property.`</span>,<br>          vm<br>        )<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (props &amp;&amp; hasOwn(props, key)) &#123;<br>      process.env.NODE_ENV !== <span class="hljs-string">&#x27;production&#x27;</span> &amp;&amp; warn(<br>        <span class="hljs-string">`The data property &quot;<span class="hljs-subst">$&#123;key&#125;</span>&quot; is already declared as a prop. `</span> +<br>        <span class="hljs-string">`Use prop default value instead.`</span>,<br>        vm<br>      )<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!isReserved(key)) &#123;<br>      proxy(vm, <span class="hljs-string">`_data`</span>, key)<br>    &#125;<br>  &#125;<br></code></pre></td></tr></table></figure><p>可以看到先获取<code>data</code>的<code>key</code>，然后再去调用<code>hasOwn</code>方法去判断<code>methods</code>和<code>props</code>里面是否有重复的<code>key</code>，有的话就会发出警告。最后都通过了之后就会调用<code>proxy(vm, &#39;_data&#39;, key)</code>，用封装的<code>proxy</code>方法对<code>vm实例</code>做了一层代理，使得我们可以直接通过<code>this</code>直接调用<code>key</code></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术类-Vue</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>面试</tag>
+      
+      <tag>Vue</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>数据结构与算法</title>
     <link href="/20220127/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     <url>/20220127/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</url>
