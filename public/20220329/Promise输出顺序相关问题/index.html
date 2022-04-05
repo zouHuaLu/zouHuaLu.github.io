@@ -202,7 +202,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      379 字
+      649 字
     </span>
   
 
@@ -212,7 +212,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      8
        分钟
     </span>
   
@@ -261,8 +261,8 @@
 
 <h2 id="答："><a href="#答：" class="headerlink" title="答："></a>答：</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 输出结果</span><br><span class="hljs-number">0</span>;<br><span class="hljs-number">1</span>;<br><span class="hljs-number">2</span>;<br><span class="hljs-number">3</span>;<br><span class="hljs-number">4</span>;<br><span class="hljs-number">5</span>;<br><span class="hljs-number">6</span>;<br><span class="hljs-number">7</span>;<br><span class="hljs-number">8</span>;<br>宏任务;<br></code></pre></td></tr></table></figure>
 
-<h2 id="解析："><a href="#解析：" class="headerlink" title="解析："></a>解析：</h2><p>| <code>return Promise.resolve(4)</code>会产生两个微任务</p>
-<p>| 等到当前执行栈为空的时候，才会 resolve 掉这个新的 promise</p>
+<h2 id="解析："><a href="#解析：" class="headerlink" title="解析："></a>解析：</h2><p>| <code>return Promise.resolve(4)</code>会产生一个叫 job 的函数，等到当前执行栈为空的时候会去执行</p>
+<p>| 微任务的执行中生成了微任务，那么会继续执行微任务，直到微任务队列为空。</p>
 <ol>
 <li><strong>宏任务队列 1</strong>,执行<code>Promise.resolve()</code></li>
 <li>遇到<code>then()</code>回调,往微任务队列推入以下代码：</li>
@@ -276,17 +276,49 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
 
 <p>所以此时微任务队列里有两个代码块待执行。队列就是先进先出的原则</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 第一个</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span>);<br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;宏任务&quot;</span>);<br>&#125;, <span class="hljs-number">0</span>);<br><span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">4</span>);<br><br><span class="hljs-comment">// 第二个</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 第一个:A</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span>);<br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;宏任务&quot;</span>);<br>&#125;, <span class="hljs-number">0</span>);<br><span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">4</span>);<br><br><span class="hljs-comment">// 第二个:B</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
 
 <ol start="5">
 <li>此时代码模块里的宏任务都已经执行完了，开始捞取微任务到执行栈中执行。队列里第一个出来的也就是代码：</li>
 </ol>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span>);<br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;宏任务&quot;</span>);<br>&#125;, <span class="hljs-number">0</span>);<br><span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">4</span>);<br></code></pre></td></tr></table></figure>
 
-<p>输出 0</p>
+<p>输出 0。</p>
+<p>注册一个 job，当执行栈为空的时候，job 进入队列。此时执行栈并不为空。A 出栈 B 入栈</p>
 <p>6.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
+
+<p>输出 1。then 的回调推入微任务队列。B 出栈。执行栈为空。job 也进入微任务队列</p>
+<p>函数是:<br>此时的微任务队列就有两个函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 第一个</span><br>.then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>);<br>  &#125;)<br><br><span class="hljs-comment">// 第二个，job</span><br>(<span class="hljs-number">4</span>) =&gt; &#123;<br>  <span class="hljs-built_in">this</span>.resolvePromise(promise2, <span class="hljs-number">4</span>, resolve, reject);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
 <hr>
-<p>待续</p>
+<ol start="7">
+<li>输出 2 将它的回调函数推入微任务队列</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">.then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>);<br>  &#125;)<br></code></pre></td></tr></table></figure>
+
+<p>再去执行</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">(<span class="hljs-number">4</span>) =&gt; &#123;<br>  <span class="hljs-built_in">this</span>.resolvePromise(promise2, <span class="hljs-number">4</span>, resolve, reject);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>这个函数会将</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">(res) =&gt; &#123;<br>  <span class="hljs-built_in">console</span>.log(res);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>推入微任务队列</p>
+<ol start="8">
+<li>输出 3 和 4</li>
+</ol>
+<p>输出 3 的回调再次推入微任务</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">.then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">5</span>);<br>  &#125;)<br></code></pre></td></tr></table></figure>
+
+<ol start="9">
+<li><p> 输出 5</p>
+</li>
+<li><p>后续输出原理相同，输出 6,7,8</p>
+</li>
+<li><p>此时没有回调微任务进栈了，开始清空宏任务队列，也就是 setTimeout，输出<code>宏任务</code></p>
+</li>
+</ol>
 
             </div>
             <hr>
