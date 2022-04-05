@@ -18,7 +18,7 @@
   <meta name="author" content="走花路的长颈鹿">
   <meta name="keywords" content="blog,走花路的长颈鹿,博客">
   
-  <title>Promise输出顺序相关问题 - 走花路的长颈鹿</title>
+  <title>vue前端路由 - 走花路的长颈鹿</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Promise输出顺序相关问题">
+            <span class="h2" id="subtitle" title="vue前端路由">
               
             </span>
 
@@ -190,8 +190,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-29 18:06" pubdate>
-        2022年3月29日 晚上
+      <time datetime="2022-04-05 14:13" pubdate>
+        2022年4月5日 下午
       </time>
     </span>
   
@@ -202,7 +202,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      649 字
+      344 字
     </span>
   
 
@@ -212,7 +212,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      6
        分钟
     </span>
   
@@ -254,71 +254,14 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Promise输出顺序相关问题</h1>
+            <h1 style="display: none">vue前端路由</h1>
             
             <div class="markdown-body">
-              <h2 id="题："><a href="#题：" class="headerlink" title="题："></a>题：</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">Promise</span>.resolve()<br>  .then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span>);<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;宏任务&quot;</span>);<br>    &#125;, <span class="hljs-number">0</span>);<br>    <span class="hljs-comment">// return 4</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">4</span>); <span class="hljs-comment">// 此处是迷惑点</span><br>  &#125;)<br>  .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(res);<br>  &#125;);<br><br><span class="hljs-built_in">Promise</span>.resolve()<br>  .then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br>  &#125;)<br>  .then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>);<br>  &#125;)<br>  .then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>);<br>  &#125;)<br>  .then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">5</span>);<br>  &#125;)<br>  .then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">6</span>);<br>  &#125;)<br>  .then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">7</span>);<br>  &#125;)<br>  .then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">8</span>);<br>  &#125;);<br></code></pre></td></tr></table></figure>
+              <h1 id="实现一个-hash-路由"><a href="#实现一个-hash-路由" class="headerlink" title="实现一个 hash 路由"></a>实现一个 hash 路由</h1><p><strong>HTML 部分</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=edge&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>首页<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#about&quot;</span>&gt;</span>关于<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#me&quot;</span>&gt;</span>我的<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;window.history.go(-1)&quot;</span>&gt;</span>返回<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css"></span><br><span class="css">    <span class="hljs-selector-class">.header</span> &#123;</span><br><span class="css">      <span class="hljs-attribute">background-color</span>: black;</span><br><span class="css">      <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;</span><br><span class="css">      <span class="hljs-attribute">line-height</span>: <span class="hljs-number">100px</span>;</span><br><span class="css">      <span class="hljs-attribute">display</span>: flex;</span><br><span class="css">      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;</span><br><span class="css">      <span class="hljs-attribute">justify-content</span>: space-around;</span><br><span class="css">    &#125;</span><br><span class="css">    <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:link</span>,</span><br><span class="css">    <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span>,</span><br><span class="css">    <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:active</span>,</span><br><span class="css">    <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:visited</span> &#123;</span><br><span class="css">      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;</span><br><span class="css">      <span class="hljs-attribute">text-decoration</span>: none;</span><br><span class="css">    &#125;</span><br><span class="css">  </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./hashroutes.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="答："><a href="#答：" class="headerlink" title="答："></a>答：</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 输出结果</span><br><span class="hljs-number">0</span>;<br><span class="hljs-number">1</span>;<br><span class="hljs-number">2</span>;<br><span class="hljs-number">3</span>;<br><span class="hljs-number">4</span>;<br><span class="hljs-number">5</span>;<br><span class="hljs-number">6</span>;<br><span class="hljs-number">7</span>;<br><span class="hljs-number">8</span>;<br>宏任务;<br></code></pre></td></tr></table></figure>
-
-<h2 id="解析："><a href="#解析：" class="headerlink" title="解析："></a>解析：</h2><p>| <code>return Promise.resolve(4)</code>会产生一个叫 job 的函数，等到当前执行栈为空的时候会去执行</p>
-<p>| 微任务的执行中生成了微任务，那么会继续执行微任务，直到微任务队列为空。</p>
-<ol>
-<li><strong>宏任务队列 1</strong>,执行<code>Promise.resolve()</code></li>
-<li>遇到<code>then()</code>回调,往微任务队列推入以下代码：</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 微任务队列加入了以下代码</span><br><span class="hljs-comment">// 微任务队列1</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span>);<br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;宏任务&quot;</span>);<br>&#125;, <span class="hljs-number">0</span>);<br><span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">4</span>);<br></code></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>仍然在当前宏任务往下执行，执行第二个<code>Promise.resolve()</code></li>
-<li>遇到<code>then()</code>回调,往微任务队列推入以下代码:</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
-
-<p>所以此时微任务队列里有两个代码块待执行。队列就是先进先出的原则</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 第一个:A</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span>);<br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;宏任务&quot;</span>);<br>&#125;, <span class="hljs-number">0</span>);<br><span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">4</span>);<br><br><span class="hljs-comment">// 第二个:B</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>此时代码模块里的宏任务都已经执行完了，开始捞取微任务到执行栈中执行。队列里第一个出来的也就是代码：</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span>);<br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;宏任务&quot;</span>);<br>&#125;, <span class="hljs-number">0</span>);<br><span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">4</span>);<br></code></pre></td></tr></table></figure>
-
-<p>输出 0。</p>
-<p>注册一个 job，当执行栈为空的时候，job 进入队列。此时执行栈并不为空。A 出栈 B 入栈</p>
-<p>6.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
-
-<p>输出 1。then 的回调推入微任务队列。B 出栈。执行栈为空。job 也进入微任务队列</p>
-<p>函数是:<br>此时的微任务队列就有两个函数</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 第一个</span><br>.then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>);<br>  &#125;)<br><br><span class="hljs-comment">// 第二个，job</span><br>(<span class="hljs-number">4</span>) =&gt; &#123;<br>  <span class="hljs-built_in">this</span>.resolvePromise(promise2, <span class="hljs-number">4</span>, resolve, reject);<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<hr>
-<ol start="7">
-<li>输出 2 将它的回调函数推入微任务队列</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">.then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>);<br>  &#125;)<br></code></pre></td></tr></table></figure>
-
-<p>再去执行</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">(<span class="hljs-number">4</span>) =&gt; &#123;<br>  <span class="hljs-built_in">this</span>.resolvePromise(promise2, <span class="hljs-number">4</span>, resolve, reject);<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<p>这个函数会将</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">(res) =&gt; &#123;<br>  <span class="hljs-built_in">console</span>.log(res);<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<p>推入微任务队列</p>
-<ol start="8">
-<li>输出 3 和 4</li>
-</ol>
-<p>输出 3 的回调再次推入微任务</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">.then(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">5</span>);<br>  &#125;)<br></code></pre></td></tr></table></figure>
-
-<ol start="9">
-<li><p> 输出 5</p>
-</li>
-<li><p>后续输出原理相同，输出 6,7,8</p>
-</li>
-<li><p>此时没有回调微任务进栈了，开始清空宏任务队列，也就是 setTimeout，输出<code>宏任务</code></p>
-</li>
-</ol>
+<p><strong>JS 部分</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Route</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>);<br>    <span class="hljs-built_in">this</span>.routes = &#123;&#125;;<br>    <span class="hljs-built_in">this</span>.refresh = <span class="hljs-built_in">this</span>.refresh.bind(<span class="hljs-built_in">this</span>);<br>    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&quot;load&quot;</span>, <span class="hljs-built_in">this</span>.refresh);<br>    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&quot;hashchange&quot;</span>, <span class="hljs-built_in">this</span>.refresh);<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">route</span>(<span class="hljs-params">path, callback</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.routes[path] = callback || <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;&#125;;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">refresh</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>);<br>    <span class="hljs-keyword">let</span> path = <span class="hljs-string">`/<span class="hljs-subst">$&#123;<span class="hljs-built_in">window</span>.location.hash.slice(<span class="hljs-number">1</span>) || <span class="hljs-string">&quot;&quot;</span>&#125;</span>`</span>;<br>    <span class="hljs-built_in">console</span>.log(path);<br>    <span class="hljs-keyword">let</span> cb = <span class="hljs-built_in">this</span>.routes[path];<br>    cb &amp;&amp; cb();<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">let</span> Router = <span class="hljs-keyword">new</span> Route();<br><span class="hljs-keyword">let</span> body = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;body&quot;</span>);<br>Router.route(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>&#123;<br>  body.style.backgroundColor = <span class="hljs-string">&quot;red&quot;</span>;<br>&#125;);<br><br>Router.route(<span class="hljs-string">&quot;/about&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  body.style.backgroundColor = <span class="hljs-string">&quot;blue&quot;</span>;<br>&#125;);<br><br>Router.route(<span class="hljs-string">&quot;/me&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  body.style.backgroundColor = <span class="hljs-string">&quot;green&quot;</span>;<br>&#125;);<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -328,7 +271,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E7%B1%BB-%E5%89%8D%E7%AB%AF/">技术类-前端</a>
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E7%B1%BB-Vue/">技术类-Vue</a>
                     
                   </div>
                 
@@ -336,9 +279,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+                      <a class="hover-with-bg" href="/tags/Vue3/">Vue3</a>
                     
-                      <a class="hover-with-bg" href="/tags/ES6/">ES6</a>
+                      <a class="hover-with-bg" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
                     
                   </div>
                 
@@ -355,18 +298,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/20220405/vue%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">vue前端路由</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/20220222/vue%E6%BA%90%E7%A0%81/">
-                        <span class="hidden-mobile">vue源码</span>
+                      <a href="/20220329/Promise%E8%BE%93%E5%87%BA%E9%A1%BA%E5%BA%8F%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">Promise输出顺序相关问题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
