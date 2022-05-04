@@ -202,7 +202,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      329 字
+      579 字
     </span>
   
 
@@ -212,7 +212,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      7
        分钟
     </span>
   
@@ -257,15 +257,31 @@
             <h1 style="display: none">ES6随笔</h1>
             
             <div class="markdown-body">
-              <p><a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/es6-3rd/sidebar.md">参考资料：阮一峰ES6标准入门教程第三版</a></p>
+              <p><a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/es6-3rd/sidebar.md">参考资料：阮一峰 ES6 标准入门教程第三版</a></p>
 <blockquote>
-<p>本文用于记录我觉得ES6中重要的原理和使用技巧以及可能在面试中会问到的</p>
+<p>本文用于记录我觉得 ES6 中重要的原理和使用技巧</p>
 </blockquote>
-<h2 id="class的继承"><a href="#class的继承" class="headerlink" title="class的继承"></a>class的继承</h2><p>Class 可以通过extends关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y, color</span>)</span> &#123;<br>    <span class="hljs-built_in">super</span>(x, y); <span class="hljs-comment">// 调用父类的constructor(x, y)</span><br>    <span class="hljs-built_in">this</span>.color = color;<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.color + <span class="hljs-string">&#x27; &#x27;</span> + <span class="hljs-built_in">super</span>.toString(); <span class="hljs-comment">// 调用父类的toString()</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="class-的继承"><a href="#class-的继承" class="headerlink" title="class 的继承"></a>class 的继承</h2><p>Class 可以通过 extends 关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y, color</span>)</span> &#123;<br>    <span class="hljs-built_in">super</span>(x, y); <span class="hljs-comment">// 调用父类的constructor(x, y)</span><br>    <span class="hljs-built_in">this</span>.color = color;<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.color + <span class="hljs-string">&quot; &quot;</span> + <span class="hljs-built_in">super</span>.toString(); <span class="hljs-comment">// 调用父类的toString()</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类自己的this对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，加上子类自己的实例属性和方法。如果不调用super方法，子类就得不到this对象。</p>
-<p>*ES5 的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面（Parent.apply(this)）。ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到this上面（所以必须先调用super方法），然后再用子类的构造函数修改this。</p>
+<p>子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错。这是因为子类自己的 this 对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，加上子类自己的实例属性和方法。如果不调用 super 方法，子类就得不到 this 对象。</p>
+<p>ES5 的继承，实质是先创造子类的实例对象 this，然后再将父类的方法添加到 this 上面（Parent.apply(this)）。ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到 this 上面（所以必须先调用 super 方法），然后再用子类的构造函数修改 this。</p>
+<hr>
+<h2 id="20220502-更新"><a href="#20220502-更新" class="headerlink" title="20220502 更新"></a>20220502 更新</h2><blockquote>
+<p>构造函数的 prototype 属性，在 ES6 的“类”上面继续存在。事实上，类的所有方法都定义在类的 prototype 属性上面。 –阮一峰《ES6》</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-comment">// ...</span><br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-comment">// ...</span><br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">toValue</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-comment">// ...</span><br>  &#125;<br>&#125;<br><span class="hljs-comment">// 等同于</span><br>Point.prototype = &#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;&#125;,<br>  <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> &#123;&#125;,<br>  <span class="hljs-function"><span class="hljs-title">toValue</span>(<span class="hljs-params"></span>)</span> &#123;&#125;,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>当我想打印输出看一下<code>console.log(Point.prototype)</code>的时候输出却是<code>&#123;&#125;</code>,感到很奇怪，明明方法是定义在<code>prototype</code>属性上的，为什么输出确实空的呢？</p>
+<p>查了一下发现：</p>
+<blockquote>
+<p>这是因为 <code>console.log()</code>使用了 <code>util.inspect()</code>，它使用了 Object。对象上的<code>keys()</code>，它只返回可枚举的属性。并且 <code>Object.prototype</code> 包含非可枚举属性，这就是它返回空节点的原因。</p>
+</blockquote>
+<p>因为那些方法都默认是不可枚举的，所以当我们想定义一个可枚举的属性时可以使用<code>Object.defineProperty()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">Object</span>.defineProperty(Point.prototype, <span class="hljs-string">&quot;hh&quot;</span>, &#123;<br>  <span class="hljs-attr">value</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>);<br>  &#125;,<br>  <span class="hljs-comment">// 可枚举</span><br>  <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>,<br>&#125;);<br><span class="hljs-built_in">console</span>.log(Point.prototype);<br></code></pre></td></tr></table></figure>
+
+<p>这下打印出了<code>&#123; hh: [Function: value] &#125;</code></p>
+<hr>
 
             </div>
             <hr>
