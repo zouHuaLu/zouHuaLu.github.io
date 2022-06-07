@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>日报</title>
+    <link href="/20220607/%E6%97%A5%E6%8A%A5/"/>
+    <url>/20220607/%E6%97%A5%E6%8A%A5/</url>
+    
+    <content type="html"><![CDATA[<h2 id="2022-06-06-周一"><a href="#2022-06-06-周一" class="headerlink" title="2022/06/06 周一"></a>2022/06/06 周一</h2><ul><li>完成了 u10 支付页面的翻译工作</li><li>修复一个小 bug，页面字段无返回则显示 0</li><li>复习 webpack 知识</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>日常</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>日常</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>常见的手写js</title>
     <link href="/20220528/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%89%8B%E5%86%99js/"/>
     <url>/20220528/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%89%8B%E5%86%99js/</url>
