@@ -16,25 +16,27 @@
   <meta name="author" content="走花路的长颈鹿">
   <meta name="keywords" content="blog,走花路的长颈鹿,博客">
   
-    <meta name="description" content="参考资料：阮一峰 ES6 标准入门教程第三版  本文用于记录我觉得 ES6 中重要的原理和使用技巧  class 的继承Class 可以通过 extends 关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多。 123456789class ColorPoint extends Point &amp;#123;  constructor(x, y, color) &amp;#123;">
+    <meta name="description" content="《傅雷家书》（傅雷，朱梅馥，傅聪）  认知世界的经济学（珍大户）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES6随笔">
-<meta property="og:url" content="https://zouhualu.github.io/20220114/ES6%E9%9A%8F%E7%AC%94/index.html">
+<meta property="og:title" content="六月阅读">
+<meta property="og:url" content="https://zouhualu.github.io/20220630/%E5%85%AD%E6%9C%88%E9%98%85%E8%AF%BB/index.html">
 <meta property="og:site_name" content="走花路的长颈鹿">
-<meta property="og:description" content="参考资料：阮一峰 ES6 标准入门教程第三版  本文用于记录我觉得 ES6 中重要的原理和使用技巧  class 的继承Class 可以通过 extends 关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多。 123456789class ColorPoint extends Point &amp;#123;  constructor(x, y, color) &amp;#123;">
+<meta property="og:description" content="《傅雷家书》（傅雷，朱梅馥，傅聪）  认知世界的经济学（珍大户）">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-14T02:34:45.000Z">
-<meta property="article:modified_time" content="2022-06-06T07:49:10.351Z">
+<meta property="og:image" content="https://zouhualu.github.io/20220630/%E5%85%AD%E6%9C%88%E9%98%85%E8%AF%BB/fuleijiashu.png">
+<meta property="og:image" content="https://zouhualu.github.io/20220630/%E5%85%AD%E6%9C%88%E9%98%85%E8%AF%BB/renzhishijiedejingjixue.png">
+<meta property="article:published_time" content="2022-06-30T05:09:15.000Z">
+<meta property="article:modified_time" content="2022-06-30T07:26:43.700Z">
 <meta property="article:author" content="走花路的长颈鹿">
-<meta property="article:tag" content="ES6">
-<meta property="article:tag" content="面试">
+<meta property="article:tag" content="阅读">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zouhualu.github.io/20220630/%E5%85%AD%E6%9C%88%E9%98%85%E8%AF%BB/fuleijiashu.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>ES6随笔 - 走花路的长颈鹿</title>
+  <title>六月阅读 - 走花路的长颈鹿</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -209,7 +211,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="ES6随笔"></span>
+            <span id="subtitle" data-typed-text="六月阅读"></span>
           
         </div>
 
@@ -225,8 +227,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-01-14 10:34" pubdate>
-          2022年1月14日 上午
+        <time datetime="2022-06-30 13:09" pubdate>
+          2022年6月30日 下午
         </time>
       </span>
     
@@ -238,7 +240,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.4k 字
+          30 字
         
       </span>
     
@@ -250,7 +252,7 @@
         
         
           <!-- compatible with older versions-->
-          12 分钟
+          1 分钟
         
       </span>
     
@@ -300,35 +302,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">ES6随笔</h1>
+            <h1 style="display: none">六月阅读</h1>
             
             <div class="markdown-body">
               
-              <p><a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/es6-3rd/sidebar.md">参考资料：阮一峰 ES6 标准入门教程第三版</a></p>
-<blockquote>
-<p>本文用于记录我觉得 ES6 中重要的原理和使用技巧</p>
-</blockquote>
-<h2 id="class-的继承"><a href="#class-的继承" class="headerlink" title="class 的继承"></a>class 的继承</h2><p>Class 可以通过 extends 关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y, color</span>)</span> &#123;<br>    <span class="hljs-built_in">super</span>(x, y); <span class="hljs-comment">// 调用父类的constructor(x, y)</span><br>    <span class="hljs-built_in">this</span>.color = color;<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.color + <span class="hljs-string">&quot; &quot;</span> + <span class="hljs-built_in">super</span>.toString(); <span class="hljs-comment">// 调用父类的toString()</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h2 id="《傅雷家书》（傅雷，朱梅馥，傅聪）"><a href="#《傅雷家书》（傅雷，朱梅馥，傅聪）" class="headerlink" title="《傅雷家书》（傅雷，朱梅馥，傅聪）"></a>《傅雷家书》（傅雷，朱梅馥，傅聪）</h2><div style="width:200px;margin:auto;margin-bottom:10px"><img src="/20220630/%E5%85%AD%E6%9C%88%E9%98%85%E8%AF%BB/fuleijiashu.png" srcset="/img/loading.gif" lazyload class="" title="傅雷家书"></div>
 
-<p>子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错。这是因为子类自己的 this 对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，加上子类自己的实例属性和方法。如果不调用 super 方法，子类就得不到 this 对象。</p>
-<p>ES5 的继承，实质是先创造子类的实例对象 this，然后再将父类的方法添加到 this 上面（Parent.apply(this)）。ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到 this 上面（所以必须先调用 super 方法），然后再用子类的构造函数修改 this。</p>
-<hr>
-<h2 id="20220502-更新"><a href="#20220502-更新" class="headerlink" title="20220502 更新"></a>20220502 更新</h2><blockquote>
-<p>构造函数的 prototype 属性，在 ES6 的“类”上面继续存在。事实上，类的所有方法都定义在类的 prototype 属性上面。 –阮一峰《ES6》</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-comment">// ...</span><br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-comment">// ...</span><br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">toValue</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-comment">// ...</span><br>  &#125;<br>&#125;<br><span class="hljs-comment">// 等同于</span><br>Point.prototype = &#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;&#125;,<br>  <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> &#123;&#125;,<br>  <span class="hljs-function"><span class="hljs-title">toValue</span>(<span class="hljs-params"></span>)</span> &#123;&#125;,<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<p>当我想打印输出看一下<code>console.log(Point.prototype)</code>的时候输出却是<code>&#123;&#125;</code>,感到很奇怪，明明方法是定义在<code>prototype</code>属性上的，为什么输出确实空的呢？</p>
-<p>查了一下发现：</p>
-<blockquote>
-<p>这是因为 <code>console.log()</code>使用了 <code>util.inspect()</code>，它使用了 Object。对象上的<code>keys()</code>，它只返回可枚举的属性。并且 <code>Object.prototype</code> 包含非可枚举属性，这就是它返回空节点的原因。</p>
-</blockquote>
-<p>因为那些方法都默认是不可枚举的，所以当我们想定义一个可枚举的属性时可以使用<code>Object.defineProperty()</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">Object</span>.defineProperty(Point.prototype, <span class="hljs-string">&quot;hh&quot;</span>, &#123;<br>  <span class="hljs-attr">value</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>);<br>  &#125;,<br>  <span class="hljs-comment">// 可枚举</span><br>  <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>,<br>&#125;);<br><span class="hljs-built_in">console</span>.log(Point.prototype);<br></code></pre></td></tr></table></figure>
-
-<p>这下打印出了<code>&#123; hh: [Function: value] &#125;</code></p>
-<hr>
+<h2 id="认知世界的经济学（珍大户）"><a href="#认知世界的经济学（珍大户）" class="headerlink" title="认知世界的经济学（珍大户）"></a>认知世界的经济学（珍大户）</h2><div style="width:200px;margin:auto"><img src="/20220630/%E5%85%AD%E6%9C%88%E9%98%85%E8%AF%BB/renzhishijiedejingjixue.png" srcset="/img/loading.gif" lazyload class="" title="认知世界的经济学"></div>
 
               
             </div>
@@ -336,13 +316,32 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%98%85%E8%AF%BB/" class="category-chain-item">阅读</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/ES6/">#ES6</a>
-      
-        <a href="/tags/%E9%9D%A2%E8%AF%95/">#面试</a>
+        <a href="/tags/%E9%98%85%E8%AF%BB/">#阅读</a>
       
     </div>
   
@@ -354,8 +353,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>ES6随笔</div>
-      <div>https://zouhualu.github.io/20220114/ES6随笔/</div>
+      <div>六月阅读</div>
+      <div>https://zouhualu.github.io/20220630/六月阅读/</div>
     </div>
     <div class="license-meta">
       
@@ -367,7 +366,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年1月14日</div>
+          <div>2022年6月30日</div>
         </div>
       
       
@@ -397,18 +396,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/20220119/vue-router%E9%9A%8F%E7%AC%94/" title="vue-router随笔">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">vue-router随笔</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/20220111/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/" title="浏览器相关面试知识点">
-                        <span class="hidden-mobile">浏览器相关面试知识点</span>
+                      <a href="/20220607/%E6%97%A5%E6%8A%A5/" title="六月日报">
+                        <span class="hidden-mobile">六月日报</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
