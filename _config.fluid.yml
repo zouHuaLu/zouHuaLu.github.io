@@ -915,7 +915,7 @@ links:
   # Custom content at the bottom of the links
   custom:
     enable: true
-    content: '<hr><p>20210923新增了评论功能</p><hr><h3>新写了一个博客，<a href="http://www.hjzouhualu.com/" target="_blank">点击跳转</a></h3>'
+    content: ''
 
   # 评论插件
   # Comment plugin
