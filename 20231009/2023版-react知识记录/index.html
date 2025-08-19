@@ -1,0 +1,836 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/user/wazi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="花鹿">
+  <meta name="keywords" content="blog,走花路的长颈鹿,博客,走花鹿，花鹿">
+  
+    <meta name="description" content="1. 什么是JSX？JSX是 JavaScript 的扩展标记语言，它允许在 JavaScript 中嵌入 HTML 代码。JSX可以让你在 JavaScript 代码中编写类似于 HTML 的代码，从而使你的代码更加简洁和易读。 例如，在React库中，你可以使用JSX编写组件的HTML结构。 123&lt;h1 className&#x3D;&quot;title&quot; style&#x3D;&amp;#123;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2023版react知识记录（更新ing）">
+<meta property="og:url" content="https://zouhualu.github.io/20231009/2023%E7%89%88-react%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="花鹿">
+<meta property="og:description" content="1. 什么是JSX？JSX是 JavaScript 的扩展标记语言，它允许在 JavaScript 中嵌入 HTML 代码。JSX可以让你在 JavaScript 代码中编写类似于 HTML 的代码，从而使你的代码更加简洁和易读。 例如，在React库中，你可以使用JSX编写组件的HTML结构。 123&lt;h1 className&#x3D;&quot;title&quot; style&#x3D;&amp;#123;&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-09T07:54:48.000Z">
+<meta property="article:modified_time" content="2025-08-19T01:57:38.048Z">
+<meta property="article:author" content="花鹿">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>2023版react知识记录（更新ing） - 花鹿</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zouhualu.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Love&amp;Share</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>全部</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>我的独立文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://zouhualu.github.io/HTML/12%E5%91%A8%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C%E6%B3%95.html" target="_self">
+                    
+                    <span>十二周高效学习法</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="2023版react知识记录（更新ing）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        花鹿
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-09 15:54" pubdate>
+          2023年10月9日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">2023版react知识记录（更新ing）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1-什么是JSX？"><a href="#1-什么是JSX？" class="headerlink" title="1. 什么是JSX？"></a>1. 什么是<code>JSX</code>？</h2><p><code>JSX</code>是 JavaScript 的扩展标记语言，它允许在 JavaScript 中嵌入 HTML 代码。<code>JSX</code>可以让你在 JavaScript 代码中编写类似于 HTML 的代码，从而使你的代码更加简洁和易读。</p>
+<p>例如，在<code>React</code>库中，你可以使用<code>JSX</code>编写组件的<code>HTML</code>结构。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jsx">&lt;h1 className=<span class="hljs-string">&quot;title&quot;</span> style=&#123;&#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;red&quot;</span> &#125;&#125;&gt;<br>  hello<br>&lt;/h1&gt;<br></code></pre></td></tr></table></figure>
+
+<p>经过<code>babel</code>编译后，会变成</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<br>  <span class="hljs-string">&quot;h1&quot;</span>,<br>  &#123; <span class="hljs-attr">className</span>: <span class="hljs-string">&quot;title&quot;</span>, <span class="hljs-attr">style</span>: &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;red&quot;</span> &#125; &#125;,<br>  <span class="hljs-string">&quot;hello&quot;</span><br>);<br></code></pre></td></tr></table></figure>
+
+<p><code>createElement</code>执行后，会变成</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json5">&#123;<br>  type: &quot;h1&quot;,<br>  props: &#123;<br>    className: &quot;title&quot;,<br>    style: &#123;<br>      color: &quot;red&quot;,<br>    &#125;,<br>  &#125;,<br>  children: &quot;hello&quot;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-react18-的-7-个新特性"><a href="#2-react18-的-7-个新特性" class="headerlink" title="2. react18 的 7 个新特性"></a>2. react18 的 7 个新特性</h2><ol>
+<li>RenderApi</li>
+<li>setState 批处理</li>
+<li>flushSync</li>
+<li>卸载组件时的更新状态警告</li>
+<li>React 组件的返回值</li>
+<li>Strict Mode</li>
+<li>Suspense 不需要 Fallback 来捕获</li>
+</ol>
+<h2 id="3-起源-Component-2024年6月27日更新"><a href="#3-起源-Component-2024年6月27日更新" class="headerlink" title="3. 起源-Component  (2024年6月27日更新)"></a>3. 起源-Component  (2024年6月27日更新)</h2><p>在 React 世界里，一切皆组件，组件可以分为两类，一类是<code>类组件（Class）</code>，一类是<code>函数组件（Function）</code></p>
+<h3 id="3-1-什么是-React-组件"><a href="#3-1-什么是-React-组件" class="headerlink" title="3.1 什么是 React 组件"></a>3.1 什么是 React 组件</h3><p>组件本质上就是函数和类，但是与常规的类和函数不同的是，<strong>组件承载了渲染视图的 UI 和更新视图的 setState、useState 等方法</strong></p>
+<h4 id="React-对组件的处理流程"><a href="#React-对组件的处理流程" class="headerlink" title="React 对组件的处理流程"></a>React 对组件的处理流程</h4><blockquote>
+<p>对于类组件的执行，是在 react-reconciler/src/ReactFiberClassComponent.js 文件中</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">constructClassInstance</span>(<span class="hljs-params"></span><br><span class="hljs-params">  workInProgress, <span class="hljs-comment">// 当前正在工作的fiber对象</span></span><br><span class="hljs-params">  ctor, <span class="hljs-comment">// 我们的类组件</span></span><br><span class="hljs-params">  props, <span class="hljs-comment">// 类组件的props</span></span><br><span class="hljs-params">  renderExpirationTime</span><br><span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// 实例化组件，得到组件实例</span><br>  <span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> <span class="hljs-title function_">ctor</span>(props, context);<br>  <span class="hljs-comment">// 省略部分代码</span><br>  <span class="hljs-keyword">return</span> instance;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对于函数组件的执行，是在 react-reconciler/src/ReactFiberHooks.js 文件中</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">renderWithHooks</span>(<span class="hljs-params"></span><br><span class="hljs-params">  current,  <span class="hljs-comment">// 当前函数组件对应的&#x27;fiber&#x27;，初始化</span></span><br><span class="hljs-params">  workInProgress,  <span class="hljs-comment">// 当前正在工作的&#x27;fiber&#x27;对象</span></span><br><span class="hljs-params">  Component, <span class="hljs-comment">// 我们的函数组件</span></span><br><span class="hljs-params">  props, <span class="hljs-comment">// 函数组件第一个参数props</span></span><br><span class="hljs-params">  secondArg <span class="hljs-comment">// 组件的其他参数</span></span><br><span class="hljs-params">  nextRenderExpirationTime, <span class="hljs-comment">// 下次渲染过期时间</span></span><br><span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// 执行我们的函数组件，得到React.element对象</span><br>  <span class="hljs-keyword">const</span> children = <span class="hljs-title class_">Component</span>(props, secondArg);<br>  <span class="hljs-comment">// 省略部分代码</span><br>  <span class="hljs-keyword">return</span> children;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在 React 调和渲染 fiber 节点的时候，如果发现 fiber tag 是 ClassComponent = 1，则按照类组件逻辑处理，如果是 FunctionComponent = 0 则按照函数组件逻辑处理。当然 React 也提供了一些内置的组件，比如说 Suspense 、Profiler 等。</p>
+<h3 id="3-2-二种不同-React-组件"><a href="#3-2-二种不同-React-组件" class="headerlink" title="3.2 二种不同 React 组件"></a>3.2 二种不同 React 组件</h3><h4 id="class-类组件"><a href="#class-类组件" class="headerlink" title="class 类组件"></a>class 类组件</h4><p>在 class 组件中，除了继承 <code>React.Component</code> ，底层还加入了 <code>updater</code> 对象，组件中调用的 setState 和 forceUpdate 本质上是调用了 <code>updater</code> 对象上的 <code>enqueueSetState</code> 和 <code>enqueueForceUpdate</code> 方法。</p>
+<p>React 底层是如何定义类组件的呢？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Component</span>(<span class="hljs-params">props, context, updater</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">props</span> = props; <span class="hljs-comment">//绑定props</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">context</span> = context; <span class="hljs-comment">//绑定context</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">refs</span> = emptyObject; <span class="hljs-comment">//绑定ref</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">updater</span> = updater || <span class="hljs-title class_">ReactNoopUpdateQueue</span>; <span class="hljs-comment">//上面所属的updater 对象</span><br>&#125;<br><span class="hljs-comment">/* 绑定setState 方法 */</span><br><span class="hljs-title class_">Component</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">setState</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">partialState, callback</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">updater</span>.<span class="hljs-title function_">enqueueSetState</span>(<span class="hljs-variable language_">this</span>, partialState, callback, <span class="hljs-string">&quot;setState&quot;</span>);<br>&#125;;<br><span class="hljs-comment">/* 绑定forceupdate 方法 */</span><br><span class="hljs-title class_">Component</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">forceUpdate</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">callback</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">updater</span>.<span class="hljs-title function_">enqueueForceUpdate</span>(<span class="hljs-variable language_">this</span>, callback, <span class="hljs-string">&quot;forceUpdate&quot;</span>);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>如上可以看出 Component 底层 React 的处理逻辑是，类组件执行构造函数过程中会在实例上绑定 props 和 context ，初始化置空 refs 属性，原型链上绑定setState、forceUpdate 方法。对于 updater，React 在实例化类组件之后会单独绑定 update 对象。</p>
+<p><strong>为了更好地使用 React 类组件，我们首先看一下类组件各个部分的功能：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Index</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span>&#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">...arg</span>)&#123;<br>       <span class="hljs-variable language_">super</span>(...arg)                        <span class="hljs-comment">/* 执行 react 底层 Component 函数 */</span><br>    &#125;<br>    state = &#123;&#125;                              <span class="hljs-comment">/* state */</span><br>    <span class="hljs-keyword">static</span> number = <span class="hljs-number">1</span>                       <span class="hljs-comment">/* 内置静态属性 */</span><br>    handleClick= <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">111</span>)     <span class="hljs-comment">/* 方法： 箭头函数方法直接绑定在this实例上 */</span><br>    <span class="hljs-title function_">componentDidMount</span>(<span class="hljs-params"></span>)&#123;                    <span class="hljs-comment">/* 生命周期 */</span><br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Index</span>.<span class="hljs-property">number</span>,<span class="hljs-title class_">Index</span>.<span class="hljs-property">number1</span>) <span class="hljs-comment">// 打印 1 , 2 </span><br>    &#125;<br>    <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>)&#123;                               <span class="hljs-comment">/* 渲染函数 */</span><br>        <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">marginTop:</span>&#x27;<span class="hljs-attr">50px</span>&#x27; &#125;&#125; <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;</span> <span class="hljs-attr">this.handerClick</span> &#125;  &gt;</span>hello,React!<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    &#125;<br>&#125;<br><span class="hljs-title class_">Index</span>.<span class="hljs-property">number1</span> = <span class="hljs-number">2</span>                           <span class="hljs-comment">/* 外置静态属性 */</span><br><span class="hljs-title class_">Index</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">handleClick</span> = <span class="hljs-function">()=&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">222</span>) <span class="hljs-comment">/* 方法: 绑定在 Index 原型链的 方法*/</span><br><br></code></pre></td></tr></table></figure>
+
+<h4 id="函数组件"><a href="#函数组件" class="headerlink" title="函数组件"></a>函数组件</h4><p>React16.8 hooks问世之后，对函数组件的功能加以强化，函数组件甚至完全取缔类组件。</p>
+<p>下面是一个常规的函数组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Index</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Index</span>.<span class="hljs-property">number</span>) <span class="hljs-comment">// 打印 1 </span><br>    <span class="hljs-keyword">const</span> [ message , setMessage  ] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&#x27;hello,world&#x27;</span>) <span class="hljs-comment">/* hooks  */</span><br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> setMessage(&#x27;let us learn React!&#x27;)  &#125; &gt; &#123; message &#125; <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span> <span class="hljs-comment">/* 返回值 作为渲染ui */</span><br> &#125;<br> <span class="hljs-title class_">Index</span>.<span class="hljs-property">number</span> = <span class="hljs-number">1</span> <span class="hljs-comment">/* 绑定静态属性 */</span><br><br></code></pre></td></tr></table></figure>
+
+<p>注意：<strong>不要尝试给函数组件 prototype 绑定属性或方法，即使绑定了也没有任何作用，因为通过上面源码中 React 对函数组件的调用，是采用直接执行函数的方式，而不是通过new的方式。</strong></p>
+<h4 id="函数组件和类组件本质的区别是什么呢？"><a href="#函数组件和类组件本质的区别是什么呢？" class="headerlink" title="函数组件和类组件本质的区别是什么呢？"></a>函数组件和类组件本质的区别是什么呢？</h4><p><strong>对于类组件来说，底层只需要实例化一次，实例中保存了组件的 state 等状态。对于每一次更新只需要调用 render 方法以及对应的生命周期就可以了。但是在函数组件中，每一次更新都是一次新的函数执行，一次函数组件的更新，里面的变量会重新声明。</strong></p>
+<p>为了能让函数组件可以保存一些状态，执行一些副作用钩子，React Hooks 应运而生，它可以帮助记录 React 中组件的状态，处理一些额外的副作用。</p>
+<h3 id="3-3-组件的通信方式"><a href="#3-3-组件的通信方式" class="headerlink" title="3.3 组件的通信方式"></a>3.3 组件的通信方式</h3><p>React 一共有5种主流的通信方式：</p>
+<ol>
+<li>props 和 callback 方式</li>
+<li>ref方式</li>
+<li>React-redux 或 React-mobx 状态管理方式</li>
+<li>context上下文</li>
+<li>eventBus事件总线</li>
+</ol>
+<p>主要讲一下第一种和5种</p>
+<h4 id="1-props-和-callback-方式"><a href="#1-props-和-callback-方式" class="headerlink" title="1. props 和 callback 方式"></a>1. props 和 callback 方式</h4><p>未完待续。。。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E7%B1%BB-React/" class="category-chain-item">技术类-React</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%9D%A2%E8%AF%95/" class="print-no-link">#面试</a>
+      
+        <a href="/tags/React/" class="print-no-link">#React</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>2023版react知识记录（更新ing）</div>
+      <div>https://zouhualu.github.io/20231009/2023版-react知识记录/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>花鹿</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20231010/2023%E7%89%88Nodejs%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95%EF%BC%88%E6%9B%B4%E6%96%B0ing%EF%BC%89/" title="2023版Nodejs知识记录（更新ing）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2023版Nodejs知识记录（更新ing）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20230816/TypeScript%E9%80%9A%E5%85%B3%E7%A7%98%E7%B1%8D/" title="TypeScript通关秘籍">
+                        <span class="hidden-mobile">TypeScript通关秘籍</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zouHuaLu/blog_comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://music.163.com/#/song?id=441491828" target="_blank" rel="nofollow noopener"><span>Love</span></a> <i class="iconfont icon-love"></i> <a href="http://music.163.com/song?id=186145&userid=34198090" target="_blank" rel="nofollow noopener"><span>Share</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
