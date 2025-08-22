@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>react18剖析</title>
+    <link href="/20250321/react18%E5%89%96%E6%9E%90/"/>
+    <url>/20250321/react18%E5%89%96%E6%9E%90/</url>
+    
+    <content type="html"><![CDATA[<h1 id="react剖析"><a href="#react剖析" class="headerlink" title="react剖析"></a>react剖析</h1><h2 id="使用脚手架搭建-react-项目"><a href="#使用脚手架搭建-react-项目" class="headerlink" title="使用脚手架搭建 react 项目"></a>使用脚手架搭建 react 项目</h2><h3 id="vite"><a href="#vite" class="headerlink" title="vite"></a>vite</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">npm <span class="hljs-keyword">create</span> vite<span class="hljs-variable">@latest</span> my<span class="hljs-operator">-</span>react<span class="hljs-operator">-</span>app <span class="hljs-comment">--template react-ts</span><br></code></pre></td></tr></table></figure><h3 id="create-react-app"><a href="#create-react-app" class="headerlink" title="create-react-app"></a>create-react-app</h3><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">npx</span> <span class="hljs-built_in">create-react-app</span> <span class="hljs-string">my-react-app</span> <span class="hljs-built_in">--template</span> <span class="hljs-string">typescript</span><br></code></pre></td></tr></table></figure><h2 id="jsx"><a href="#jsx" class="headerlink" title="jsx"></a>jsx</h2><p>jsx 是在 javascript 代码中编写 html 代码的一种规范。</p><p>jsx 通过编译器进行转换，babel(@babel/preset-react、plugin-transform-react-jsx)</p><p>转换后变成可以执行的代码</p><p>在线转换地址：<a href="https://babeljs.io/repl#?config_lz=N4IgZglgNgpgdgQwLYxALhAJxgBygOgCsBnADxABoQdtiYAXY9AbWZHgDdLR6FMBzBkwwATGGAQBXKIwoACOAHt6ciDDkBGDfKUq1AfSSKARpo2UQRkdJjCJUOlWOT-kUrfT1MkmAF8AuhRs2AgAxvTcWJJw9BAo6CBS9IpICLGhIAFBIMS8ggC0AEyRYqGKmGnlxABqMJjEEIpwCYUADIUAzPlaFjgQODBQEHAwAAqYijiKxAhQCQAWYQDWmf6BOYqSmKEwACoAngMJVjaZQA&lineWrap=true&version=7.28.3">babel在线转换</a></p><p>再在 react 运行时，通过 react 定义的 jsx 创建出 ReactElement</p><h2 id="hooks"><a href="#hooks" class="headerlink" title="hooks"></a>hooks</h2><ul><li>useState</li><li>useReducer</li><li>useRef</li><li>useMemo</li><li>useCallback</li><li>useContext</li></ul><h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><p>不仅仅可以作为 dom 的引用，还可以作为不需要引起视图更新的数据存储</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> ref = <span class="hljs-title function_">useRef</span>(<span class="hljs-literal">null</span>)<br>    <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(ref.<span class="hljs-property">current</span>)<br>    &#125;, []);<br>    <span class="hljs-keyword">return</span> (<br>        <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;ref&#125;</span>&gt;</span></span><br><span class="language-xml">                Ref demo</span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/&gt;</span></span><br>    )<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="forwardRef"><a href="#forwardRef" class="headerlink" title="forwardRef"></a>forwardRef</h2><h2 id="Suspense"><a href="#Suspense" class="headerlink" title="Suspense"></a>Suspense</h2><h2 id="lazy"><a href="#lazy" class="headerlink" title="lazy"></a>lazy</h2><h2 id="memo"><a href="#memo" class="headerlink" title="memo"></a>memo</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术类-React</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>React</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>NEXT.JS从入门到放弃</title>
     <link href="/20240130/NEXT-JS%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/"/>
     <url>/20240130/NEXT-JS%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/</url>
@@ -19,8 +44,6 @@
     
     
     <tags>
-      
-      <tag>React</tag>
       
       <tag>Next.js</tag>
       
@@ -47,8 +70,6 @@
     
     <tags>
       
-      <tag>面试</tag>
-      
       <tag>Nodejs</tag>
       
     </tags>
@@ -73,8 +94,6 @@
     
     
     <tags>
-      
-      <tag>面试</tag>
       
       <tag>React</tag>
       
@@ -145,8 +164,6 @@
     
     <tags>
       
-      <tag>面试</tag>
-      
       <tag>前端工程化</tag>
       
     </tags>
@@ -166,28 +183,7 @@
     
     <tags>
       
-      <tag>计算机基础</tag>
-      
       <tag>Nginx</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>M1版本Mac电脑前端开发环境配置</title>
-    <link href="/20221106/M1%E7%89%88%E6%9C%ACMac%E7%94%B5%E8%84%91%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
-    <url>/20221106/M1%E7%89%88%E6%9C%ACMac%E7%94%B5%E8%84%91%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
-    
-    <content type="html"><![CDATA[<p>〉Mac电脑的开发环境配置比Windows的要麻烦许多，特别是M1版本的Mac发布之后，配置方面也有些变化，对此做一些记录。</p><h2 id="1-安装Homebrew"><a href="#1-安装Homebrew" class="headerlink" title="1.安装Homebrew"></a>1.安装Homebrew</h2><p>文档地址：<a href="https://brew.sh/">https://brew.sh/</a></p><p>打开苹果终端，输入<code>/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;</code>，但是此方法由于没有科学上网往往会比较慢，所以我们可以用国内的镜像去安装，<code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</code>，按照给出的提示一步步来完成安装。</p><h2 id="2-安装Git"><a href="#2-安装Git" class="headerlink" title="2.安装Git"></a>2.安装Git</h2><p>在终端输入命令<code>brew install git</code>，完成Git的安装</p><h2 id="3-安装nvm来控制nodejs版本"><a href="#3-安装nvm来控制nodejs版本" class="headerlink" title="3.安装nvm来控制nodejs版本"></a>3.安装nvm来控制nodejs版本</h2><p>文档：<a href="https://nvm.uihtm.com/#nvm-mac">https://nvm.uihtm.com/#nvm-mac</a></p><p>按照文档来执行：<code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash</code></p><p>按照文档安装完成之后你会发现，每次关闭终端后，都需要重新执行<code>source .bash_profile</code>才能重新使用nvm命令，下面是解决方案。</p><p>原因：没有将配置添加到.zshrc文件中</p><ol><li><p>到这里的时候需要看看我们是否有.zshrc，如果有直接打开 <code>open ~/.zshrc</code>，然后粘贴下边这两行代码</p><pre><code class="hljs">         export NVM_DIR=~/.nvm         [ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; . &quot;$NVM_DIR/nvm.sh&quot;     </code></pre></li><li><p>如果没有<code>.zshrc</code></p><ul><li>第一步创建<code>zshrc</code>，<code>touch .zshrc</code></li><li>第二步打开<code>zshrc</code>, <code>open -e .zshrc</code></li><li>第三部在<code>zshrc</code>文件里输入<code>source ~/.bash_profile</code>然后保存。</li><li>第四步刷新环境。<code>source .zshrc</code></li></ul></li></ol><p>执行完以上操作后再重新打开终端，看是否有nvm命令</p><p>完～</p>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>计算机基础</tag>
       
     </tags>
     
@@ -212,9 +208,9 @@
     
     <tags>
       
-      <tag>面试</tag>
-      
       <tag>响应式布局</tag>
+      
+      <tag>面试</tag>
       
     </tags>
     
@@ -266,8 +262,6 @@
       
       <tag>JavaScript</tag>
       
-      <tag>面试</tag>
-      
     </tags>
     
   </entry>
@@ -292,8 +286,6 @@
     <tags>
       
       <tag>Vue3</tag>
-      
-      <tag>面试</tag>
       
     </tags>
     
@@ -320,8 +312,6 @@
       
       <tag>ES6</tag>
       
-      <tag>面试</tag>
-      
     </tags>
     
   </entry>
@@ -344,8 +334,6 @@
     
     
     <tags>
-      
-      <tag>面试</tag>
       
       <tag>Vue</tag>
       
@@ -374,8 +362,6 @@
       
       <tag>算法</tag>
       
-      <tag>leetcode</tag>
-      
     </tags>
     
   </entry>
@@ -399,8 +385,6 @@
     
     <tags>
       
-      <tag>面试</tag>
-      
       <tag>Vue</tag>
       
     </tags>
@@ -421,8 +405,6 @@
     <tags>
       
       <tag>ES6</tag>
-      
-      <tag>面试</tag>
       
     </tags>
     
@@ -449,8 +431,6 @@
       
       <tag>JavaScript</tag>
       
-      <tag>面试</tag>
-      
     </tags>
     
   </entry>
@@ -473,8 +453,6 @@
     
     
     <tags>
-      
-      <tag>面试</tag>
       
       <tag>React</tag>
       
@@ -503,8 +481,6 @@
       
       <tag>JavaScript</tag>
       
-      <tag>面试</tag>
-      
     </tags>
     
   </entry>
@@ -529,8 +505,6 @@
     <tags>
       
       <tag>JavaScript</tag>
-      
-      <tag>面试</tag>
       
     </tags>
     
@@ -564,31 +538,6 @@
   
   
   <entry>
-    <title>最近在忙什么</title>
-    <link href="/20211118/%E6%9C%80%E8%BF%91%E5%9C%A8%E5%BF%99%E4%BB%80%E4%B9%88/"/>
-    <url>/20211118/%E6%9C%80%E8%BF%91%E5%9C%A8%E5%BF%99%E4%BB%80%E4%B9%88/</url>
-    
-    <content type="html"><![CDATA[<p>最近在做一个个人的全栈项目</p><p>前端技术栈是：Vite+Vue3+TypeScript+Scss</p><p>后端技术栈是：NodeJs+Express+MySQL</p><p>已经上线一部分功能,部署在阿里云上了</p><p>目前没啥功能。后续会慢慢完善优化</p><p>地址在：<a href="http://www.hjzouhualu.com/">www.hjzouhualu.com</a></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>日常</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>日常</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>call,apply和bind</title>
     <link href="/20211021/call-apply%E5%92%8Cbind/"/>
     <url>/20211021/call-apply%E5%92%8Cbind/</url>
@@ -606,8 +555,6 @@
     <tags>
       
       <tag>JavaScript</tag>
-      
-      <tag>面试</tag>
       
     </tags>
     
@@ -659,8 +606,6 @@
       
       <tag>JavaScript</tag>
       
-      <tag>面试</tag>
-      
     </tags>
     
   </entry>
@@ -685,8 +630,6 @@
     <tags>
       
       <tag>JavaScript</tag>
-      
-      <tag>面试</tag>
       
     </tags>
     
@@ -762,8 +705,6 @@
     <tags>
       
       <tag>算法</tag>
-      
-      <tag>leetcode</tag>
       
     </tags>
     
@@ -942,8 +883,6 @@
       
       <tag>JavaScript</tag>
       
-      <tag>面试</tag>
-      
     </tags>
     
   </entry>
@@ -968,8 +907,6 @@
     <tags>
       
       <tag>JavaScript</tag>
-      
-      <tag>面试</tag>
       
     </tags>
     
