@@ -26,13 +26,13 @@
 <meta property="og:site_name" content="花鹿">
 <meta property="og:description" content="本文对应的Vue3源码版本：3.5.13  工程架构设计 【编译处理】将 vue 文件编译为函数或者对象 compiler-core compiler-dom compiler-sfc compiler-ssr   【响应式系统】将状态数据与视图更新链接起来 reactivity   【运行时渲染】数据更新时需要重新渲染到页面中 runtime-core runtime-dom runtime-">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zouhualu.github.io/compiler-dom.png">
+<meta property="og:image" content="https://zouhualu.github.io/20241215/vue3%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/compiler-dom.png">
 <meta property="article:published_time" content="2024-12-15T11:03:11.000Z">
 <meta property="article:modified_time" content="2025-08-29T08:52:11.500Z">
 <meta property="article:author" content="花鹿">
 <meta property="article:tag" content="Vue3">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://zouhualu.github.io/compiler-dom.png">
+<meta name="twitter:image" content="https://zouhualu.github.io/20241215/vue3%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/compiler-dom.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -397,7 +397,7 @@
 <li>渲染函数（Render 负责 “执行” 渲染函数，将数据渲染到 DOM 中）</li>
 <li>挂载（Mount 负责将渲染函数挂载到 DOM 中）</li>
 </ol>
-<h3 id="compiler-dom"><a href="#compiler-dom" class="headerlink" title="compiler-dom"></a>compiler-dom</h3><p><img src="/compiler-dom.png" srcset="/img/loading.gif" lazyload alt="compiler-dom"></p>
+<h3 id="compiler-dom"><a href="#compiler-dom" class="headerlink" title="compiler-dom"></a>compiler-dom</h3><p><img src="/20241215/vue3%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/compiler-dom.png" srcset="/img/loading.gif" lazyload alt="compiler-dom"></p>
 <p>compiler-dom 是 Vue 3 的 DOM 编译器，它负责将 Vue 模板编译为 DOM 操作代码。</p>
 <p>compiler-dom 是基于 compiler-core 的浏览器环境专用扩展，它在核心框架之上补充了浏览器 DOM 环境特有的编译逻辑，例如：</p>
 <ul>
