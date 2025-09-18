@@ -19,15 +19,15 @@
   <meta name="author" content="花鹿">
   <meta name="keywords" content="blog,走花路的长颈鹿,博客,走花鹿，花鹿">
   
-    <meta name="description" content="newnew 操作符  new 的原理是什么？通过 new 的方式创建对象和通过字面量创建有什么区别？  在调用new的过程中会发生四件操作  新建了一个对象 新对象链接到原型对象上 绑定 this 返回这个新对象  123456789101112function create() &amp;#123;    &#x2F;&#x2F; 1.创建一个新对象    let obj &#x3D; &amp;#123;&amp;#125;;    &#x2F;&#x2F; 获取">
+    <meta name="description" content="newnew 操作符  new 的原理是什么？通过 new 的方式创建对象和通过字面量创建有什么区别？  在调用new的过程中会发生四件操作  新建了一个对象 新对象链接到原型对象上 绑定 this 返回这个新对象  123456function myNew(fn,...args)&amp;#123;    let obj &#x3D; &amp;#123;&amp;#125;;    obj.__proto__ &#x3D; fn.pro">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见的手写js">
 <meta property="og:url" content="https://zouhualu.github.io/20220528/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%89%8B%E5%86%99js/index.html">
 <meta property="og:site_name" content="花鹿">
-<meta property="og:description" content="newnew 操作符  new 的原理是什么？通过 new 的方式创建对象和通过字面量创建有什么区别？  在调用new的过程中会发生四件操作  新建了一个对象 新对象链接到原型对象上 绑定 this 返回这个新对象  123456789101112function create() &amp;#123;    &#x2F;&#x2F; 1.创建一个新对象    let obj &#x3D; &amp;#123;&amp;#125;;    &#x2F;&#x2F; 获取">
+<meta property="og:description" content="newnew 操作符  new 的原理是什么？通过 new 的方式创建对象和通过字面量创建有什么区别？  在调用new的过程中会发生四件操作  新建了一个对象 新对象链接到原型对象上 绑定 this 返回这个新对象  123456function myNew(fn,...args)&amp;#123;    let obj &#x3D; &amp;#123;&amp;#125;;    obj.__proto__ &#x3D; fn.pro">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-28T07:20:46.000Z">
-<meta property="article:modified_time" content="2025-09-16T14:48:41.398Z">
+<meta property="article:modified_time" content="2025-09-18T11:15:26.253Z">
 <meta property="article:author" content="花鹿">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary_large_image">
@@ -275,7 +275,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          678 字
+          438 字
         
       </span>
     
@@ -287,7 +287,7 @@
         
         
           <!-- compatible with older versions-->
-          6 分钟
+          4 分钟
         
       </span>
     
@@ -353,12 +353,8 @@
 <li>绑定 this</li>
 <li>返回这个新对象</li>
 </ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">create</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-comment">// 1.创建一个新对象</span><br>    <span class="hljs-keyword">let</span> obj = &#123;&#125;;<br>    <span class="hljs-comment">// 获取第一个参数，也就是获取构造函数</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-title class_">Con</span> = [].<span class="hljs-property">shift</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">arguments</span>);<br>    <span class="hljs-comment">// 2.新对象继承构造函数原型对象上的所有方法</span><br>    obj.<span class="hljs-property">__proto__</span> = <span class="hljs-title class_">Con</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>;<br>    <span class="hljs-comment">// 3.构造函数的this指向新对象obj，并将剩余的参数传进去执行，得到结果result</span><br>    <span class="hljs-keyword">let</span> result = <span class="hljs-title class_">Con</span>.<span class="hljs-title function_">apply</span>(obj, <span class="hljs-variable language_">arguments</span>);<br>    <span class="hljs-comment">// 4.如果得到的结果是个对象的话就返回result，如果不是的话就返回对象obj</span><br>    <span class="hljs-keyword">return</span> result <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Object</span> ? result : obj;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">myNew</span>(<span class="hljs-params">fn,...args</span>)&#123;<br>    <span class="hljs-keyword">let</span> obj = &#123;&#125;;<br>    obj.<span class="hljs-property">__proto__</span> = fn.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span><br>    fn.<span class="hljs-title function_">apply</span>(obj,args)<br>    <span class="hljs-keyword">return</span> obj<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>关于上面代码的第四条注释：构造函数如果返回原始值，那么这个返回值毫无意义</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Test</span>(<span class="hljs-params">name</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-keyword">const</span> t = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">&quot;zhl&quot;</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(t.<span class="hljs-property">name</span>); <span class="hljs-comment">// &#x27;zhl&#x27;</span><br></code></pre></td></tr></table></figure>
-
-<p>对于创建一个对象来说，更推荐使用字面量的方式创建对象（无论性能上还是可读性）。因为你使用 <code>new Object()</code> 的方式创建对象需要通过作用域链一层层找到<br><code>Object</code>，但是你使用字面量的方式就没这个问题。</p>
 <h2 id="instanceof-原理"><a href="#instanceof-原理" class="headerlink" title="instanceof 原理"></a>instanceof 原理</h2><blockquote>
 <p><code>instanceof</code> 的原理是什么？</p>
 </blockquote>
