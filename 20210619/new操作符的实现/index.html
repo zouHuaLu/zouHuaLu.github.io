@@ -19,12 +19,12 @@
   <meta name="author" content="花鹿">
   <meta name="keywords" content="blog,走花路的长颈鹿,博客,走花鹿，花鹿">
   
-    <meta name="description" content="JavaScript中的new操作符的原理例子123456function Person (name, age) &amp;#123; this.name &#x3D; name this.age &#x3D; age&amp;#125;const person1 &#x3D; new Person(&amp;#x27;走花路的长颈鹿&amp;#x27;, 26)console.log(person1) &#x2F;&#x2F;Person&amp;#123;name:&amp;#x27;">
+    <meta name="description" content="JavaScript中的new操作符的原理例子123456function Person (name, age) &#123; this.name &#x3D; name this.age &#x3D; age&#125;const person1 &#x3D; new Person(&#x27;走花路的长颈鹿&#x27;, 26)console.log(person1) &#x2F;&#x2F;Person&#123;name:&#x27;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="new操作符的实现">
 <meta property="og:url" content="https://zouhualu.github.io/20210619/new%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="花鹿">
-<meta property="og:description" content="JavaScript中的new操作符的原理例子123456function Person (name, age) &amp;#123; this.name &#x3D; name this.age &#x3D; age&amp;#125;const person1 &#x3D; new Person(&amp;#x27;走花路的长颈鹿&amp;#x27;, 26)console.log(person1) &#x2F;&#x2F;Person&amp;#123;name:&amp;#x27;">
+<meta property="og:description" content="JavaScript中的new操作符的原理例子123456function Person (name, age) &#123; this.name &#x3D; name this.age &#x3D; age&#125;const person1 &#x3D; new Person(&#x27;走花路的长颈鹿&#x27;, 26)console.log(person1) &#x2F;&#x2F;Person&#123;name:&#x27;">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13931286-2638e8196f6e699b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="article:published_time" content="2021-06-18T21:23:44.000Z">
@@ -89,7 +89,7 @@
 
 
   
-<meta name="generator" content="Hexo 5.4.2"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -277,7 +277,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          730 字
+          728 字
         
       </span>
     
@@ -350,7 +350,7 @@
 
 <p>先定义了一个构造函数<code>Person</code>，然后通过<code>new</code>操作符生成Person构造函数的一个实例并将其引用赋值给变量<code>person1</code>。然后控制台打印出<code>person1</code>的内容，可以看到该实例对象具有<code>name</code>和<code>age</code>属性，它们的值就是我们在调用构造函数时传入的值。</p>
 <h2 id="new关键字进行的操作"><a href="#new关键字进行的操作" class="headerlink" title="new关键字进行的操作"></a>new关键字进行的操作</h2><ol>
-<li><p> 先创建一个空对象<code>obj=&#123;&#125;</code></p>
+<li><p> 先创建一个空对象<code>obj={}</code></p>
 </li>
 <li><p> 将obj的<code>__proto__</code>原型指向构造函数Person的<code>prototype</code>原型对象，即<code>obj.__proto__ = Person.prototype</code></p>
 </li>

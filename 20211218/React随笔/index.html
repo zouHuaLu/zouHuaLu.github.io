@@ -19,12 +19,12 @@
   <meta name="author" content="花鹿">
   <meta name="keywords" content="blog,走花路的长颈鹿,博客,走花鹿，花鹿">
   
-    <meta name="description" content="React 中的thisReact 的官方文档里写的自定义的方法都需要用 bind 方法绑定一下才能使用，否则 this 会出现指向问题，那究竟是为什么呢？ 探讨一12345678910111213141516class Person &amp;#123;    constructor(props)&amp;#123;        this.state &#x3D; &amp;#123;            ......">
+    <meta name="description" content="React 中的thisReact 的官方文档里写的自定义的方法都需要用 bind 方法绑定一下才能使用，否则 this 会出现指向问题，那究竟是为什么呢？ 探讨一12345678910111213141516class Person &#123;    constructor(props)&#123;        this.state &#x3D; &#123;            ......">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React随笔">
 <meta property="og:url" content="https://zouhualu.github.io/20211218/React%E9%9A%8F%E7%AC%94/index.html">
 <meta property="og:site_name" content="花鹿">
-<meta property="og:description" content="React 中的thisReact 的官方文档里写的自定义的方法都需要用 bind 方法绑定一下才能使用，否则 this 会出现指向问题，那究竟是为什么呢？ 探讨一12345678910111213141516class Person &amp;#123;    constructor(props)&amp;#123;        this.state &#x3D; &amp;#123;            ......">
+<meta property="og:description" content="React 中的thisReact 的官方文档里写的自定义的方法都需要用 bind 方法绑定一下才能使用，否则 this 会出现指向问题，那究竟是为什么呢？ 探讨一12345678910111213141516class Person &#123;    constructor(props)&#123;        this.state &#x3D; &#123;            ......">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-18T11:08:44.000Z">
 <meta property="article:modified_time" content="2025-09-16T14:48:41.397Z">
@@ -87,7 +87,7 @@
 
 
   
-<meta name="generator" content="Hexo 5.4.2"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -372,7 +372,7 @@
 <p>这样的话返回了一个新的函数，而且这个函数牢牢的绑定到了实例对象上，并不需要去原型链上找了</p>
 <p>再看等号左侧，将返回的新函数赋值给了 this，这个 this 也是 Person 实例对象，用相同的方法名接收一下</p>
 <p>这样就可以使用了</p>
-<p>我们这样再去看<code>onClick=&#123;this.demo&#125;</code>,这下再点击后执行的就是实例自身上的 demo 方法了。</p>
+<p>我们这样再去看<code>onClick={this.demo}</code>,这下再点击后执行的就是实例自身上的 demo 方法了。</p>
 <hr>
 <h2 id="2021-12-25-更新——-React17-对比新旧生命周期"><a href="#2021-12-25-更新——-React17-对比新旧生命周期" class="headerlink" title="2021-12-25 更新—— React17 对比新旧生命周期"></a>2021-12-25 更新—— React17 对比新旧生命周期</h2><p>新的生命周期和旧的生命周期相比，即将废弃三个钩子：<code>componentWillMount</code>、<code>componentWillUpdate</code>、<code>componentWillReceiveProps</code></p>
 <p>新增了两个新的钩子：<code>getDerivedStateFromProps</code>、<code>getSnapshotBeforeUpdate</code></p>

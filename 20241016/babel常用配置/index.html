@@ -87,7 +87,7 @@
 
 
   
-<meta name="generator" content="Hexo 5.4.2"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
@@ -348,7 +348,7 @@
 <li><strong>作用</strong>：根据目标浏览器/环境自动转换 ES6+ 语法（如箭头函数、<code>async/await</code>、类等），无需手动配置单个插件。</li>
 <li><strong>常用配置</strong>：<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;presets&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;@babel/preset-env&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;targets&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&gt; 0.25%, not dead&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// 目标浏览器范围（基于 browserslist）</span><br>      <span class="hljs-attr">&quot;useBuiltIns&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;usage&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// 自动引入所需的 polyfill（按需加载）</span><br>      <span class="hljs-attr">&quot;corejs&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3</span> <span class="hljs-comment">// 指定 core-js 版本（需安装 core-js@3）</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">]</span><br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 <ul>
-<li><code>targets</code>：可指定具体浏览器版本（如 <code>&#123;&quot;chrome&quot;: &quot;80&quot;, &quot;ie&quot;: &quot;11&quot;&#125;</code>），或使用 <code>.browserslistrc</code> 文件统一管理。</li>
+<li><code>targets</code>：可指定具体浏览器版本（如 <code>{&quot;chrome&quot;: &quot;80&quot;, &quot;ie&quot;: &quot;11&quot;}</code>），或使用 <code>.browserslistrc</code> 文件统一管理。</li>
 <li><code>useBuiltIns: &quot;usage&quot;</code>：自动检测代码中使用的 ES6+ 特性，只引入必要的 <code>polyfill</code>，减小体积。</li>
 </ul>
 </li>
@@ -386,7 +386,7 @@
 <li><strong>作用</strong>：自动转换 UI 库的导入方式，实现按需加载（如 Ant Design、Element UI）。</li>
 <li><strong>配置（以 Ant Design 为例）</strong>：<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;plugins&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;import&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;libraryName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;antd&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;libraryDirectory&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;es&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;style&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;css&quot;</span> <span class="hljs-comment">// 自动引入样式文件</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">]</span><br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 <ul>
-<li>效果：<code>import &#123; Button &#125; from &#39;antd&#39;</code> 会被转换为 <code>import Button from &#39;antd/es/button&#39;</code>，只加载用到的组件。</li>
+<li>效果：<code>import { Button } from &#39;antd&#39;</code> 会被转换为 <code>import Button from &#39;antd/es/button&#39;</code>，只加载用到的组件。</li>
 </ul>
 </li>
 </ul>
