@@ -1,0 +1,871 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/user/wazi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="花鹿">
+  <meta name="keywords" content="blog,走花路的长颈鹿,博客,走花鹿，花鹿">
+  
+    <meta name="description" content="一、是什么类（Class）是面向对象程序设计（OOP，Object-Oriented Programming）实现信息封装的基础  ❝类是一种用户定义的引用数据类型，也称类类型❞  传统的面向对象语言基本都是基于类的，JavaScript 基于原型的方式让开发者多了很多理解成本在 ES6 之后，JavaScript 拥有了 class 关键字，虽然本质依然是构造函数，但是使用起来已经方便了许多但是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript中类的理解">
+<meta property="og:url" content="https://zouhualu.github.io/20210906/TypeScript%E4%B8%AD%E7%B1%BB%E7%9A%84%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:site_name" content="花鹿">
+<meta property="og:description" content="一、是什么类（Class）是面向对象程序设计（OOP，Object-Oriented Programming）实现信息封装的基础  ❝类是一种用户定义的引用数据类型，也称类类型❞  传统的面向对象语言基本都是基于类的，JavaScript 基于原型的方式让开发者多了很多理解成本在 ES6 之后，JavaScript 拥有了 class 关键字，虽然本质依然是构造函数，但是使用起来已经方便了许多但是">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-06T06:48:00.000Z">
+<meta property="article:modified_time" content="2025-11-25T06:32:02.348Z">
+<meta property="article:author" content="花鹿">
+<meta property="article:tag" content="TypeScript">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>TypeScript中类的理解 - 花鹿</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zouhualu.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Love&amp;Share</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>全部</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/personal/" target="_self">
+                <i class="iconfont icon-bookmark"></i>
+                <span>个人记录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>我的独立文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://zouhualu.github.io/HTML/12%E5%91%A8%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C%E6%B3%95.html" target="_self">
+                    
+                    <span>十二周高效学习法</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="TypeScript中类的理解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        花鹿
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-09-06 14:48" pubdate>
+          2021年9月6日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">TypeScript中类的理解</h1>
+            
+              <p id="updated-time" class="note note-info" style="display: none">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2025-11-25T14:32:02+08:00
+                  
+                  
+
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一、是什么"><a href="#一、是什么" class="headerlink" title="一、是什么"></a>一、是什么</h1><p>类（Class）是面向对象程序设计（OOP，Object-Oriented Programming）实现信息封装的基础</p>
+<blockquote>
+<p>❝类是一种用户定义的引用数据类型，也称类类型❞</p>
+</blockquote>
+<p>传统的面向对象语言基本都是基于类的，<code>JavaScript</code> 基于原型的方式让开发者多了很多理解成本<br>在 <code>ES6</code> 之后，<code>JavaScript</code> 拥有了 <code>class</code> 关键字，虽然本质依然是构造函数，但是使用起来已经方便了许多<br>但是<code>JavaScript</code> 的<code>class</code>依然有一些特性还没有加入，比如修饰符和抽象类<br><code>TypeScript</code> 的 <code>class</code>  支持面向对象的所有特性，比如 类、接口等</p>
+<h1 id="二、使用方式"><a href="#二、使用方式" class="headerlink" title="二、使用方式"></a>二、使用方式</h1><p>定义类的关键字为 <code>class</code>，后面紧跟类名，类可以包含以下几个模块(类的数据成员)：</p>
+<p>「字段」：字段是类里面声明的变量。字段表示对象的有关数据。</p>
+<p>「构造函数」：类实例化时调用，可以为类的对象分配内存。</p>
+<p>「方法」：方法为对象要执行的操作<br>如下例子：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Car</span> &#123; <br>    <span class="hljs-comment">// 字段 </span><br>    <span class="hljs-attr">engine</span>:<span class="hljs-built_in">string</span>; <br> <br>    <span class="hljs-comment">// 构造函数 </span><br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">engine</span>:<span class="hljs-built_in">string</span></span>) &#123; <br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">engine</span> = engine <br>    &#125;  <br> <br>    <span class="hljs-comment">// 方法 </span><br>    <span class="hljs-title function_">disp</span>():<span class="hljs-built_in">void</span> &#123; <br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;发动机为 :   &quot;</span>+<span class="hljs-variable language_">this</span>.<span class="hljs-property">engine</span>) <br>    &#125; <br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>类的继承使用过<code>extends</code>的关键字</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-title function_">move</span>(<span class="hljs-params"><span class="hljs-attr">distanceInMeters</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">0</span></span>) &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Animal moved <span class="hljs-subst">$&#123;distanceInMeters&#125;</span>m.`</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Dog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Animal</span> &#123;<br>    <span class="hljs-title function_">bark</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Woof! Woof!&#x27;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> dog = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Dog</span>();<br>dog.<span class="hljs-title function_">bark</span>();<br>dog.<span class="hljs-title function_">move</span>(<span class="hljs-number">10</span>);<br>dog.<span class="hljs-title function_">bark</span>();<br><br></code></pre></td></tr></table></figure>
+
+<p><code>Dog</code>是一个 派生类，它派生自 <code>Animal</code> 基类，派生类通常被称作子类，基类通常被称作 <strong>超类</strong>。</p>
+<p><code>Dog</code>类继承了<code>Animal</code>类，因此实例<code>dog</code>也能够使用<code>Animal</code>类<code>move</code>方法。<br>同样，类继承后，子类可以对父类的方法重新定义，这个过程称之为方法的重写。</p>
+<p>通过super关键字是对父类的直接引用，该关键字可以引用父类的属性和方法，如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">PrinterClass</span> &#123; <br>   <span class="hljs-title function_">doPrint</span>():<span class="hljs-built_in">void</span> &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;父类的 doPrint() 方法。&quot;</span>) <br>   &#125; <br>&#125; <br> <br><span class="hljs-keyword">class</span> <span class="hljs-title class_">StringPrinter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">PrinterClass</span> &#123; <br>   <span class="hljs-title function_">doPrint</span>():<span class="hljs-built_in">void</span> &#123; <br>      <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">doPrint</span>() <span class="hljs-comment">// 调用父类的函数</span><br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;子类的 doPrint()方法。&quot;</span>)<br>   &#125; <br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>可以看到，上述的形式跟ES6十分的相似，typescript在此基础上添加了三种修饰符：</p>
+<ul>
+<li>公共 public：可以自由的访问类程序里定义的成员</li>
+<li>私有 private：只能够在该类的内部进行访问</li>
+<li>受保护 protect：除了在该类的内部可以访问，还可以在子类中仍然可以访问</li>
+</ul>
+<h3 id="私有修饰符"><a href="#私有修饰符" class="headerlink" title="私有修饰符"></a>私有修饰符</h3><p>只能够在该类的内部进行访问，实例对象并不能够访问</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Father</span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-attr">name</span>:<span class="hljs-title class_">String</span><br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">name</span>:<span class="hljs-title class_">String</span></span>)&#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name<br>    &#125;<br>&#125;<br><span class="hljs-keyword">const</span> father = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Father</span>(<span class="hljs-string">&#x27;zouHuaLu&#x27;</span>)<br>father.<span class="hljs-property">name</span> <span class="hljs-comment">//会报错，提示 &quot;属性name为私有属性，只能在Father类中访问&quot;</span><br></code></pre></td></tr></table></figure>
+<p>并且继承该类的子类并不能访问，如下图所示：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Father</span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-attr">name</span>:<span class="hljs-title class_">String</span><br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">name</span>:<span class="hljs-title class_">String</span></span>)&#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name<br>    &#125;<br>&#125;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Son</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Father</span>&#123;<br>    <span class="hljs-title function_">say</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`my name is <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>)  <span class="hljs-comment">//会报错，提示 &quot;属性name为私有属性，只能在Father类中访问&quot;</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="受保护修饰符"><a href="#受保护修饰符" class="headerlink" title="受保护修饰符"></a>受保护修饰符</h3><p>跟私有修饰符很相似，实例对象同样不能访问受保护的属性，如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Father</span>&#123;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-attr">name</span>:<span class="hljs-title class_">String</span><br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">name</span>:<span class="hljs-title class_">String</span></span>)&#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name<br>    &#125;<br>&#125;<br><span class="hljs-keyword">const</span> father = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Father</span>(<span class="hljs-string">&#x27;zouHuaLu&#x27;</span>)<br>father.<span class="hljs-property">name</span> <span class="hljs-comment">//会报错，提示 &quot;属性name受保护，只能在类Father及其子类中访问&quot;</span><br></code></pre></td></tr></table></figure>
+<p>有一点不同的是 <code>protected</code> 成员在子类中仍然可以访问</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Father</span>&#123;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-attr">name</span>:<span class="hljs-title class_">String</span><br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">name</span>:<span class="hljs-title class_">String</span></span>)&#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name<br>    &#125;<br>&#125;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Son</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Father</span>&#123;<br>    <span class="hljs-title function_">say</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`my name is <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="只读修饰符"><a href="#只读修饰符" class="headerlink" title="只读修饰符"></a>只读修饰符</h3><p>通过<code>readonly</code>关键字进行声明，只读属性必须在声明时或构造函数里被初始化，如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Father</span>&#123;<br>    <span class="hljs-keyword">readonly</span> <span class="hljs-attr">name</span>:<span class="hljs-title class_">String</span><br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">name</span>:<span class="hljs-title class_">String</span></span>)&#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name<br>    &#125;<br>&#125;<br><span class="hljs-keyword">const</span> father = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Father</span>(<span class="hljs-string">&#x27;zouHuaLu&#x27;</span>)<br>father.<span class="hljs-property">name</span> <span class="hljs-comment">//会报错,提示&quot;无法分配到name，因为它是只读属性&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="静态属性"><a href="#静态属性" class="headerlink" title="静态属性"></a>静态属性</h3><p>这些属性存在于类本身上面而不是类的实例上，通过<code>static</code>进行定义，访问这些属性需要通过 <code>类型.静态属性</code> 的这种形式访问，如下所示：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Square</span> &#123;<br>    <span class="hljs-keyword">static</span> width = <span class="hljs-string">&#x27;100px&#x27;</span><br>&#125;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Square</span>.<span class="hljs-property">width</span>) <span class="hljs-comment">// 100px</span><br></code></pre></td></tr></table></figure>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>抽象类做为其它派生类的基类使用，它们一般不会直接被实例化，不同于接口，抽象类可以包含成员的实现细节<br><code>abstract</code>关键字是用于定义抽象类和在抽象类内部定义抽象方法，如下所示：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">makeSound</span>(): <span class="hljs-built_in">void</span>;<br>    <span class="hljs-title function_">move</span>(): <span class="hljs-built_in">void</span> &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;roaming the earch...&#x27;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这种类并不能被实例化，通常需要我们创建子类去继承，如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Animal</span> &#123;<br><br>    <span class="hljs-title function_">makeSound</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;miao miao&#x27;</span>)<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> cat = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cat</span>()<br><br>cat.<span class="hljs-title function_">makeSound</span>() <span class="hljs-comment">// miao miao</span><br>cat.<span class="hljs-title function_">move</span>() <span class="hljs-comment">// roaming the earch...</span><br></code></pre></td></tr></table></figure>
+<h1 id="三、应用场景"><a href="#三、应用场景" class="headerlink" title="三、应用场景"></a>三、应用场景</h1><p>除了日常借助类的特性完成日常业务代码，还可以将类（class）也可以作为接口，尤其在<code>React</code> 工程中是很常用的，如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Carousel</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span>&lt;<span class="hljs-title class_">Props</span>, <span class="hljs-title class_">State</span>&gt; &#123;&#125;<br></code></pre></td></tr></table></figure>
+<p>由于组件需要传入 props 的类型 Props ，同时有需要设置默认 props 即 defaultProps，这时候更加适合使用class作为接口。</p>
+<p>先声明一个类，这个类包含组件 props 所需的类型和初始值：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// props的类型</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Props</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">children</span>: <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">React</span>.<span class="hljs-property">ReactElement</span>&lt;<span class="hljs-built_in">any</span>&gt;&gt; | <span class="hljs-title class_">React</span>.<span class="hljs-property">ReactElement</span>&lt;<span class="hljs-built_in">any</span>&gt; | <span class="hljs-built_in">never</span>[] = []<br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">speed</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">500</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">height</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">160</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">animation</span>: <span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;easeInOutQuad&#x27;</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">isAuto</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">autoPlayInterval</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">4500</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">afterChange</span>: <span class="hljs-function">() =&gt;</span> &#123;&#125;<br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">beforeChange</span>: <span class="hljs-function">() =&gt;</span> &#123;&#125;<br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">selesctedColor</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-attr">showDots</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>当我们需要传入 <code>props</code> 类型的时候直接将 <code>Props</code> 作为接口传入，此时 <code>Props</code> 的作用就是接口，而当需要我们设置<code>defaultProps</code>初始值的时候，我们只需要:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> defaultProps = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Props</span>()<br></code></pre></td></tr></table></figure>
+<p><code>Props</code> 的实例就是 <code>defaultProps</code> 的初始值，这就是 <code>class</code>作为接口的实际应用，我们用一个 <code>class</code> 起到了接口和设置初始值两个作用，方便统一管理，减少了代码量</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.tslang.cn/docs/handbook/classes.html">https://www.tslang.cn/docs/handbook/classes.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/typescript/ts-class.html">https://www.runoob.com/typescript/ts-class.html</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/" class="category-chain-item">前端基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/TypeScript/" class="print-no-link">#TypeScript</a>
+      
+        <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" class="print-no-link">#面向对象</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>TypeScript中类的理解</div>
+      <div>https://zouhualu.github.io/20210906/TypeScript中类的理解/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>花鹿</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年9月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20210907/about-me/" title="Hi there!">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hi there!</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20210701/export%E4%B8%8Eexport-default%E7%9A%84%E5%8C%BA%E5%88%AB/" title="export与export default的区别">
+                        <span class="hidden-mobile">export与export default的区别</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zouHuaLu/blog_comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://music.163.com/#/song?id=441491828" target="_blank" rel="nofollow noopener"><span>Love</span></a> <i class="iconfont icon-love"></i> <a href="http://music.163.com/song?id=186145&userid=34198090" target="_blank" rel="nofollow noopener"><span>Share</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

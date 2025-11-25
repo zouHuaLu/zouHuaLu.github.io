@@ -1,0 +1,1016 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/user/wazi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="花鹿">
+  <meta name="keywords" content="blog,走花路的长颈鹿,博客,走花鹿，花鹿">
+  
+    <meta name="description" content="forwardRef 的弃用传统的 forwardRef 用法在 React 19 之前，forwardRef 是一个高阶函数，用于让子组件能够接收并转发父组件传递过来的 ref，从而允许父组件直接访问子组件中的 DOM 元素或组件实例。 12345678910111213141516171819202122232425262728293031import React, &#123; useRef">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React19新特性">
+<meta property="og:url" content="https://zouhualu.github.io/20250401/React19%E6%96%B0%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:site_name" content="花鹿">
+<meta property="og:description" content="forwardRef 的弃用传统的 forwardRef 用法在 React 19 之前，forwardRef 是一个高阶函数，用于让子组件能够接收并转发父组件传递过来的 ref，从而允许父组件直接访问子组件中的 DOM 元素或组件实例。 12345678910111213141516171819202122232425262728293031import React, &#123; useRef">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zouhualu.github.io/20250401/React19%E6%96%B0%E7%89%B9%E6%80%A7/forwardRef.png">
+<meta property="og:image" content="https://zouhualu.github.io/20250401/React19%E6%96%B0%E7%89%B9%E6%80%A7/ref.png">
+<meta property="og:image" content="https://zouhualu.github.io/20250401/React19%E6%96%B0%E7%89%B9%E6%80%A7/use.png">
+<meta property="article:published_time" content="2025-04-01T06:16:33.000Z">
+<meta property="article:modified_time" content="2025-11-25T06:35:03.740Z">
+<meta property="article:author" content="花鹿">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="React19">
+<meta property="article:tag" content="新特性">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zouhualu.github.io/20250401/React19%E6%96%B0%E7%89%B9%E6%80%A7/forwardRef.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>React19新特性 - 花鹿</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zouhualu.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Love&amp;Share</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>全部</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/personal/" target="_self">
+                <i class="iconfont icon-bookmark"></i>
+                <span>个人记录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>我的独立文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://zouhualu.github.io/HTML/12%E5%91%A8%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C%E6%B3%95.html" target="_self">
+                    
+                    <span>十二周高效学习法</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="React19新特性"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        花鹿
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-01 14:16" pubdate>
+          2025年4月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          42 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">React19新特性</h1>
+            
+              <p id="updated-time" class="note note-info" style="display: none">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2025-11-25T14:35:03+08:00
+                  
+                  
+
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="forwardRef-的弃用"><a href="#forwardRef-的弃用" class="headerlink" title="forwardRef 的弃用"></a>forwardRef 的弃用</h2><h3 id="传统的-forwardRef-用法"><a href="#传统的-forwardRef-用法" class="headerlink" title="传统的 forwardRef 用法"></a>传统的 forwardRef 用法</h3><p>在 React 19 之前，<code>forwardRef</code> 是一个高阶函数，用于让子组件能够接收并转发父组件传递过来的 ref，从而允许父组件直接访问子组件中的 DOM 元素或组件实例。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useRef, forwardRef &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-comment">// React 18 及之前：必须使用 forwardRef</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">ChildComponent</span> = <span class="hljs-title function_">forwardRef</span>(<span class="hljs-function">(<span class="hljs-params">props, ref</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;ref&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;请输入内容&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">    /&gt;</span></span><br>  );<br>&#125;);<br><br><span class="hljs-comment">// 父组件：使用子组件并传递 ref</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">ParentComponent</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> inputRef = <span class="hljs-title function_">useRef</span>(<span class="hljs-literal">null</span>);<br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">focusInput</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-comment">// 通过 ref 直接访问子组件中的 input 元素并调用其方法</span><br>    inputRef.<span class="hljs-property">current</span>.<span class="hljs-title function_">focus</span>();<br>  &#125;;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">ChildComponent</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;inputRef&#125;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;focusInput&#125;</span>&gt;</span>聚焦输入框<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">ParentComponent</span>;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/20250401/React19%E6%96%B0%E7%89%B9%E6%80%A7/forwardRef.png" srcset="/img/loading.gif" lazyload alt="forwardRef 已废弃"></p>
+<h3 id="React-19-的改进"><a href="#React-19-的改进" class="headerlink" title="React 19 的改进"></a>React 19 的改进</h3><p>在 React 19 中，官网显示 <code>forwardRef</code> 已被弃用。现在我们<strong>无需再用 forwardRef 来封装子组件</strong>，可以直接在子组件的 props 中接收 ref。</p>
+<p><img src="/20250401/React19%E6%96%B0%E7%89%B9%E6%80%A7/ref.png" srcset="/img/loading.gif" lazyload alt="ref 接收"></p>
+<h3 id="React-19-的新写法"><a href="#React-19-的新写法" class="headerlink" title="React 19 的新写法"></a>React 19 的新写法</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useRef &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-comment">// React 19：直接在 props 中接收 ref</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">ChildComponent</span>(<span class="hljs-params">&#123; ref, ...props &#125;</span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;ref&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;请输入内容&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">      &#123;<span class="hljs-attr">...props</span>&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">    /&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-comment">// 或者使用解构</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">ChildComponent</span>(<span class="hljs-params">props</span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;props.ref&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;请输入内容&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">    /&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-comment">// 父组件的使用方式保持不变</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">ParentComponent</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> inputRef = <span class="hljs-title function_">useRef</span>(<span class="hljs-literal">null</span>);<br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">focusInput</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    inputRef.<span class="hljs-property">current</span>.<span class="hljs-title function_">focus</span>();<br>  &#125;;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">ChildComponent</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;inputRef&#125;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;focusInput&#125;</span>&gt;</span>聚焦输入框<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="更复杂的示例：配合-useImperativeHandle"><a href="#更复杂的示例：配合-useImperativeHandle" class="headerlink" title="更复杂的示例：配合 useImperativeHandle"></a>更复杂的示例：配合 useImperativeHandle</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useRef, useImperativeHandle &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-comment">// React 19：直接接收 ref，无需 forwardRef</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">CustomInput</span>(<span class="hljs-params">&#123; ref, label &#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> inputRef = <span class="hljs-title function_">useRef</span>(<span class="hljs-literal">null</span>);<br><br>  <span class="hljs-comment">// 自定义暴露给父组件的方法</span><br>  <span class="hljs-title function_">useImperativeHandle</span>(ref, <span class="hljs-function">() =&gt;</span> (&#123;<br>    <span class="hljs-attr">focus</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>      inputRef.<span class="hljs-property">current</span>.<span class="hljs-title function_">focus</span>();<br>    &#125;,<br>    <span class="hljs-attr">clear</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>      inputRef.<span class="hljs-property">current</span>.<span class="hljs-property">value</span> = <span class="hljs-string">&#x27;&#x27;</span>;<br>    &#125;,<br>    <span class="hljs-attr">getValue</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-keyword">return</span> inputRef.<span class="hljs-property">current</span>.<span class="hljs-property">value</span>;<br>    &#125;<br>  &#125;));<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>&#123;label&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;inputRef&#125;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> customInputRef = <span class="hljs-title function_">useRef</span>(<span class="hljs-literal">null</span>);<br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">handleSubmit</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-keyword">const</span> value = customInputRef.<span class="hljs-property">current</span>.<span class="hljs-title function_">getValue</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;输入值:&#x27;</span>, value);<br>    customInputRef.<span class="hljs-property">current</span>.<span class="hljs-title function_">clear</span>();<br>  &#125;;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">CustomInput</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;customInputRef&#125;</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;用户名：&quot;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;handleSubmit&#125;</span>&gt;</span>提交<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="迁移指南"><a href="#迁移指南" class="headerlink" title="迁移指南"></a>迁移指南</h3><p>如果你的项目需要从旧版本迁移到 React 19：</p>
+<ol>
+<li><strong>简单组件</strong>：直接移除 <code>forwardRef</code> 包装，在 props 中接收 ref</li>
+<li><strong>复杂组件</strong>：保持 <code>useImperativeHandle</code> 的使用，只需移除 <code>forwardRef</code></li>
+<li><strong>类型定义</strong>（TypeScript）：更新类型定义以包含 ref</li>
+</ol>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// React 18</span><br><span class="hljs-keyword">import</span> &#123; forwardRef, <span class="hljs-title class_">ForwardedRef</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Props</span> &#123;<br>  <span class="hljs-attr">label</span>: <span class="hljs-built_in">string</span>;<br>&#125;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">Input</span> = forwardRef&lt;<span class="hljs-title class_">HTMLInputElement</span>, <span class="hljs-title class_">Props</span>&gt;(<span class="hljs-function">(<span class="hljs-params">props, ref</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;ref&#125;</span> &#123;<span class="hljs-attr">...props</span>&#125; /&gt;</span></span>;<br>&#125;);<br><br><span class="hljs-comment">// React 19</span><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Props</span> &#123;<br>  <span class="hljs-attr">label</span>: <span class="hljs-built_in">string</span>;<br>  <span class="hljs-attr">ref</span>?: <span class="hljs-title class_">React</span>.<span class="hljs-property">Ref</span>&lt;<span class="hljs-title class_">HTMLInputElement</span>&gt;;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Input</span>(<span class="hljs-params">&#123; ref, label, ...props &#125;: <span class="hljs-title class_">Props</span></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;ref&#125;</span> &#123;<span class="hljs-attr">...props</span>&#125; /&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="新-API：use"><a href="#新-API：use" class="headerlink" title="新 API：use"></a>新 API：use</h2><p><img src="/20250401/React19%E6%96%B0%E7%89%B9%E6%80%A7/use.png" srcset="/img/loading.gif" lazyload alt="use"></p>
+<p><code>use</code> 是 React 19 引入的一个全新 API，它可以让你读取类似于 <code>Promise</code> 或 <code>Context</code> 的资源的值。这是 React 首个可以在条件语句和循环中调用的 Hook。</p>
+<h3 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h3><ol>
+<li><strong>可以在条件语句中使用</strong>（突破了 Hooks 规则的限制）</li>
+<li><strong>支持读取 Promise</strong></li>
+<li><strong>支持读取 Context</strong></li>
+<li><strong>通常搭配 <code>Suspense</code> 和错误边界使用</strong></li>
+</ol>
+<h3 id="使用场景一：读取-Context"><a href="#使用场景一：读取-Context" class="headerlink" title="使用场景一：读取 Context"></a>使用场景一：读取 Context</h3><p><code>use</code> 可以替代 <code>useContext</code>，并且更加灵活，可以在条件语句中使用。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; createContext, use &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">ThemeContext</span> = <span class="hljs-title function_">createContext</span>(<span class="hljs-literal">null</span>);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">MyApp</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ThemeContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;dark&quot;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Form</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ThemeContext.Provider</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Form</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Panel</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Welcome&quot;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">show</span>=<span class="hljs-string">&#123;true&#125;</span>&gt;</span>Sign up<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">show</span>=<span class="hljs-string">&#123;false&#125;</span>&gt;</span>Log in<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">Panel</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Panel</span>(<span class="hljs-params">&#123; title, children &#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> theme = <span class="hljs-title function_">use</span>(<span class="hljs-title class_">ThemeContext</span>);<br>  <span class="hljs-keyword">const</span> className = <span class="hljs-string">&#x27;panel-&#x27;</span> + theme;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&#123;className&#125;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="language-xml">      &#123;children&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Button</span>(<span class="hljs-params">&#123; show, children &#125;</span>) &#123;<br>  <span class="hljs-comment">// 重点：use 可以在条件语句中调用！</span><br>  <span class="hljs-keyword">if</span> (show) &#123;<br>    <span class="hljs-keyword">const</span> theme = <span class="hljs-title function_">use</span>(<span class="hljs-title class_">ThemeContext</span>);<br>    <span class="hljs-keyword">const</span> className = <span class="hljs-string">&#x27;button-&#x27;</span> + theme;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&#123;className&#125;</span>&gt;</span></span><br><span class="language-xml">        &#123;children&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>    );<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>对比 useContext：</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// ❌ useContext 不能在条件语句中使用</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Button</span>(<span class="hljs-params">&#123; show, children &#125;</span>) &#123;<br>  <span class="hljs-keyword">if</span> (show) &#123;<br>    <span class="hljs-keyword">const</span> theme = <span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">ThemeContext</span>); <span class="hljs-comment">// 错误！违反 Hooks 规则</span><br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>&#123;children&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>;<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// ✅ use 可以在条件语句中使用</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Button</span>(<span class="hljs-params">&#123; show, children &#125;</span>) &#123;<br>  <span class="hljs-keyword">if</span> (show) &#123;<br>    <span class="hljs-keyword">const</span> theme = <span class="hljs-title function_">use</span>(<span class="hljs-title class_">ThemeContext</span>); <span class="hljs-comment">// 正确！</span><br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>&#123;children&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="使用场景二：读取-Promise（数据获取）"><a href="#使用场景二：读取-Promise（数据获取）" class="headerlink" title="使用场景二：读取 Promise（数据获取）"></a>使用场景二：读取 Promise（数据获取）</h3><p><code>use</code> 最强大的功能是可以直接读取 Promise，配合 Suspense 实现优雅的异步数据加载。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; use, <span class="hljs-title class_">Suspense</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-comment">// 模拟异步数据获取</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">fetchUser</span>(<span class="hljs-params">userId</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`/api/users/<span class="hljs-subst">$&#123;userId&#125;</span>`</span>)<br>    .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.<span class="hljs-title function_">json</span>());<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">UserProfile</span>(<span class="hljs-params">&#123; userPromise &#125;</span>) &#123;<br>  <span class="hljs-comment">// 直接读取 Promise，组件会自动 suspend</span><br>  <span class="hljs-keyword">const</span> user = <span class="hljs-title function_">use</span>(userPromise);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>&#123;user.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;user.email&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;user.bio&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> userPromise = <span class="hljs-title function_">fetchUser</span>(<span class="hljs-number">1</span>);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Suspense</span> <span class="hljs-attr">fallback</span>=<span class="hljs-string">&#123;</span>&lt;<span class="hljs-attr">div</span>&gt;</span>加载用户信息...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>&#125;&gt;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">UserProfile</span> <span class="hljs-attr">userPromise</span>=<span class="hljs-string">&#123;userPromise&#125;</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">Suspense</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="使用场景三：配合-Suspense-和-ErrorBoundary"><a href="#使用场景三：配合-Suspense-和-ErrorBoundary" class="headerlink" title="使用场景三：配合 Suspense 和 ErrorBoundary"></a>使用场景三：配合 Suspense 和 ErrorBoundary</h3><p>完整的错误处理和加载状态管理。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; use, <span class="hljs-title class_">Suspense</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">ErrorBoundary</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-error-boundary&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Message</span>(<span class="hljs-params">&#123; messagePromise &#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> messageContent = <span class="hljs-title function_">use</span>(messagePromise);<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Here is the message: &#123;messageContent&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">MessageContainer</span>(<span class="hljs-params">&#123; messagePromise &#125;</span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ErrorBoundary</span> <span class="hljs-attr">fallback</span>=<span class="hljs-string">&#123;</span>&lt;<span class="hljs-attr">p</span>&gt;</span>⚠️ Something went wrong<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&#125;&gt;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Suspense</span> <span class="hljs-attr">fallback</span>=<span class="hljs-string">&#123;</span>&lt;<span class="hljs-attr">p</span>&gt;</span>⌛ Downloading message...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&#125;&gt;</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Message</span> <span class="hljs-attr">messagePromise</span>=<span class="hljs-string">&#123;messagePromise&#125;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">Suspense</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ErrorBoundary</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-comment">// 使用示例</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> messagePromise = <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;/api/message&#x27;</span>)<br>    .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (!res.<span class="hljs-property">ok</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Failed to fetch&#x27;</span>);<br>      <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">text</span>();<br>    &#125;);<br><br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">MessageContainer</span> <span class="hljs-attr">messagePromise</span>=<span class="hljs-string">&#123;messagePromise&#125;</span> /&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="高级用法：条件数据获取"><a href="#高级用法：条件数据获取" class="headerlink" title="高级用法：条件数据获取"></a>高级用法：条件数据获取</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; use, <span class="hljs-title class_">Suspense</span>, useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">UserData</span>(<span class="hljs-params">&#123; userId &#125;</span>) &#123;<br>  <span class="hljs-comment">// 只在 userId 存在时才获取数据</span><br>  <span class="hljs-keyword">if</span> (!userId) &#123;<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>请选择一个用户<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br>  &#125;<br><br>  <span class="hljs-comment">// 在条件语句中使用 use</span><br>  <span class="hljs-keyword">const</span> user = <span class="hljs-title function_">use</span>(<span class="hljs-title function_">fetchUser</span>(userId));<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>&#123;user.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;user.email&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [selectedUserId, setSelectedUserId] = <span class="hljs-title function_">useState</span>(<span class="hljs-literal">null</span>);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;(e)</span> =&gt;</span> setSelectedUserId(e.target.value)&#125;&gt;</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>选择用户<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>用户 1<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;2&quot;</span>&gt;</span>用户 2<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Suspense</span> <span class="hljs-attr">fallback</span>=<span class="hljs-string">&#123;</span>&lt;<span class="hljs-attr">div</span>&gt;</span>加载中...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>&#125;&gt;</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">UserData</span> <span class="hljs-attr">userId</span>=<span class="hljs-string">&#123;selectedUserId&#125;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">Suspense</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="循环中使用-use"><a href="#循环中使用-use" class="headerlink" title="循环中使用 use"></a>循环中使用 use</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">PostList</span>(<span class="hljs-params">&#123; postIds &#125;</span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span></span><br><span class="language-xml">      &#123;postIds.map(id =&gt; &#123;</span><br><span class="language-xml">        // 在循环中使用 use</span><br><span class="language-xml">        const post = use(fetchPost(id));</span><br><span class="language-xml">        return (</span><br><span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;id&#125;</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>&#123;post.title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;post.content&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">          <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">        );</span><br><span class="language-xml">      &#125;)&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Suspense</span> <span class="hljs-attr">fallback</span>=<span class="hljs-string">&#123;</span>&lt;<span class="hljs-attr">div</span>&gt;</span>加载文章列表...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>&#125;&gt;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">PostList</span> <span class="hljs-attr">postIds</span>=<span class="hljs-string">&#123;[1,</span> <span class="hljs-attr">2</span>, <span class="hljs-attr">3</span>, <span class="hljs-attr">4</span>, <span class="hljs-attr">5</span>]&#125; /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">Suspense</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="use-vs-useContext-vs-传统数据获取"><a href="#use-vs-useContext-vs-传统数据获取" class="headerlink" title="use vs useContext vs 传统数据获取"></a>use vs useContext vs 传统数据获取</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>use</th>
+<th>useContext</th>
+<th>useEffect + useState</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>可在条件语句中使用</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>可在循环中使用</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>读取 Promise</td>
+<td>✅</td>
+<td>❌</td>
+<td>需要手动处理</td>
+</tr>
+<tr>
+<td>读取 Context</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>自动 Suspense</td>
+<td>✅</td>
+<td>❌</td>
+<td>需要手动实现</td>
+</tr>
+<tr>
+<td>错误处理</td>
+<td>自动（配合 ErrorBoundary）</td>
+<td>❌</td>
+<td>需要手动实现</td>
+</tr>
+</tbody></table>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li><strong>Promise 必须是稳定的</strong>：不要在组件内部创建 Promise，应该从 props 接收或使用缓存</li>
+<li><strong>配合 Suspense 使用</strong>：读取 Promise 时必须包裹在 Suspense 中</li>
+<li><strong>错误边界</strong>：建议配合 ErrorBoundary 处理错误情况</li>
+<li><strong>SSR 支持</strong>：use API 完全支持服务端渲染</li>
+</ol>
+<h2 id="React-19-Actions"><a href="#React-19-Actions" class="headerlink" title="React 19 Actions"></a>React 19 Actions</h2><p>Actions 是 React 19 引入的一个重要概念，用于处理数据变更操作（如表单提交、API 调用等）。Actions 自动处理加载状态、错误处理和乐观更新。</p>
+<h3 id="什么是-Actions"><a href="#什么是-Actions" class="headerlink" title="什么是 Actions"></a>什么是 Actions</h3><p>Actions 是异步函数，用于管理数据提交的整个生命周期：</p>
+<ul>
+<li><strong>pending 状态</strong>：自动跟踪异步操作的进行状态</li>
+<li><strong>错误处理</strong>：自动捕获和处理错误</li>
+<li><strong>乐观更新</strong>：在请求完成前先更新 UI</li>
+<li><strong>自动重置</strong>：表单自动重置</li>
+</ul>
+<h3 id="useActionState"><a href="#useActionState" class="headerlink" title="useActionState"></a>useActionState</h3><p><code>useActionState</code> 是用于管理 Action 状态的新 Hook。</p>
+<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; useActionState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">updateName</span>(<span class="hljs-params">previousState, formData</span>) &#123;<br>  <span class="hljs-keyword">const</span> name = formData.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;name&#x27;</span>);<br>  <br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-comment">// 模拟 API 调用</span><br>    <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;/api/update-name&#x27;</span>, &#123;<br>      <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,<br>      <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(&#123; name &#125;)<br>    &#125;);<br>    <br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;更新成功！&#x27;</span> &#125;;<br>  &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">success</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;更新失败&#x27;</span> &#125;;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">UpdateNameForm</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [state, submitAction, isPending] = <span class="hljs-title function_">useActionState</span>(updateName, &#123;<br>    <span class="hljs-attr">success</span>: <span class="hljs-literal">null</span>,<br>    <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;&#x27;</span><br>  &#125;);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&#123;submitAction&#125;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">required</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">&#123;isPending&#125;</span>&gt;</span></span><br><span class="language-xml">        &#123;isPending ? &#x27;提交中...&#x27; : &#x27;提交&#x27;&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">      </span><br><span class="language-xml">      &#123;state.message &amp;&amp; (</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">color:</span> <span class="hljs-attr">state.success</span> ? &#x27;<span class="hljs-attr">green</span>&#x27; <span class="hljs-attr">:</span> &#x27;<span class="hljs-attr">red</span>&#x27; &#125;&#125;&gt;</span></span><br><span class="language-xml">          &#123;state.message&#125;</span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">      )&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="完整示例：用户注册表单"><a href="#完整示例：用户注册表单" class="headerlink" title="完整示例：用户注册表单"></a>完整示例：用户注册表单</h4><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; useActionState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">registerUser</span>(<span class="hljs-params">previousState, formData</span>) &#123;<br>  <span class="hljs-keyword">const</span> username = formData.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;username&#x27;</span>);<br>  <span class="hljs-keyword">const</span> email = formData.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;email&#x27;</span>);<br>  <span class="hljs-keyword">const</span> password = formData.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;password&#x27;</span>);<br><br>  <span class="hljs-comment">// 表单验证</span><br>  <span class="hljs-keyword">if</span> (password.<span class="hljs-property">length</span> &lt; <span class="hljs-number">6</span>) &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>      <span class="hljs-attr">success</span>: <span class="hljs-literal">false</span>,<br>      <span class="hljs-attr">errors</span>: &#123; <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;密码至少需要6个字符&#x27;</span> &#125;<br>    &#125;;<br>  &#125;<br><br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;/api/register&#x27;</span>, &#123;<br>      <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,<br>      <span class="hljs-attr">headers</span>: &#123; <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span> &#125;,<br>      <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(&#123; username, email, password &#125;)<br>    &#125;);<br><br>    <span class="hljs-keyword">if</span> (!response.<span class="hljs-property">ok</span>) &#123;<br>      <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();<br>      <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">success</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">errors</span>: error &#125;;<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span>, user &#125;;<br>  &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>      <span class="hljs-attr">success</span>: <span class="hljs-literal">false</span>,<br>      <span class="hljs-attr">errors</span>: &#123; <span class="hljs-attr">general</span>: <span class="hljs-string">&#x27;注册失败，请稍后重试&#x27;</span> &#125;<br>    &#125;;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">RegistrationForm</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [state, submitAction, isPending] = <span class="hljs-title function_">useActionState</span>(registerUser, &#123;<br>    <span class="hljs-attr">success</span>: <span class="hljs-literal">null</span>,<br>    <span class="hljs-attr">errors</span>: &#123;&#125;<br>  &#125;);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&#123;submitAction&#125;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">htmlFor</span>=<span class="hljs-string">&quot;username&quot;</span>&gt;</span>用户名：<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;username&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">required</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">disabled</span>=<span class="hljs-string">&#123;isPending&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">htmlFor</span>=<span class="hljs-string">&quot;email&quot;</span>&gt;</span>邮箱：<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;email&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;email&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;email&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">required</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">disabled</span>=<span class="hljs-string">&#123;isPending&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        /&gt;</span></span><br><span class="language-xml">        &#123;state.errors?.email &amp;&amp; (</span><br><span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;error&quot;</span>&gt;</span>&#123;state.errors.email&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">        )&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">htmlFor</span>=<span class="hljs-string">&quot;password&quot;</span>&gt;</span>密码：<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;password&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;password&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">required</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">disabled</span>=<span class="hljs-string">&#123;isPending&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        /&gt;</span></span><br><span class="language-xml">        &#123;state.errors?.password &amp;&amp; (</span><br><span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;error&quot;</span>&gt;</span>&#123;state.errors.password&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">        )&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">&#123;isPending&#125;</span>&gt;</span></span><br><span class="language-xml">        &#123;isPending ? &#x27;注册中...&#x27; : &#x27;注册&#x27;&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">      &#123;state.errors?.general &amp;&amp; (</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;error&quot;</span>&gt;</span>&#123;state.errors.general&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">      )&#125;</span><br><span class="language-xml"></span><br><span class="language-xml">      &#123;state.success &amp;&amp; (</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;success&quot;</span>&gt;</span>注册成功！欢迎 &#123;state.user.username&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">      )&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="useActionState-参数详解"><a href="#useActionState-参数详解" class="headerlink" title="useActionState 参数详解"></a>useActionState 参数详解</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> [state, action, isPending] = <span class="hljs-title function_">useActionState</span>(fn, initialState, permalink?)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>fn</strong>: Action 函数，接收 <code>(previousState, formData)</code> 参数</li>
+<li><strong>initialState</strong>: 初始状态</li>
+<li><strong>permalink</strong>（可选）: 用于渐进增强的 URL</li>
+<li><strong>返回值</strong>:<ul>
+<li><code>state</code>: 当前状态</li>
+<li><code>action</code>: 可以传递给表单的 action 属性</li>
+<li><code>isPending</code>: 布尔值，表示操作是否正在进行</li>
+</ul>
+</li>
+</ul>
+<h2 id="useOptimistic"><a href="#useOptimistic" class="headerlink" title="useOptimistic"></a>useOptimistic</h2><p><code>useOptimistic</code> 用于实现乐观更新，在服务器响应前先更新 UI，提供即时反馈。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>乐观更新：先假设操作会成功，立即更新 UI，如果失败再回滚。</p>
+<h3 id="基本用法-1"><a href="#基本用法-1" class="headerlink" title="基本用法"></a>基本用法</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; useOptimistic, useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">LikeButton</span>(<span class="hljs-params">&#123; postId, initialLikes &#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> [likes, setLikes] = <span class="hljs-title function_">useState</span>(initialLikes);<br>  <span class="hljs-keyword">const</span> [optimisticLikes, addOptimisticLike] = <span class="hljs-title function_">useOptimistic</span>(<br>    likes,<br>    <span class="hljs-function">(<span class="hljs-params">currentLikes, amount</span>) =&gt;</span> currentLikes + amount<br>  );<br><br>  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleLike</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-comment">// 乐观更新：立即显示 +1</span><br>    <span class="hljs-title function_">addOptimisticLike</span>(<span class="hljs-number">1</span>);<br><br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-comment">// 实际的 API 调用</span><br>      <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`/api/posts/<span class="hljs-subst">$&#123;postId&#125;</span>/like`</span>, &#123;<br>        <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span><br>      &#125;);<br>      <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();<br>      <br>      <span class="hljs-comment">// 更新真实数据</span><br>      <span class="hljs-title function_">setLikes</span>(data.<span class="hljs-property">likes</span>);<br>    &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>      <span class="hljs-comment">// 如果失败，乐观更新会自动回滚</span><br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;点赞失败&#x27;</span>, error);<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;handleLike&#125;</span>&gt;</span></span><br><span class="language-xml">      ❤️ &#123;optimisticLikes&#125; 个赞</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="完整示例：待办事项列表"><a href="#完整示例：待办事项列表" class="headerlink" title="完整示例：待办事项列表"></a>完整示例：待办事项列表</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; useOptimistic, useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">TodoList</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [todos, setTodos] = <span class="hljs-title function_">useState</span>([<br>    &#123; <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;学习 React 19&#x27;</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> &#125;,<br>    &#123; <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;写博客文章&#x27;</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> &#125;<br>  ]);<br><br>  <span class="hljs-keyword">const</span> [optimisticTodos, addOptimisticTodo] = <span class="hljs-title function_">useOptimistic</span>(<br>    todos,<br>    <span class="hljs-function">(<span class="hljs-params">currentTodos, newTodo</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (newTodo.<span class="hljs-property">type</span> === <span class="hljs-string">&#x27;add&#x27;</span>) &#123;<br>        <span class="hljs-keyword">return</span> [...currentTodos, newTodo.<span class="hljs-property">todo</span>];<br>      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (newTodo.<span class="hljs-property">type</span> === <span class="hljs-string">&#x27;toggle&#x27;</span>) &#123;<br>        <span class="hljs-keyword">return</span> currentTodos.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">todo</span> =&gt;</span><br>          todo.<span class="hljs-property">id</span> === newTodo.<span class="hljs-property">id</span><br>            ? &#123; ...todo, <span class="hljs-attr">completed</span>: !todo.<span class="hljs-property">completed</span> &#125;<br>            : todo<br>        );<br>      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (newTodo.<span class="hljs-property">type</span> === <span class="hljs-string">&#x27;delete&#x27;</span>) &#123;<br>        <span class="hljs-keyword">return</span> currentTodos.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">todo</span> =&gt;</span> todo.<span class="hljs-property">id</span> !== newTodo.<span class="hljs-property">id</span>);<br>      &#125;<br>      <span class="hljs-keyword">return</span> currentTodos;<br>    &#125;<br>  );<br><br>  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">addTodo</span>(<span class="hljs-params">text</span>) &#123;<br>    <span class="hljs-keyword">const</span> newTodo = &#123;<br>      <span class="hljs-attr">id</span>: <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>(),<br>      text,<br>      <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span><br>    &#125;;<br><br>    <span class="hljs-comment">// 乐观更新</span><br>    <span class="hljs-title function_">addOptimisticTodo</span>(&#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;add&#x27;</span>, <span class="hljs-attr">todo</span>: newTodo &#125;);<br><br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;/api/todos&#x27;</span>, &#123;<br>        <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,<br>        <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(newTodo)<br>      &#125;);<br>      <span class="hljs-keyword">const</span> savedTodo = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();<br>      <span class="hljs-title function_">setTodos</span>(<span class="hljs-function"><span class="hljs-params">prev</span> =&gt;</span> [...prev, savedTodo]);<br>    &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;添加失败&#x27;</span>, error);<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">toggleTodo</span>(<span class="hljs-params">id</span>) &#123;<br>    <span class="hljs-comment">// 乐观更新</span><br>    <span class="hljs-title function_">addOptimisticTodo</span>(&#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;toggle&#x27;</span>, id &#125;);<br><br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`/api/todos/<span class="hljs-subst">$&#123;id&#125;</span>/toggle`</span>, &#123; <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span> &#125;);<br>      <span class="hljs-title function_">setTodos</span>(<span class="hljs-function"><span class="hljs-params">prev</span> =&gt;</span><br>        prev.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">todo</span> =&gt;</span><br>          todo.<span class="hljs-property">id</span> === id ? &#123; ...todo, <span class="hljs-attr">completed</span>: !todo.<span class="hljs-property">completed</span> &#125; : todo<br>        )<br>      );<br>    &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;切换失败&#x27;</span>, error);<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">deleteTodo</span>(<span class="hljs-params">id</span>) &#123;<br>    <span class="hljs-comment">// 乐观更新</span><br>    <span class="hljs-title function_">addOptimisticTodo</span>(&#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;delete&#x27;</span>, id &#125;);<br><br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`/api/todos/<span class="hljs-subst">$&#123;id&#125;</span>`</span>, &#123; <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;DELETE&#x27;</span> &#125;);<br>      <span class="hljs-title function_">setTodos</span>(<span class="hljs-function"><span class="hljs-params">prev</span> =&gt;</span> prev.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">todo</span> =&gt;</span> todo.<span class="hljs-property">id</span> !== id));<br>    &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;删除失败&#x27;</span>, error);<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>待办事项<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span></span><br><span class="language-xml">        &#123;optimisticTodos.map(todo =&gt; (</span><br><span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">li</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;todo.id&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;&#123;</span></span></span><br><span class="hljs-tag"><span class="language-xml">              <span class="hljs-attr">textDecoration:</span> <span class="hljs-attr">todo.completed</span> ? &#x27;<span class="hljs-attr">line-through</span>&#x27; <span class="hljs-attr">:</span> &#x27;<span class="hljs-attr">none</span>&#x27;,</span></span><br><span class="hljs-tag"><span class="language-xml">              <span class="hljs-attr">opacity:</span> <span class="hljs-attr">todo.id</span> &gt;</span> 1000000000000 ? 0.6 : 1 // 新添加的项稍微透明</span><br><span class="language-xml">            &#125;&#125;</span><br><span class="language-xml">          &gt;</span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">              <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">              <span class="hljs-attr">checked</span>=<span class="hljs-string">&#123;todo.completed&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">              <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> toggleTodo(todo.id)&#125;</span><br><span class="language-xml">            /&gt;</span><br><span class="language-xml">            &#123;todo.text&#125;</span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> deleteTodo(todo.id)&#125;&gt;删除<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">          <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">        ))&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="聊天应用示例"><a href="#聊天应用示例" class="headerlink" title="聊天应用示例"></a>聊天应用示例</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; useOptimistic, useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">ChatRoom</span>(<span class="hljs-params">&#123; roomId &#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> [messages, setMessages] = <span class="hljs-title function_">useState</span>([]);<br>  <span class="hljs-keyword">const</span> [optimisticMessages, addOptimisticMessage] = <span class="hljs-title function_">useOptimistic</span>(<br>    messages,<br>    <span class="hljs-function">(<span class="hljs-params">currentMessages, newMessage</span>) =&gt;</span> [...currentMessages, newMessage]<br>  );<br><br>  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">sendMessage</span>(<span class="hljs-params">text</span>) &#123;<br>    <span class="hljs-keyword">const</span> tempMessage = &#123;<br>      <span class="hljs-attr">id</span>: <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>(),<br>      text,<br>      <span class="hljs-attr">sender</span>: <span class="hljs-string">&#x27;me&#x27;</span>,<br>      <span class="hljs-attr">status</span>: <span class="hljs-string">&#x27;sending&#x27;</span> <span class="hljs-comment">// 发送中状态</span><br>    &#125;;<br><br>    <span class="hljs-comment">// 乐观更新：立即显示消息</span><br>    <span class="hljs-title function_">addOptimisticMessage</span>(tempMessage);<br><br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`/api/rooms/<span class="hljs-subst">$&#123;roomId&#125;</span>/messages`</span>, &#123;<br>        <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,<br>        <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(&#123; text &#125;)<br>      &#125;);<br>      <span class="hljs-keyword">const</span> savedMessage = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();<br>      <br>      <span class="hljs-comment">// 替换临时消息为服务器返回的消息</span><br>      <span class="hljs-title function_">setMessages</span>(<span class="hljs-function"><span class="hljs-params">prev</span> =&gt;</span> [...prev, savedMessage]);<br>    &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>      <span class="hljs-comment">// 失败会自动回滚</span><br>      <span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;消息发送失败&#x27;</span>);<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;messages&quot;</span>&gt;</span></span><br><span class="language-xml">        &#123;optimisticMessages.map(msg =&gt; (</span><br><span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">div</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;msg.id&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">className</span>=<span class="hljs-string">&#123;</span>`<span class="hljs-attr">message</span> $&#123;<span class="hljs-attr">msg.status</span> === <span class="hljs-string">&#x27;sending&#x27;</span> ? &#x27;<span class="hljs-attr">pending</span>&#x27; <span class="hljs-attr">:</span> &#x27;&#x27;&#125;`&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">          &gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>&#123;msg.sender&#125;:<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span> &#123;msg.text&#125;</span><br><span class="language-xml">            &#123;msg.status === &#x27;sending&#x27; &amp;&amp; <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>⏳<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>&#125;</span><br><span class="language-xml">          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        ))&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">MessageInput</span> <span class="hljs-attr">onSend</span>=<span class="hljs-string">&#123;sendMessage&#125;</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="useFormStatus"><a href="#useFormStatus" class="headerlink" title="useFormStatus"></a>useFormStatus</h2><p><code>useFormStatus</code> 用于获取表单的提交状态，特别适合在表单的子组件中使用。</p>
+<h3 id="基本用法-2"><a href="#基本用法-2" class="headerlink" title="基本用法"></a>基本用法</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; useFormStatus &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">SubmitButton</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> &#123; pending, data, method, action &#125; = <span class="hljs-title function_">useFormStatus</span>();<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">&#123;pending&#125;</span>&gt;</span></span><br><span class="language-xml">      &#123;pending ? &#x27;提交中...&#x27; : &#x27;提交&#x27;&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyForm</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleSubmit</span>(<span class="hljs-params">formData</span>) &#123;<br>    <span class="hljs-keyword">const</span> name = formData.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;name&#x27;</span>);<br>    <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;/api/submit&#x27;</span>, &#123;<br>      <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,<br>      <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(&#123; name &#125;)<br>    &#125;);<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&#123;handleSubmit&#125;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">SubmitButton</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="完整示例：带加载状态的表单"><a href="#完整示例：带加载状态的表单" class="headerlink" title="完整示例：带加载状态的表单"></a>完整示例：带加载状态的表单</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; useFormStatus &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; useActionState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-comment">// 提交按钮组件</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">SubmitButton</span>(<span class="hljs-params">&#123; children &#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> &#123; pending &#125; = <span class="hljs-title function_">useFormStatus</span>();<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">&#123;pending&#125;</span>&gt;</span></span><br><span class="language-xml">      &#123;pending ? (</span><br><span class="language-xml">        <span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">Spinner</span> /&gt;</span> 提交中...</span><br><span class="language-xml">        <span class="hljs-tag">&lt;/&gt;</span></span><br>      ) : (<br>        children<br>      )&#125;<br>    &lt;/button&gt;<br>  );<br>&#125;<br><br><span class="hljs-comment">// 表单字段组件</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">FormFields</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> &#123; pending &#125; = <span class="hljs-title function_">useFormStatus</span>();<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;email&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;email&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;邮箱&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">disabled</span>=<span class="hljs-string">&#123;pending&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">required</span></span></span><br><span class="hljs-tag"><span class="language-xml">      /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;password&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;密码&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">disabled</span>=<span class="hljs-string">&#123;pending&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">required</span></span></span><br><span class="hljs-tag"><span class="language-xml">      /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-comment">// 主表单组件</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">login</span>(<span class="hljs-params">previousState, formData</span>) &#123;<br>  <span class="hljs-keyword">const</span> email = formData.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;email&#x27;</span>);<br>  <span class="hljs-keyword">const</span> password = formData.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;password&#x27;</span>);<br><br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;/api/login&#x27;</span>, &#123;<br>      <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,<br>      <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(&#123; email, password &#125;)<br>    &#125;);<br><br>    <span class="hljs-keyword">if</span> (!response.<span class="hljs-property">ok</span>) &#123;<br>      <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">error</span>: <span class="hljs-string">&#x27;登录失败，请检查邮箱和密码&#x27;</span> &#125;;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span> &#125;;<br>  &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">error</span>: <span class="hljs-string">&#x27;网络错误，请稍后重试&#x27;</span> &#125;;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">LoginForm</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [state, action] = <span class="hljs-title function_">useActionState</span>(login, &#123;&#125;);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&#123;action&#125;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">FormFields</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">SubmitButton</span>&gt;</span>登录<span class="hljs-tag">&lt;/<span class="hljs-name">SubmitButton</span>&gt;</span></span><br><span class="language-xml">      </span><br><span class="language-xml">      &#123;state.error &amp;&amp; (</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;error&quot;</span>&gt;</span>&#123;state.error&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">      )&#125;</span><br><span class="language-xml">      &#123;state.success &amp;&amp; (</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;success&quot;</span>&gt;</span>登录成功！<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">      )&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="高级示例：多步骤表单"><a href="#高级示例：多步骤表单" class="headerlink" title="高级示例：多步骤表单"></a>高级示例：多步骤表单</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; useFormStatus &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">StepIndicator</span>(<span class="hljs-params">&#123; currentStep, totalSteps &#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> &#123; pending &#125; = <span class="hljs-title function_">useFormStatus</span>();<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;steps&quot;</span>&gt;</span></span><br><span class="language-xml">      &#123;Array.from(&#123; length: totalSteps &#125;, (_, i) =&gt; (</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;i&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">className</span>=<span class="hljs-string">&#123;</span>`<span class="hljs-attr">step</span> $&#123;<span class="hljs-attr">i</span> &lt; <span class="hljs-attr">currentStep</span> ? &#x27;<span class="hljs-attr">completed</span>&#x27; <span class="hljs-attr">:</span> &#x27;&#x27;&#125; $&#123;</span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">i</span> === <span class="hljs-string">currentStep</span> ? &#x27;<span class="hljs-attr">active</span>&#x27; <span class="hljs-attr">:</span> &#x27;&#x27;</span></span><br><span class="hljs-tag"><span class="language-xml">          &#125; $&#123;<span class="hljs-attr">pending</span> ? &#x27;<span class="hljs-attr">disabled</span>&#x27; <span class="hljs-attr">:</span> &#x27;&#x27;&#125;`&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">        &gt;</span></span><br><span class="language-xml">          步骤 &#123;i + 1&#125;</span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      ))&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">NavigationButtons</span>(<span class="hljs-params">&#123; currentStep, totalSteps, onBack &#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> &#123; pending &#125; = <span class="hljs-title function_">useFormStatus</span>();<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;navigation&quot;</span>&gt;</span></span><br><span class="language-xml">      &#123;currentStep &gt; 0 &amp;&amp; (</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">button</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onBack&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">disabled</span>=<span class="hljs-string">&#123;pending&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        &gt;</span></span><br><span class="language-xml">          上一步</span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">      )&#125;</span><br><span class="language-xml">      </span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">&#123;pending&#125;</span>&gt;</span></span><br><span class="language-xml">        &#123;pending ? (</span><br><span class="language-xml">          &#x27;处理中...&#x27;</span><br><span class="language-xml">        ) : currentStep === totalSteps - 1 ? (</span><br><span class="language-xml">          &#x27;完成&#x27;</span><br><span class="language-xml">        ) : (</span><br><span class="language-xml">          &#x27;下一步&#x27;</span><br><span class="language-xml">        )&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">MultiStepForm</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [step, setStep] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);<br><br>  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleSubmit</span>(<span class="hljs-params">formData</span>) &#123;<br>    <span class="hljs-comment">// 处理表单提交</span><br>    <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> <span class="hljs-built_in">setTimeout</span>(resolve, <span class="hljs-number">1000</span>));<br>    <br>    <span class="hljs-keyword">if</span> (step &lt; <span class="hljs-number">2</span>) &#123;<br>      <span class="hljs-title function_">setStep</span>(step + <span class="hljs-number">1</span>);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-comment">// 最后一步，提交表单</span><br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;表单提交完成&#x27;</span>);<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&#123;handleSubmit&#125;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">StepIndicator</span> <span class="hljs-attr">currentStep</span>=<span class="hljs-string">&#123;step&#125;</span> <span class="hljs-attr">totalSteps</span>=<span class="hljs-string">&#123;3&#125;</span> /&gt;</span></span><br><span class="language-xml">      </span><br><span class="language-xml">      &#123;step === 0 &amp;&amp; <span class="hljs-tag">&lt;<span class="hljs-name">Step1Fields</span> /&gt;</span>&#125;</span><br><span class="language-xml">      &#123;step === 1 &amp;&amp; <span class="hljs-tag">&lt;<span class="hljs-name">Step2Fields</span> /&gt;</span>&#125;</span><br><span class="language-xml">      &#123;step === 2 &amp;&amp; <span class="hljs-tag">&lt;<span class="hljs-name">Step3Fields</span> /&gt;</span>&#125;</span><br><span class="language-xml">      </span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">NavigationButtons</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">currentStep</span>=<span class="hljs-string">&#123;step&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">totalSteps</span>=<span class="hljs-string">&#123;3&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">onBack</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> setStep(step - 1)&#125;</span><br><span class="language-xml">      /&gt;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="useFormStatus-返回值"><a href="#useFormStatus-返回值" class="headerlink" title="useFormStatus 返回值"></a>useFormStatus 返回值</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> &#123; pending, data, method, action &#125; = <span class="hljs-title function_">useFormStatus</span>();<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>pending</strong>: 布尔值，表示表单是否正在提交</li>
+<li><strong>data</strong>: FormData 对象，包含表单数据</li>
+<li><strong>method</strong>: 字符串，表单的 method（’get’ 或 ‘post’）</li>
+<li><strong>action</strong>: 函数引用，表单的 action</li>
+</ul>
+<h3 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li><strong>必须在表单内部使用</strong>：<code>useFormStatus</code> 必须在 <code>&lt;form&gt;</code> 的子组件中调用</li>
+<li><strong>只能读取父表单状态</strong>：不能读取同级或子表单的状态</li>
+<li><strong>配合 Actions 使用</strong>：最佳实践是配合 <code>useActionState</code> 使用</li>
+</ol>
+<h2 id="其他-React-19-新特性"><a href="#其他-React-19-新特性" class="headerlink" title="其他 React 19 新特性"></a>其他 React 19 新特性</h2><h3 id="1-文档元数据支持"><a href="#1-文档元数据支持" class="headerlink" title="1. 文档元数据支持"></a>1. 文档元数据支持</h3><p>React 19 原生支持在组件中渲染 <code>&lt;title&gt;</code>、<code>&lt;meta&gt;</code> 和 <code>&lt;link&gt;</code> 标签。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">BlogPost</span>(<span class="hljs-params">&#123; post &#125;</span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span></span><br><span class="language-xml">      &#123;/* 直接在组件中添加元数据 */&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>&#123;post.title&#125; - 我的博客<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;description&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&#123;post.excerpt&#125;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">property</span>=<span class="hljs-string">&quot;og:title&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&#123;post.title&#125;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">property</span>=<span class="hljs-string">&quot;og:image&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&#123;post.coverImage&#125;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;canonical&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&#123;</span>`<span class="hljs-attr">https:</span>//<span class="hljs-attr">myblog.com</span>/<span class="hljs-attr">posts</span>/$&#123;<span class="hljs-attr">post.slug</span>&#125;`&#125; /&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;post.title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;post.content&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-样式表优先级"><a href="#2-样式表优先级" class="headerlink" title="2. 样式表优先级"></a>2. 样式表优先级</h3><p>React 19 改进了样式表的加载和优先级管理。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Component</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">      &#123;/* React 会自动处理样式表的优先级 */&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/styles/base.css&quot;</span> <span class="hljs-attr">precedence</span>=<span class="hljs-string">&quot;default&quot;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/styles/theme.css&quot;</span> <span class="hljs-attr">precedence</span>=<span class="hljs-string">&quot;high&quot;</span> /&gt;</span></span><br><span class="language-xml">      </span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span>内容<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-异步脚本支持"><a href="#3-异步脚本支持" class="headerlink" title="3. 异步脚本支持"></a>3. 异步脚本支持</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Analytics</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">async</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://analytics.example.com/script.js&quot;</span> /&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-资源预加载"><a href="#4-资源预加载" class="headerlink" title="4. 资源预加载"></a>4. 资源预加载</h3><p>React 19 提供了新的 API 用于资源预加载。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; preload, preinit &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// 预加载资源</span><br>  <span class="hljs-title function_">preload</span>(<span class="hljs-string">&#x27;/api/data.json&#x27;</span>, &#123; <span class="hljs-attr">as</span>: <span class="hljs-string">&#x27;fetch&#x27;</span> &#125;);<br>  <br>  <span class="hljs-comment">// 预初始化脚本</span><br>  <span class="hljs-title function_">preinit</span>(<span class="hljs-string">&#x27;/scripts/analytics.js&#x27;</span>, &#123; <span class="hljs-attr">as</span>: <span class="hljs-string">&#x27;script&#x27;</span> &#125;);<br><br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>内容<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-ref-回调的清理函数"><a href="#5-ref-回调的清理函数" class="headerlink" title="5. ref 回调的清理函数"></a>5. ref 回调的清理函数</h3><p>ref 回调现在可以返回清理函数。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">VideoPlayer</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">video</span></span></span><br><span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;(node)</span> =&gt;</span> &#123;</span><br><span class="language-xml">        if (node) &#123;</span><br><span class="language-xml">          // 设置</span><br><span class="language-xml">          node.play();</span><br><span class="language-xml">          </span><br><span class="language-xml">          // 返回清理函数</span><br><span class="language-xml">          return () =&gt; &#123;</span><br><span class="language-xml">            node.pause();</span><br><span class="language-xml">          &#125;;</span><br><span class="language-xml">        &#125;</span><br><span class="language-xml">      &#125;&#125;</span><br><span class="language-xml">      src=&quot;/video.mp4&quot;</span><br><span class="language-xml">    /&gt;</span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-Context-作为-Provider"><a href="#6-Context-作为-Provider" class="headerlink" title="6. Context 作为 Provider"></a>6. Context 作为 Provider</h3><p>不再需要 <code>.Provider</code>，直接使用 Context 即可。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; createContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">ThemeContext</span> = <span class="hljs-title function_">createContext</span>(<span class="hljs-string">&#x27;light&#x27;</span>);<br><br><span class="hljs-comment">// React 19: 直接使用 Context</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ThemeContext</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;dark&quot;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Page</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ThemeContext</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-comment">// React 18: 需要使用 .Provider</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ThemeContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;dark&quot;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Page</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ThemeContext.Provider</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-useDeferredValue-的初始值"><a href="#7-useDeferredValue-的初始值" class="headerlink" title="7. useDeferredValue 的初始值"></a>7. useDeferredValue 的初始值</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; useDeferredValue &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">SearchResults</span>(<span class="hljs-params">&#123; query &#125;</span>) &#123;<br>  <span class="hljs-comment">// 可以提供初始值</span><br>  <span class="hljs-keyword">const</span> deferredQuery = <span class="hljs-title function_">useDeferredValue</span>(query, <span class="hljs-string">&#x27;&#x27;</span>);<br><br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Results</span> <span class="hljs-attr">query</span>=<span class="hljs-string">&#123;deferredQuery&#125;</span> /&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>React 19 带来了许多激动人心的新特性：</p>
+<h3 id="核心改进"><a href="#核心改进" class="headerlink" title="核心改进"></a>核心改进</h3><ol>
+<li><strong>ref 简化</strong>：不再需要 <code>forwardRef</code>，直接在 props 中接收 ref</li>
+<li><strong>use Hook</strong>：革命性的新 Hook，可在条件语句和循环中使用</li>
+<li><strong>Actions</strong>：优雅的异步操作管理方案</li>
+<li><strong>表单增强</strong>：<code>useActionState</code>、<code>useFormStatus</code> 简化表单处理</li>
+</ol>
+<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><ol start="5">
+<li><strong>useOptimistic</strong>：乐观更新提升用户体验</li>
+<li><strong>文档元数据</strong>：原生支持 SEO 标签</li>
+<li><strong>资源管理</strong>：改进的样式表和脚本加载</li>
+</ol>
+<h3 id="开发体验"><a href="#开发体验" class="headerlink" title="开发体验"></a>开发体验</h3><ol start="8">
+<li><strong>更简洁的 API</strong>：Context 不再需要 <code>.Provider</code></li>
+<li><strong>更好的类型支持</strong>：TypeScript 集成更完善</li>
+<li><strong>向后兼容</strong>：平滑的迁移路径</li>
+</ol>
+<h3 id="迁移建议"><a href="#迁移建议" class="headerlink" title="迁移建议"></a>迁移建议</h3><ol>
+<li><strong>渐进式升级</strong>：不需要一次性重写所有代码</li>
+<li><strong>从新功能开始</strong>：在新组件中尝试 React 19 特性</li>
+<li><strong>移除 forwardRef</strong>：逐步移除 <code>forwardRef</code> 包装</li>
+<li><strong>使用 Actions</strong>：用 Actions 替代手动的加载状态管理</li>
+<li><strong>采用 use Hook</strong>：在合适的场景使用 <code>use</code> 简化代码</li>
+</ol>
+<p>React 19 是一个重大更新，它简化了开发流程，提升了性能，并引入了更符合现代 Web 开发需求的新特性。建议开发者尽早熟悉这些新特性，为项目升级做好准备。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" class="category-chain-item">前端框架</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/React/" class="print-no-link">#React</a>
+      
+        <a href="/tags/React19/" class="print-no-link">#React19</a>
+      
+        <a href="/tags/%E6%96%B0%E7%89%B9%E6%80%A7/" class="print-no-link">#新特性</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>React19新特性</div>
+      <div>https://zouhualu.github.io/20250401/React19新特性/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>花鹿</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年4月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20250421/Vite5%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6%E5%92%8C%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="Vite5基础进阶和原理剖析">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vite5基础进阶和原理剖析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20250321/react18%E5%89%96%E6%9E%90/" title="react18剖析">
+                        <span class="hidden-mobile">react18剖析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zouHuaLu/blog_comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://music.163.com/#/song?id=441491828" target="_blank" rel="nofollow noopener"><span>Love</span></a> <i class="iconfont icon-love"></i> <a href="http://music.163.com/song?id=186145&userid=34198090" target="_blank" rel="nofollow noopener"><span>Share</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

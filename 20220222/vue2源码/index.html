@@ -1,0 +1,938 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/user/wazi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="花鹿">
+  <meta name="keywords" content="blog,走花路的长颈鹿,博客,走花鹿，花鹿">
+  
+    <meta name="description" content="为什么data是函数，而components是对象？data函数如果没有返回值会报错吗？答：会  vue源码位置：src\core\instance\state.js  1234567891011121314151617181920function initData (vm: Component) &#123;  let data &#x3D; vm.$options.data  data &#x3D; vm._da">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue2源码">
+<meta property="og:url" content="https://zouhualu.github.io/20220222/vue2%E6%BA%90%E7%A0%81/index.html">
+<meta property="og:site_name" content="花鹿">
+<meta property="og:description" content="为什么data是函数，而components是对象？data函数如果没有返回值会报错吗？答：会  vue源码位置：src\core\instance\state.js  1234567891011121314151617181920function initData (vm: Component) &#123;  let data &#x3D; vm.$options.data  data &#x3D; vm._da">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-22T03:36:51.000Z">
+<meta property="article:modified_time" content="2025-11-25T06:34:35.238Z">
+<meta property="article:author" content="花鹿">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="源码解析">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Vue2源码 - 花鹿</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zouhualu.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Love&amp;Share</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>全部</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/personal/" target="_self">
+                <i class="iconfont icon-bookmark"></i>
+                <span>个人记录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>我的独立文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://zouhualu.github.io/HTML/12%E5%91%A8%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C%E6%B3%95.html" target="_self">
+                    
+                    <span>十二周高效学习法</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Vue2源码"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        花鹿
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-02-22 11:36" pubdate>
+          2022年2月22日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Vue2源码</h1>
+            
+              <p id="updated-time" class="note note-info" style="display: none">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2025-11-25T14:34:35+08:00
+                  
+                  
+
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="为什么data是函数，而components是对象？"><a href="#为什么data是函数，而components是对象？" class="headerlink" title="为什么data是函数，而components是对象？"></a>为什么data是函数，而components是对象？</h2><h2 id="data函数如果没有返回值会报错吗？"><a href="#data函数如果没有返回值会报错吗？" class="headerlink" title="data函数如果没有返回值会报错吗？"></a>data函数如果没有返回值会报错吗？</h2><p>答：会</p>
+<blockquote>
+<p>vue源码位置：src\core\instance\state.js</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">initData</span> (<span class="hljs-params">vm: Component</span>) &#123;<br>  <span class="hljs-keyword">let</span> data = vm.<span class="hljs-property">$options</span>.<span class="hljs-property">data</span><br>  data = vm.<span class="hljs-property">_data</span> = <span class="hljs-keyword">typeof</span> data === <span class="hljs-string">&#x27;function&#x27;</span><br>    ? <span class="hljs-title function_">getData</span>(data, vm)<br>    : data || &#123;&#125;<br>    <span class="hljs-comment">// //   看这里！这里有一个判断 isPlainObject(data)</span><br>  <span class="hljs-keyword">if</span> (!<span class="hljs-title function_">isPlainObject</span>(data)) &#123;<br>    data = &#123;&#125;<br>    process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> !== <span class="hljs-string">&#x27;production&#x27;</span> &amp;&amp; <span class="hljs-title function_">warn</span>(<br>      <span class="hljs-string">&#x27;data functions should return an object:\n&#x27;</span> +<br>      <span class="hljs-string">&#x27;https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function&#x27;</span>,<br>      vm<br>    )<br>  &#125;<br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-comment">// ...</span><br>  <span class="hljs-comment">// observe data</span><br>  <span class="hljs-title function_">observe</span>(data, <span class="hljs-literal">true</span> <span class="hljs-comment">/* asRootData */</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Vue源码位置：packages\weex-template-compiler\build.js</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">isPlainObject</span> (<span class="hljs-params">obj</span>) &#123;<br>  <span class="hljs-keyword">return</span> _toString.<span class="hljs-title function_">call</span>(obj) === <span class="hljs-string">&#x27;[object Object]&#x27;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>data函数</code>执行之后将返回值重新赋值给<code>data</code>，如果<code>data</code>不是个<code>object</code>，<code>name</code>就会报出一个警告</p>
+<h2 id="为什么props定义的数据不能和data同名"><a href="#为什么props定义的数据不能和data同名" class="headerlink" title="为什么props定义的数据不能和data同名?"></a>为什么props定义的数据不能和data同名?</h2><blockquote>
+<p>vue源码路径：vue\src\core\instance\state.js</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs js"><br><span class="hljs-comment">// proxy data on instance</span><br>  <span class="hljs-keyword">const</span> keys = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(data)<br>  <span class="hljs-keyword">const</span> props = vm.<span class="hljs-property">$options</span>.<span class="hljs-property">props</span><br>  <span class="hljs-keyword">const</span> methods = vm.<span class="hljs-property">$options</span>.<span class="hljs-property">methods</span><br>  <span class="hljs-keyword">let</span> i = keys.<span class="hljs-property">length</span><br>  <span class="hljs-keyword">while</span> (i--) &#123;<br>    <span class="hljs-keyword">const</span> key = keys[i]<br>    <span class="hljs-keyword">if</span> (process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> !== <span class="hljs-string">&#x27;production&#x27;</span>) &#123;<br>      <span class="hljs-keyword">if</span> (methods &amp;&amp; <span class="hljs-title function_">hasOwn</span>(methods, key)) &#123;<br>        <span class="hljs-title function_">warn</span>(<br>          <span class="hljs-string">`Method &quot;<span class="hljs-subst">$&#123;key&#125;</span>&quot; has already been defined as a data property.`</span>,<br>          vm<br>        )<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (props &amp;&amp; <span class="hljs-title function_">hasOwn</span>(props, key)) &#123;<br>      process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> !== <span class="hljs-string">&#x27;production&#x27;</span> &amp;&amp; <span class="hljs-title function_">warn</span>(<br>        <span class="hljs-string">`The data property &quot;<span class="hljs-subst">$&#123;key&#125;</span>&quot; is already declared as a prop. `</span> +<br>        <span class="hljs-string">`Use prop default value instead.`</span>,<br>        vm<br>      )<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!<span class="hljs-title function_">isReserved</span>(key)) &#123;<br>      <span class="hljs-title function_">proxy</span>(vm, <span class="hljs-string">`_data`</span>, key)<br>    &#125;<br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以看到先获取<code>data</code>的<code>key</code>，然后再去调用<code>hasOwn</code>方法去判断<code>methods</code>和<code>props</code>里面是否有重复的<code>key</code>，有的话就会发出警告。最后都通过了之后就会调用<code>proxy(vm, &#39;_data&#39;, key)</code>，用封装的<code>proxy</code>方法对<code>vm实例</code>做了一层代理，使得我们可以直接通过<code>this</code>直接调用<code>key</code></p>
+<h2 id="vue2代理的实现"><a href="#vue2代理的实现" class="headerlink" title="vue2代理的实现"></a>vue2代理的实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> sharedPropertyDefinition = &#123;<br>  <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">get</span>: noop,<br>  <span class="hljs-attr">set</span>: noop<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">proxy</span> (<span class="hljs-params">target: <span class="hljs-built_in">Object</span>, sourceKey: string, key: string</span>) &#123;<br>  <span class="hljs-comment">// 去掉_props，vm._props.xxx =&gt; vm.xxx，可以直接访问</span><br>  sharedPropertyDefinition.<span class="hljs-property">get</span> = <span class="hljs-keyword">function</span> <span class="hljs-title function_">proxyGetter</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>[sourceKey][key]<br>  &#125;<br>  sharedPropertyDefinition.<span class="hljs-property">set</span> = <span class="hljs-keyword">function</span> <span class="hljs-title function_">proxySetter</span> (<span class="hljs-params">val</span>) &#123;<br>    <span class="hljs-variable language_">this</span>[sourceKey][key] = val<br>  &#125;<br>  <span class="hljs-comment">// 代理，</span><br>  <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(target, key, sharedPropertyDefinition)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>使用的是<code>Object.defineProperty</code>来实现的</p>
+<h2 id="Vue的初始化"><a href="#Vue的初始化" class="headerlink" title="Vue的初始化"></a>Vue的初始化</h2><blockquote>
+<p>Vue源码位置：src\core\instance\index.js</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">initMixin</span>(<span class="hljs-title class_">Vue</span>)<br><span class="hljs-title function_">stateMixin</span>(<span class="hljs-title class_">Vue</span>)<br><span class="hljs-title function_">eventsMixin</span>(<span class="hljs-title class_">Vue</span>)<br><span class="hljs-title function_">lifecycleMixin</span>(<span class="hljs-title class_">Vue</span>)<br><span class="hljs-title function_">renderMixin</span>(<span class="hljs-title class_">Vue</span>)<br></code></pre></td></tr></table></figure>
+
+<p>最先执行的是<code>initMixin()</code>，我们看看里面有啥。</p>
+<blockquote>
+<p>Vue源码位置：src\core\instance\init.js</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//init.js</span><br><br>    <span class="hljs-comment">// 初始化</span><br>    vm.<span class="hljs-property">_self</span> = vm<br>    <span class="hljs-comment">// 生命周期</span><br>    <span class="hljs-title function_">initLifecycle</span>(vm)<br>    <span class="hljs-comment">// 事件</span><br>    <span class="hljs-title function_">initEvents</span>(vm)<br>    <span class="hljs-comment">// 渲染</span><br>    <span class="hljs-title function_">initRender</span>(vm)<br>    <span class="hljs-comment">// 面试题：beforeCreae和created之间做了什么？或者说二者有什么区别？</span><br>    <span class="hljs-comment">// 答：初始化injected，初始化state，初始化provide</span><br>    <span class="hljs-title function_">callHook</span>(vm, <span class="hljs-string">&#x27;beforeCreate&#x27;</span>)<br>    <span class="hljs-comment">// 初始化inject</span><br>    <span class="hljs-title function_">initInjections</span>(vm) <span class="hljs-comment">// resolve injections before data/props</span><br>    <span class="hljs-comment">// 初始化state，state里面有data，computed，method，props，watch</span><br>    <span class="hljs-title function_">initState</span>(vm)<br>    <span class="hljs-comment">// 初始化provide</span><br>    <span class="hljs-title function_">initProvide</span>(vm) <span class="hljs-comment">// resolve provide after data/props</span><br>    <span class="hljs-title function_">callHook</span>(vm, <span class="hljs-string">&#x27;created&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><code>initState()</code>是从<code>state.js</code>文件里面导入的，我们再去看看里面有什么。</p>
+<blockquote>
+<p>src\core\instance\state.js</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">initState</span> (<span class="hljs-params">vm: Component</span>) &#123;<br>  vm.<span class="hljs-property">_watchers</span> = []<br>  <span class="hljs-keyword">const</span> opts = vm.<span class="hljs-property">$options</span><br>  <span class="hljs-comment">// 初始化props</span><br>  <span class="hljs-keyword">if</span> (opts.<span class="hljs-property">props</span>) <span class="hljs-title function_">initProps</span>(vm, opts.<span class="hljs-property">props</span>)<br>  <span class="hljs-comment">// 初始化方法</span><br>  <span class="hljs-keyword">if</span> (opts.<span class="hljs-property">methods</span>) <span class="hljs-title function_">initMethods</span>(vm, opts.<span class="hljs-property">methods</span>)<br>  <span class="hljs-comment">// 初始化data</span><br>  <span class="hljs-keyword">if</span> (opts.<span class="hljs-property">data</span>) &#123;<br>    <span class="hljs-title function_">initData</span>(vm)<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-title function_">observe</span>(vm.<span class="hljs-property">_data</span> = &#123;&#125;, <span class="hljs-literal">true</span> <span class="hljs-comment">/* asRootData */</span>)<br>  &#125;<br>  <span class="hljs-comment">// 初始化computed</span><br>  <span class="hljs-keyword">if</span> (opts.<span class="hljs-property">computed</span>) <span class="hljs-title function_">initComputed</span>(vm, opts.<span class="hljs-property">computed</span>)<br>  <span class="hljs-comment">// 初始化watch</span><br>  <span class="hljs-keyword">if</span> (opts.<span class="hljs-property">watch</span> &amp;&amp; opts.<span class="hljs-property">watch</span> !== nativeWatch) &#123;<br>    <span class="hljs-title function_">initWatch</span>(vm, opts.<span class="hljs-property">watch</span>)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可见在<code>beforeCreate</code>与<code>created</code>之间初始化了<code>inject</code>,<code>props</code>,<code>methods</code>,<code>data</code>,<code>computed</code>,<code>watch</code></p>
+<h2 id="基于Vue2的proxy，自己实现一个代理"><a href="#基于Vue2的proxy，自己实现一个代理" class="headerlink" title="基于Vue2的proxy，自己实现一个代理"></a>基于Vue2的proxy，自己实现一个代理</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> noop = &#123;&#125; <br><br><span class="hljs-keyword">const</span> propertyDefinition = &#123;<br>    <span class="hljs-attr">enumerable</span>:<span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">configurable</span>:<span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">get</span>:noop,<br>    <span class="hljs-attr">set</span>:noop<br>&#125;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">Proxy</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">target,sourceKey,key</span>)&#123;<br>    propertyDefinition.<span class="hljs-property">get</span> = <span class="hljs-keyword">function</span> <span class="hljs-title function_">getter</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> target[sourceKey][key]<br>    &#125;<br><br>    propertyDefinition.<span class="hljs-property">set</span> = <span class="hljs-keyword">function</span> <span class="hljs-title function_">setter</span> (<span class="hljs-params">val</span>) &#123;        <br>        target[sourceKey][key] = val<br>    &#125;<br><br>    <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(target,key,propertyDefinition)<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Vue</span>(<span class="hljs-params">data</span>)&#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_data</span> = data<br>    <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">_data</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> &#123;<br>        <span class="hljs-title class_">Proxy</span>(<span class="hljs-variable language_">this</span>,<span class="hljs-string">&#x27;_data&#x27;</span>,key)<br>    &#125;)<br>&#125;<br><br><span class="hljs-keyword">const</span> vueIns = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;<span class="hljs-attr">a</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">b</span>:<span class="hljs-number">2</span>&#125;)<br><br>vueIns.<span class="hljs-property">_data</span>.<span class="hljs-property">b</span> = <span class="hljs-string">&#x27;hhh&#x27;</span><br>vueIns.<span class="hljs-property">a</span> = <span class="hljs-number">2222</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(vueIns.<span class="hljs-property">_data</span>.<span class="hljs-property">a</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(vueIns.<span class="hljs-property">b</span>)<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="Vue的实例为什么不能挂载在body或根节点上？挂载了会报错吗？"><a href="#Vue的实例为什么不能挂载在body或根节点上？挂载了会报错吗？" class="headerlink" title="Vue的实例为什么不能挂载在body或根节点上？挂载了会报错吗？"></a>Vue的实例为什么不能挂载在body或根节点上？挂载了会报错吗？</h2><p>答：挂载节点会被虚拟dom生成的Dom替换，会报错</p>
+<blockquote>
+<p>Vue源码位置：src\platforms\web\entry-runtime-with-compiler.js</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">if</span> (el === <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span> || el === <span class="hljs-variable language_">document</span>.<span class="hljs-property">documentElement</span>) &#123;<br>    process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> !== <span class="hljs-string">&#x27;production&#x27;</span> &amp;&amp; <span class="hljs-title function_">warn</span>(<br>      <span class="hljs-string">`Do not mount Vue to &lt;html&gt; or &lt;body&gt; - mount to normal elements instead.`</span><br>    )<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span><br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="Vue-set方法是如何实现的"><a href="#Vue-set方法是如何实现的" class="headerlink" title="Vue.set方法是如何实现的"></a>Vue.set方法是如何实现的</h2><p>在 Vue2中由于<code>Object.defineProperty</code>的局限性，无法原生监听对象新增属性、删除属性或者数组索引操作，所以提供了 <code>Vue.set</code> 方法作为补偿 api来解决这个问题。</p>
+<h3 id="Vue-set的核心作用是："><a href="#Vue-set的核心作用是：" class="headerlink" title="Vue.set的核心作用是："></a>Vue.set的核心作用是：</h3><ul>
+<li>为响应式对象新增属性，并让该属性也具备响应式能力（即被 getter、setter 拦截）</li>
+<li>触发该对象的依赖更新（即通知所有依赖该属性的 watcher 执行更新）</li>
+</ul>
+<h3 id="实现的核心逻辑"><a href="#实现的核心逻辑" class="headerlink" title="实现的核心逻辑"></a>实现的核心逻辑</h3><ol>
+<li>参数校验与边界处理<ul>
+<li>接收三个参数：target（目标对象/数组）、key（新增属性名/索引）、value（新增属性值）</li>
+<li>如果 target 是 vue 实例或者 $data(根数据对象)，直接报错。vue 不允许给实例添加根级响应式属性</li>
+<li>如果 target 不是响应式对象(未被 Observer 处理过)，直接赋值target[key] = value，然后返回。非响应式数据无需劫持。</li>
+</ul>
+</li>
+<li>处理数组的情况<br> 如果 target 是数组且 key 是有效的索引：<ul>
+<li>计算实际索引（处理负数索引，如 <code>key=-1</code> 对应 <code>target.length-1</code>）</li>
+<li>使用 splice 方法在指定索引位置新增元素</li>
+</ul>
+</li>
+</ol>
+<p><strong>核心操作：</strong> 调用数组的 splice 方法替换元素(target.splice(key,1,val))。因为 Vue 已经重写了数组的 splice 方法，使其执行的时候会触发依赖更新（dep.notify()），同时新插入的 val 会被转为响应式。</p>
+<ol start="3">
+<li>处理对象的情况<br> 如果 target 是对象：<ul>
+<li>如果 key 已存在与 target，那么旧直接赋值<code>target[key] = value</code>，会触发 setter，自动更新依赖。</li>
+<li>如果 key 是新属性：<ul>
+<li>获取 target 对象的 Observer 实例（Vue 内部用于管理响应式的对象，每个响应式数据都有一个 Observer 实例）</li>
+<li>调用 Observer 实例的 defineReactive 方法，为新属性key 添加 getter/setter，使其具备响应式属性。</li>
+<li>触发 target 对象的依赖更新，通过 Observer 实例的 dep.notify() 方法通知所有依赖该对象的 watcher 执行更新。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="computed-和-watch-的区别"><a href="#computed-和-watch-的区别" class="headerlink" title="computed 和 watch 的区别"></a>computed 和 watch 的区别</h2><h3 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h3><p>从现有响应式数据中动态派生新值。</p>
+<ul>
+<li>显式依赖响应式数据（data、props），依赖关系是“多对一”，可从多个数据派生出一个新值。</li>
+<li>只有当依赖的数据发生变化时，才会重新计算，若依赖未变，直接返回缓存的结果。</li>
+<li>触发时机是惰性的，只有当计算结果被模板或者其他响应式数据使用时才会触发计算。</li>
+</ul>
+<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><ul>
+<li>监听响应式数据变化并执行副作用。</li>
+<li>可以监听单个或多个响应式数据（data、props、computed），依赖关系是“一对多”或者“多对多”（一个数据变化可以触发多个操作）</li>
+<li>触发时机是主动的，当监听的响应式数据发生变化时，会立即执行回调函数。</li>
+<li>当监听的数据变化时，都会执行回调函数，不会缓存执行结果。</li>
+<li>配置灵活，支持<code>deep: true</code>深度监听，以及<code>immediate: true</code>立即执行回调，<code>handler（回调函数）</code>等选项。</li>
+</ul>
+<h2 id="new-Vue-过程中做了些什么"><a href="#new-Vue-过程中做了些什么" class="headerlink" title="new Vue()过程中做了些什么"></a>new Vue()过程中做了些什么</h2><p>new Vue(options)的过程是实例初始化的核心流程，本质是通过一系列初始化步骤将传入的配置（options）转化为一个可响应、可渲染的 Vue 实例。</p>
+<p>整个过程可分为<strong>选项合并</strong>、<strong>初始化核心模块</strong>、<strong>模板编译与挂载</strong>三大阶段。</p>
+<h3 id="选项合并"><a href="#选项合并" class="headerlink" title="选项合并"></a>选项合并</h3><p>Vue 实例接收的 options（如 data、methods、components 等）并非直接使用，而是需要与全局配置（Vue.config）、组件继承的配置（若为组件实例）进行合并，最终生成一个统一的配置对象。</p>
+<h3 id="初始化核心模块"><a href="#初始化核心模块" class="headerlink" title="初始化核心模块"></a>初始化核心模块</h3><ol>
+<li>初始化生命周期</li>
+<li>初始化事件系统（$on、$emit、$off等）</li>
+<li>初始化注入（inject），从父组件的 provide 中获取对应的值</li>
+<li>初始化状态，处理 data、props、computed、watch 等核心数据<ol>
+<li>初始化 props</li>
+<li>初始化 methods</li>
+<li>初始化 data</li>
+<li>初始化 computed</li>
+<li>初始化 watch</li>
+</ol>
+</li>
+<li>初始化 provide</li>
+</ol>
+<h3 id="模板编译与挂载"><a href="#模板编译与挂载" class="headerlink" title="模板编译与挂载"></a>模板编译与挂载</h3><ol>
+<li>模板编译<br> 将模板转换为 render 渲染函数<ul>
+<li>解析：将模板字符串解析为 AST（抽象语法数）</li>
+<li>优化：优化 AST，标记 AST 中的静态节点，避免每次更新时重新渲染</li>
+<li>生成：将 AST 转换为 render 函数</li>
+</ul>
+</li>
+<li>挂载<br> 通过 render 函数生成虚拟 DOM，再将虚拟 DOM 渲染为真实 DOM 并插入到 el 对应的容器中</li>
+</ol>
+<h2 id="Vue-observable的了解"><a href="#Vue-observable的了解" class="headerlink" title="Vue.observable的了解"></a>Vue.observable的了解</h2><p>在 Vue 2 中，Vue.observable 是一个全局 API，定义在 Vue 构造函数上，源码基于响应式系统的核心逻辑实现。</p>
+<h3 id="核心作用"><a href="#核心作用" class="headerlink" title="核心作用"></a>核心作用</h3><p>将一个普通对象转换为响应式对象，使其具备 “数据变化时触发依赖更新” 的能力。转换后的对象可以被组件引用，当对象属性变化时，引用它的组件会自动重新渲染。</p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><p>与组件内 data 的响应式处理逻辑一致：通过 Object.defineProperty 对对象的属性递归添加 getter/setter，实现依赖收集（getter 时）和更新触发（setter 时），本质是创建了一个 Observer 实例来管理该对象的响应式。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// store.js</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Vue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><br><span class="hljs-comment">// 创建响应式状态对象</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> store = <span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">observable</span>(&#123;<br>  <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,<br>  <span class="hljs-attr">user</span>: &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Alice&#x27;</span> &#125;<br>&#125;)<br><br><span class="hljs-comment">// 定义修改状态的方法</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> mutations = &#123;<br>  <span class="hljs-title function_">increment</span>(<span class="hljs-params"></span>) &#123;<br>    store.<span class="hljs-property">count</span>++<br>  &#125;,<br>  <span class="hljs-title function_">setName</span>(<span class="hljs-params">name</span>) &#123;<br>    store.<span class="hljs-property">user</span>.<span class="hljs-property">name</span> = name<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="category-chain-item">源码解析</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Vue/" class="print-no-link">#Vue</a>
+      
+        <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="print-no-link">#源码解析</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vue2源码</div>
+      <div>https://zouhualu.github.io/20220222/vue2源码/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>花鹿</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年2月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20220329/Promise%E8%BE%93%E5%87%BA%E9%A1%BA%E5%BA%8F%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" title="Promise输出顺序相关问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Promise输出顺序相关问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20220127/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="数据结构与算法">
+                        <span class="hidden-mobile">数据结构与算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zouHuaLu/blog_comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://music.163.com/#/song?id=441491828" target="_blank" rel="nofollow noopener"><span>Love</span></a> <i class="iconfont icon-love"></i> <a href="http://music.163.com/song?id=186145&userid=34198090" target="_blank" rel="nofollow noopener"><span>Share</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
