@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>claude code 通过 MCP 连接 figma 设计稿实现页面复刻</title>
+    <link href="/20251216/claude-code-%E9%80%9A%E8%BF%87-MCP-%E8%BF%9E%E6%8E%A5-figma-%E8%AE%BE%E8%AE%A1%E7%A8%BF%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E5%A4%8D%E5%88%BB/"/>
+    <url>/20251216/claude-code-%E9%80%9A%E8%BF%87-MCP-%E8%BF%9E%E6%8E%A5-figma-%E8%AE%BE%E8%AE%A1%E7%A8%BF%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E5%A4%8D%E5%88%BB/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>figma文档：<a href="https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server">https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server</a></p></blockquote><p>figma mcp 服务可以获取到figma设计稿元素的位置、尺寸、颜色、字体等结构化信息， 可最大化实现页面的复刻，再加上 claude code 的支持，能极大的减少前端开发的工作量。</p><p>我在开发过程中一直使用的是 Claude code，下面是 Claude code 通过 MCP 连接 figma 设计稿实现页面复刻的流程：</p><h2 id="1-将-figma-mcp-服务添加到-claude-code-中并连接"><a href="#1-将-figma-mcp-服务添加到-claude-code-中并连接" class="headerlink" title="1. 将 figma mcp 服务添加到 claude code 中并连接"></a>1. 将 figma mcp 服务添加到 claude code 中并连接</h2><p>启动 claude code，在claude code 终端中执行以下命令，将 Figma MCP 添加到 Claude 代码中： <code>claude mcp add --transport http figma https://mcp.figma.com/mcp</code></p><p><img src="/20251216/claude-code-%E9%80%9A%E8%BF%87-MCP-%E8%BF%9E%E6%8E%A5-figma-%E8%AE%BE%E8%AE%A1%E7%A8%BF%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E5%A4%8D%E5%88%BB/mcp.png" alt="添加 figma mcp"></p><p>在终端输入：<code>/mcp</code>，可以查看到 figma mcp 服务已经添加成功了，点击<code>enter</code>去登陆，他会跳转到一个figma页面，授权通过就行了</p><p><img src="/20251216/claude-code-%E9%80%9A%E8%BF%87-MCP-%E8%BF%9E%E6%8E%A5-figma-%E8%AE%BE%E8%AE%A1%E7%A8%BF%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E5%A4%8D%E5%88%BB/login.png" alt="figma mcp 登陆"></p><p>连接成功的效果</p><p><img src="/20251216/claude-code-%E9%80%9A%E8%BF%87-MCP-%E8%BF%9E%E6%8E%A5-figma-%E8%AE%BE%E8%AE%A1%E7%A8%BF%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E5%A4%8D%E5%88%BB/login-success.png" alt="figma mcp 连接成功"></p><h2 id="2-将目标页面告诉-claude-code"><a href="#2-将目标页面告诉-claude-code" class="headerlink" title="2. 将目标页面告诉 claude code"></a>2. 将目标页面告诉 claude code</h2><p>开启一个新的 claude 终端，上一个连接 figma mcp 的终端不能关掉，关掉 claude 还是读不到 figma 页面信息的</p><p>在 figma 设计稿页面选中目标元素，右键选中复制，如图</p><p><img src="/20251216/claude-code-%E9%80%9A%E8%BF%87-MCP-%E8%BF%9E%E6%8E%A5-figma-%E8%AE%BE%E8%AE%A1%E7%A8%BF%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E5%A4%8D%E5%88%BB/select.png" alt="figma mcp 复制"></p><p>在终端直接粘贴，然后让 claude code 实现这个页面，可以看到 claude code 是能够读取这个链接的</p><p><img src="/20251216/claude-code-%E9%80%9A%E8%BF%87-MCP-%E8%BF%9E%E6%8E%A5-figma-%E8%AE%BE%E8%AE%A1%E7%A8%BF%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E5%A4%8D%E5%88%BB/1.png" alt="figma mcp 实现页面"></p><p><img src="/20251216/claude-code-%E9%80%9A%E8%BF%87-MCP-%E8%BF%9E%E6%8E%A5-figma-%E8%AE%BE%E8%AE%A1%E7%A8%BF%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E5%A4%8D%E5%88%BB/2.png" alt="figma mcp 实现页面"></p><p><strong>完</strong></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>AI 与工具</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>AI</tag>
+      
+      <tag>工具</tag>
+      
+      <tag>编程辅助</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>AI辅助编程教程-AI中转站-可使用 claude、ChatGPT、gemini</title>
     <link href="/20251119/AI%E8%BE%85%E5%8A%A9%E7%BC%96%E7%A8%8B%E6%95%99%E7%A8%8B-AI%E4%B8%AD%E8%BD%AC%E7%AB%99-%E5%8F%AF%E4%BD%BF%E7%94%A8-claude%E3%80%81ChatGPT%E3%80%81gemini/"/>
     <url>/20251119/AI%E8%BE%85%E5%8A%A9%E7%BC%96%E7%A8%8B%E6%95%99%E7%A8%8B-AI%E4%B8%AD%E8%BD%AC%E7%AB%99-%E5%8F%AF%E4%BD%BF%E7%94%A8-claude%E3%80%81ChatGPT%E3%80%81gemini/</url>
@@ -646,9 +675,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>React</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
