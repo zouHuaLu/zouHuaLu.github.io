@@ -354,7 +354,7 @@
     <link href="/20230728/Golang%E7%AC%94%E8%AE%B0/"/>
     <url>/20230728/Golang%E7%AC%94%E8%AE%B0/</url>
     
-    <content type="html"><![CDATA[<p>1.</p><p><strong>数组</strong>是值类型，赋值和传参会复制整个数组，而不是指针。<br><strong>切片</strong>是引用类型，赋值和传参都会复制指针，而不是数据。</p><p>2.</p><p>函数的参数有两种传递方式，按值传递和按引用传递。按值传递是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到原来的实际参数。按引用传递是指在调用函数时将实际参数的地址直接传递到函数中，那么在函数中对参数所进行的修改，将影响到原来的实际参数。</p><p>引用类型（slice、map、interface、channel）都默认使用引用传递</p><p>3.</p><p>切片传入方法中，如果方法内部没有对切片进行扩容，那么切片的修改会影响到原切片，如果方法内部对切片进行了扩容，那么切片的修改不会影响到原切片。</p><h2 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h2><ol><li>延迟执行，在当前栈退出时执行</li><li>一般用于资源清理工作</li><li>解锁、关闭文件</li><li>多次调用defer，执行时类似于栈的机制：先进后出</li></ol>]]></content>
+    <content type="html"><![CDATA[<p>一个 Go 程序的主函数（main 函数）必须声明在一个名为 main 的包中</p><h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><p>内置布尔类型： bool</p><p>内置整数类型： int8、uint8、int16、uint16、int32、uint32、int64、uint64、int、uint、uintptr</p><p>内置浮点数类型： float32、float64</p><p>内置复数类型： complex64、complex128</p><p>内置字符串类型：string</p><p>Go 中有两种内置类型别名</p><p>byte 是 uint8 的别名</p><p>rune 是 int32 的别名</p><p>可以将他们看作是同一类型</p><p>以<code>u</code>开头的类型是无符号整数类型，无符号整数类型的值都是非负的。</p><p>1.</p><p><strong>数组</strong>是值类型，赋值和传参会复制整个数组，而不是指针。<br><strong>切片</strong>是引用类型，赋值和传参都会复制指针，而不是数据。</p><p>2.</p><p>函数的参数有两种传递方式，按值传递和按引用传递。按值传递是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到原来的实际参数。按引用传递是指在调用函数时将实际参数的地址直接传递到函数中，那么在函数中对参数所进行的修改，将影响到原来的实际参数。</p><p>引用类型（slice、map、interface、channel）都默认使用引用传递</p><p>3.</p><p>切片传入方法中，如果方法内部没有对切片进行扩容，那么切片的修改会影响到原切片，如果方法内部对切片进行了扩容，那么切片的修改不会影响到原切片。</p><h2 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h2><ol><li>延迟执行，在当前栈退出时执行</li><li>一般用于资源清理工作</li><li>解锁、关闭文件</li><li>多次调用defer，执行时类似于栈的机制：先进后出</li></ol><blockquote><p>待更新。。。</p></blockquote>]]></content>
     
     
     <categories>
@@ -536,9 +536,9 @@
     
     <tags>
       
-      <tag>JavaScript</tag>
-      
       <tag>异步编程</tag>
+      
+      <tag>JavaScript</tag>
       
       <tag>Promise</tag>
       
@@ -592,9 +592,9 @@
     
     <tags>
       
-      <tag>算法</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>算法</tag>
       
     </tags>
     
@@ -675,9 +675,9 @@
     
     <tags>
       
-      <tag>React</tag>
-      
       <tag>笔记</tag>
+      
+      <tag>React</tag>
       
     </tags>
     
@@ -702,11 +702,11 @@
     
     <tags>
       
-      <tag>JavaScript</tag>
-      
       <tag>事件循环</tag>
       
       <tag>异步编程</tag>
+      
+      <tag>JavaScript</tag>
       
     </tags>
     
@@ -843,11 +843,11 @@
     
     <tags>
       
-      <tag>JavaScript</tag>
-      
       <tag>事件循环</tag>
       
       <tag>异步编程</tag>
+      
+      <tag>JavaScript</tag>
       
     </tags>
     
