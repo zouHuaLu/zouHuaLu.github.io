@@ -1,0 +1,903 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/user/wazi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="花鹿">
+  <meta name="keywords" content="blog,走花路的长颈鹿,博客,走花鹿，花鹿">
+  
+    <meta name="description" content="webpack官方中文文档  webpack 配置中的 loader 和 plugin 的区别在 Webpack 中，loader 和 plugin 是实现构建能力的核心机制，但它们的作用和工作方式有本质区别： 一、Loader（加载器）：处理非 JS 模块的“翻译官”Webpack 本质上只能识别 JavaScript 和 JSON 文件，**loader 的核心作用是将非 JS 模块（如 C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack基础进阶和原理剖析">
+<meta property="og:url" content="https://zouhualu.github.io/20240509/webpack%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6%E5%92%8C%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/index.html">
+<meta property="og:site_name" content="花鹿">
+<meta property="og:description" content="webpack官方中文文档  webpack 配置中的 loader 和 plugin 的区别在 Webpack 中，loader 和 plugin 是实现构建能力的核心机制，但它们的作用和工作方式有本质区别： 一、Loader（加载器）：处理非 JS 模块的“翻译官”Webpack 本质上只能识别 JavaScript 和 JSON 文件，**loader 的核心作用是将非 JS 模块（如 C">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-09T13:53:22.000Z">
+<meta property="article:modified_time" content="2025-11-25T06:35:30.220Z">
+<meta property="article:author" content="花鹿">
+<meta property="article:tag" content="Webpack">
+<meta property="article:tag" content="工程化">
+<meta property="article:tag" content="构建工具">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>webpack基础进阶和原理剖析 - 花鹿</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zouhualu.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Love&amp;Share</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>全部</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/personal/" target="_self">
+                <i class="iconfont icon-bookmark"></i>
+                <span>个人记录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>我的独立文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://zouhualu.github.io/HTML/12%E5%91%A8%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C%E6%B3%95.html" target="_self">
+                    
+                    <span>十二周高效学习法</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="webpack基础进阶和原理剖析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        花鹿
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-09 21:53" pubdate>
+          2024年5月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">webpack基础进阶和原理剖析</h1>
+            
+              <p id="updated-time" class="note note-info" style="display: none">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2025-11-25T14:35:30+08:00
+                  
+                  
+
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p><a target="_blank" rel="noopener" href="https://webpack.docschina.org/concepts/">webpack官方中文文档</a></p>
+</blockquote>
+<h2 id="webpack-配置中的-loader-和-plugin-的区别"><a href="#webpack-配置中的-loader-和-plugin-的区别" class="headerlink" title="webpack 配置中的 loader 和 plugin 的区别"></a>webpack 配置中的 loader 和 plugin 的区别</h2><p>在 Webpack 中，<code>loader</code> 和 <code>plugin</code> 是实现构建能力的核心机制，但它们的作用和工作方式有本质区别：</p>
+<h3 id="一、Loader（加载器）：处理非-JS-模块的“翻译官”"><a href="#一、Loader（加载器）：处理非-JS-模块的“翻译官”" class="headerlink" title="一、Loader（加载器）：处理非 JS 模块的“翻译官”"></a>一、Loader（加载器）：处理非 JS 模块的“翻译官”</h3><p>Webpack 本质上只能识别 JavaScript 和 JSON 文件，**loader 的核心作用是将非 JS 模块（如 CSS、图片、TS 等）转换为 Webpack 可处理的模块<br>**，从而纳入构建流程。</p>
+<h4 id="1-工作原理"><a href="#1-工作原理" class="headerlink" title="1. 工作原理"></a>1. 工作原理</h4><ul>
+<li><strong>执行时机</strong>：在 Webpack 解析代码的过程中（模块打包阶段），当遇到非 JS 模块时触发。</li>
+<li><strong>执行顺序</strong>：从右到左（或从下到上）链式调用。例如：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 先执行 sass-loader 处理 SASS，再用 css-loader 处理 CSS，最后用 style-loader 注入到 DOM</span><br><span class="hljs-attr">module</span>: &#123;<br>  <span class="hljs-attr">rules</span>: [<br>    &#123;<br>      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.s[ac]ss$/i</span>,<br>      <span class="hljs-attr">use</span>: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>] <br>    &#125;<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><strong>输入输出</strong>：接收源文件内容作为参数，返回处理后的内容（通常是 JS 代码）。</li>
+</ul>
+<h4 id="2-常见场景"><a href="#2-常见场景" class="headerlink" title="2. 常见场景"></a>2. 常见场景</h4><ul>
+<li><strong>语言转换</strong>：<code>babel-loader</code> 将 ES6+ 转换为 ES5；<code>ts-loader</code> 将 TypeScript 转换为 JS。</li>
+<li><strong>样式处理</strong>：<code>css-loader</code> 解析 CSS 中的 <code>@import</code> 和 <code>url()</code>；<code>style-loader</code> 将 CSS 注入到页面 <code>&lt;style&gt;</code> 标签；<br><code>sass-loader</code> 编译 SASS/SCSS 为 CSS。</li>
+<li><strong>资源处理</strong>：<code>file-loader</code> 处理图片、字体等资源并输出到指定目录；<code>url-loader</code> 在文件体积较小时将资源转为 Base64 嵌入代码。</li>
+</ul>
+<h3 id="二、Plugin（插件）：扩展构建流程的“功能增强器”"><a href="#二、Plugin（插件）：扩展构建流程的“功能增强器”" class="headerlink" title="二、Plugin（插件）：扩展构建流程的“功能增强器”"></a>二、Plugin（插件）：扩展构建流程的“功能增强器”</h3><p>Plugin 用于<strong>扩展 Webpack 的功能</strong>，可以介入构建的整个生命周期（从初始化到输出产物），实现loader<br>无法完成的复杂操作（如打包优化、环境变量注入、资源管理等）。</p>
+<h4 id="1-工作原理-1"><a href="#1-工作原理-1" class="headerlink" title="1. 工作原理"></a>1. 工作原理</h4><ul>
+<li><strong>基于钩子机制</strong>：Webpack 在构建过程中会触发一系列生命周期钩子（如 <code>entryOption</code>、<code>compile</code>、<code>emit</code> 等），plugin<br>通过注册这些钩子，在特定时机执行自定义逻辑。</li>
+<li><strong>灵活性高</strong>：可以修改输出资源、调整构建流程、生成额外文件等。</li>
+</ul>
+<h4 id="2-常见场景-1"><a href="#2-常见场景-1" class="headerlink" title="2. 常见场景"></a>2. 常见场景</h4><ul>
+<li><strong>优化输出</strong>：<code>TerserPlugin</code> 压缩 JS 代码；<code>MiniCssExtractPlugin</code> 将 CSS 提取为单独文件（替代 <code>style-loader</code>）。</li>
+<li><strong>环境配置</strong>：<code>DefinePlugin</code> 注入全局环境变量（如 <code>process.env.NODE_ENV</code>）。</li>
+<li><strong>性能分析</strong>：<code>BundleAnalyzerPlugin</code> 可视化打包产物，分析体积过大的原因。</li>
+<li><strong>资源处理</strong>：<code>CopyWebpackPlugin</code> 复制静态资源到输出目录；<code>HtmlWebpackPlugin</code> 自动生成 HTML 并引入打包后的资源。</li>
+</ul>
+<h3 id="三、核心区别"><a href="#三、核心区别" class="headerlink" title="三、核心区别"></a>三、核心区别</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Loader</th>
+<th>Plugin</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>作用对象</td>
+<td>针对<strong>模块文件</strong>（如 CSS、TS）</td>
+<td>针对<strong>整个构建流程</strong></td>
+</tr>
+<tr>
+<td>功能范围</td>
+<td>仅处理文件转换（输入→输出内容）</td>
+<td>可扩展任意构建功能（优化、注入、生成等）</td>
+</tr>
+<tr>
+<td>用法</td>
+<td>在 <code>module.rules</code> 中配置</td>
+<td>在 <code>plugins</code> 数组中实例化</td>
+</tr>
+<tr>
+<td>执行时机</td>
+<td>模块解析阶段</td>
+<td>整个生命周期（从初始化到输出）</td>
+</tr>
+</tbody></table>
+<h3 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h3><ul>
+<li><strong>Loader 解决“Webpack 不能识别非 JS 模块”的问题</strong>，专注于文件内容的转换。</li>
+<li><strong>Plugin 解决“扩展 Webpack 功能”的问题</strong>，通过钩子机制介入构建全流程，实现更复杂的需求。</li>
+</ul>
+<p>两者相辅相成：Loader 负责“翻译”各类资源，Plugin 负责“增强”构建过程，共同构成了 Webpack 灵活强大的构建能力。</p>
+<h2 id="自定义-loader"><a href="#自定义-loader" class="headerlink" title="自定义 loader"></a>自定义 loader</h2><p>写一个 <code>uppercase-loader</code>，实现将文件内容转换为大写</p>
+<p>loader 本质是函数，做编译的增强</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// /loaders/uppercase-loader.js</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">uppercaseLoader</span> (<span class="hljs-params">source</span>) &#123;<br>    <span class="hljs-keyword">return</span> source.<span class="hljs-title function_">toUpperCase</span>()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// webpack.config.dev.js</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>    <span class="hljs-attr">output</span>: &#123;<br>        <span class="hljs-attr">path</span>: path.<span class="hljs-title function_">resolve</span>(__dirname, <span class="hljs-string">&#x27;dist&#x27;</span>),<br>        <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;main.js&#x27;</span><br>    &#125;,<br>    <span class="hljs-attr">entry</span>: <span class="hljs-string">&#x27;./src/index.js&#x27;</span>,<br>    <span class="hljs-attr">module</span>:&#123;<br>        <span class="hljs-attr">rules</span>:[<br>            &#123;<br>                <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.js$/</span>,<br>                <span class="hljs-attr">use</span>:[<span class="hljs-string">&#x27;./loaders/uppercase-loader.js&#x27;</span>]<br>            &#125;<br>        ]<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="自定义-plugin"><a href="#自定义-plugin" class="headerlink" title="自定义 plugin"></a>自定义 plugin</h2><p>plugin 本质是类，做构建的增强</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 产物统计</span><br><span class="hljs-comment">// /plugins/AssetsMapPlugin.js</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AssetsMapPlugin</span> &#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">options</span>)&#123;<br>        <br>    &#125;<br>    <span class="hljs-title function_">apply</span>(<span class="hljs-params">compiler</span>)&#123;<br>        <span class="hljs-comment">// compiler 是 webpack 实例，通过 compiler 可以访问到 webpack 所有的配置和插件</span><br>        compiler.<span class="hljs-property">hooks</span>.<span class="hljs-property">initialize</span>.<span class="hljs-title function_">tap</span>(<span class="hljs-string">&#x27;AssetsMapPlugin&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">compilation</span>) =&gt;</span> &#123;<br>            <span class="hljs-comment">// compilation 是当前打包的上下文，通过 compilation 可以访问到当前打包的所有资源</span><br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(compilation.<span class="hljs-property">assets</span>)<br>        &#125;)<br>        compiler.<span class="hljs-property">hooks</span>.<span class="hljs-property">run</span>.<span class="hljs-title function_">tapAsync</span>(<span class="hljs-string">&#x27;AssetsMapPlugin&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">compilation, next</span>) =&gt;</span> &#123;<br>            <span class="hljs-comment">// compilation 是当前打包的上下文，通过 compilation 可以访问到当前打包的所有资源</span><br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(compilation.<span class="hljs-property">assets</span>)<br>            <span class="hljs-keyword">let</span> fileList = <span class="hljs-string">&quot;&quot;</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> fileName <span class="hljs-keyword">in</span> compilation.<span class="hljs-property">assets</span>) &#123;<br>                fileList += fileName + <span class="hljs-string">&#x27;\n&#x27;</span><br>            &#125;<br>            compilation.<span class="hljs-property">assets</span>[<span class="hljs-string">&#x27;file-list.md&#x27;</span>] = &#123;<br>                <span class="hljs-attr">source</span>: <span class="hljs-function">() =&gt;</span> fileList,<br>                <span class="hljs-attr">size</span>: <span class="hljs-function">() =&gt;</span> fileList.<span class="hljs-property">length</span><br>            &#125;<br>            <span class="hljs-title function_">next</span>() <span class="hljs-comment">// 必须调用 next 才能继续打包，权限交给下一个插件</span><br>        &#125;)<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// webpack.config.dev.js</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>    <span class="hljs-attr">plugins</span>: [<br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">AssetsMapPlugin</span>()<br>    ]<br>&#125; <br><br></code></pre></td></tr></table></figure>
+
+
+<p>会输出一个 <code>file-list.md</code> 文件，内容是当前打包的所有资源文件名</p>
+<h2 id="webpack-原理核心"><a href="#webpack-原理核心" class="headerlink" title="webpack 原理核心"></a>webpack 原理核心</h2><ol>
+<li>compiler</li>
+<li>compilation</li>
+<li>module</li>
+<li>chunk</li>
+<li>dependency</li>
+<li>resolver</li>
+<li>loader </li>
+<li>plugin</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/" class="category-chain-item">工程化</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" class="print-no-link">#工程化</a>
+      
+        <a href="/tags/Webpack/" class="print-no-link">#Webpack</a>
+      
+        <a href="/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/" class="print-no-link">#构建工具</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>webpack基础进阶和原理剖析</div>
+      <div>https://zouhualu.github.io/20240509/webpack基础进阶和原理剖析/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>花鹿</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20240915/react%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/" title="react状态管理方案">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">react状态管理方案</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20240405/vue%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1/" title="vue-router 剖析和实现">
+                        <span class="hidden-mobile">vue-router 剖析和实现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zouHuaLu/blog_comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://music.163.com/#/song?id=441491828" target="_blank" rel="nofollow noopener"><span>Love</span></a> <i class="iconfont icon-love"></i> <a href="http://music.163.com/song?id=186145&userid=34198090" target="_blank" rel="nofollow noopener"><span>Share</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
