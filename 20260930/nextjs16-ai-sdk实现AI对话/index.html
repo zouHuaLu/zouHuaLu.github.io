@@ -19,24 +19,26 @@
   <meta name="author" content="花鹿">
   <meta name="keywords" content="blog,走花路的长颈鹿,博客,走花鹿，花鹿">
   
-    <meta name="description" content="以react项目为例： 123456789101112131415161718192021222324252627282930313233343536373839404142434445## 工程项目约定    - &#96;src&#x2F;&#96;：业务与页面代码    - &#96;src&#x2F;test&#x2F;&#96;：测试初始化与测试工具    - &#96;.github&#x2F;workflows&#x2F;&#96;：CI 工作流    - &#96;.husky&#x2F;&#96;：本">
+    <meta name="description" content="功能概览使用 Next.js 16 App Router、AI SDK 7、@ai-sdk&#x2F;react 和 DeepSeek Provider 实现流式 AI 对话。  前端通过 useChat 管理会话消息和请求状态。 后端通过 POST &#x2F;api&#x2F;chat 接收 UI 消息，转换为模型消息并调用 DeepSeek。 服务端将模型生成的文本流转换为 AI SDK UI Message Strea">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常用的AGENTS.md文件配置">
-<meta property="og:url" content="https://zouhualu.github.io/20260428/%E5%B8%B8%E7%94%A8%E7%9A%84AGENTS-md%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:title" content="nextjs16+@ai-sdk实现AI对话">
+<meta property="og:url" content="https://zouhualu.github.io/20260930/nextjs16-ai-sdk%E5%AE%9E%E7%8E%B0AI%E5%AF%B9%E8%AF%9D/index.html">
 <meta property="og:site_name" content="花鹿">
-<meta property="og:description" content="以react项目为例： 123456789101112131415161718192021222324252627282930313233343536373839404142434445## 工程项目约定    - &#96;src&#x2F;&#96;：业务与页面代码    - &#96;src&#x2F;test&#x2F;&#96;：测试初始化与测试工具    - &#96;.github&#x2F;workflows&#x2F;&#96;：CI 工作流    - &#96;.husky&#x2F;&#96;：本">
+<meta property="og:description" content="功能概览使用 Next.js 16 App Router、AI SDK 7、@ai-sdk&#x2F;react 和 DeepSeek Provider 实现流式 AI 对话。  前端通过 useChat 管理会话消息和请求状态。 后端通过 POST &#x2F;api&#x2F;chat 接收 UI 消息，转换为模型消息并调用 DeepSeek。 服务端将模型生成的文本流转换为 AI SDK UI Message Strea">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-04-28T02:04:13.000Z">
-<meta property="article:modified_time" content="2026-08-28T02:20:29.972Z">
+<meta property="article:published_time" content="2026-09-30T12:04:20.000Z">
+<meta property="article:modified_time" content="2026-09-30T12:21:27.325Z">
 <meta property="article:author" content="花鹿">
-<meta property="article:tag" content="blog,走花路的长颈鹿,博客,走花鹿，花鹿">
+<meta property="article:tag" content="AI SDK">
+<meta property="article:tag" content="DeepSeek">
+<meta property="article:tag" content="Next.js">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>常用的AGENTS.md文件配置 - 花鹿</title>
+  <title>nextjs16+@ai-sdk实现AI对话 - 花鹿</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -246,7 +248,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="常用的AGENTS.md文件配置"></span>
+            <span id="subtitle" data-typed-text="nextjs16+@ai-sdk实现AI对话"></span>
           
         </div>
 
@@ -262,8 +264,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-04-28 10:04" pubdate>
-          2026年4月28日 上午
+        <time datetime="2026-09-30 20:04" pubdate>
+          2026年9月30日 晚上
         </time>
       </span>
     
@@ -275,7 +277,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          339 字
+          906 字
         
       </span>
     
@@ -287,7 +289,7 @@
         
         
           <!-- compatible with older versions-->
-          3 分钟
+          8 分钟
         
       </span>
     
@@ -337,13 +339,63 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">常用的AGENTS.md文件配置</h1>
+            <h1 id="seo-header">nextjs16+@ai-sdk实现AI对话</h1>
             
             
               <div class="markdown-body">
                 
-                <p>以react项目为例：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section">## 工程项目约定</span><br><span class="hljs-bullet">    -</span> <span class="hljs-code">`src/`</span>：业务与页面代码<br><span class="hljs-bullet">    -</span> <span class="hljs-code">`src/test/`</span>：测试初始化与测试工具<br><span class="hljs-bullet">    -</span> <span class="hljs-code">`.github/workflows/`</span>：CI 工作流<br><span class="hljs-bullet">    -</span> <span class="hljs-code">`.husky/`</span>：本地 Git hooks<br><br><span class="hljs-section">## 开发命令约定</span><br><br><span class="hljs-bullet">    -</span> <span class="hljs-code">`pnpm dev`</span>： 启动开发服务器<br><span class="hljs-bullet">    -</span> <span class="hljs-code">`pnpm build`</span>：类型检查并构建生产包<br><span class="hljs-bullet">    -</span> <span class="hljs-code">`pnpm preview`</span>：预览构建产物<br><span class="hljs-bullet">    -</span> <span class="hljs-code">`pnpm lint`</span>：执行ESLint检查<br><span class="hljs-bullet">    -</span> <span class="hljs-code">`pnpm typecheck`</span>：执行TypeScript`类型检查<br><span class="hljs-bullet">    -</span> <span class="hljs-code">`pnpm test`</span>：执行Vitest单元测试<br><span class="hljs-bullet">    -</span> <span class="hljs-code">`pnpm spellcheck`</span>：执行cspell拼写检查<br><br><span class="hljs-section">## 质量门禁</span><br><br><span class="hljs-bullet">-</span> 每次代码修改后必须执行<span class="hljs-code">`pnpm lint`</span><br><span class="hljs-bullet">-</span> 提交前通过<span class="hljs-code">`.husky/pre-commit`</span>自动执行<span class="hljs-code">`lint-staged`</span><br><span class="hljs-bullet">-</span> 提交前通过<span class="hljs-code">`.husky/pre-push`</span>自动执行<span class="hljs-code">`pnpm check`</span><br><span class="hljs-bullet">-</span> CI必须通过<span class="hljs-code">`pnpm check`</span>与<span class="hljs-code">`pnpm build`</span><br><br><span class="hljs-section">## ESLint 与 Typescript 规则</span><br><br><span class="hljs-bullet">-</span> ESLint使用 Typescript + React Hooks + React Refresh规则<br><span class="hljs-bullet">-</span> Typescript启用严格模式，禁止未使用的变量和参数<br><span class="hljs-bullet">-</span> 配置<span class="hljs-code">`eslint-config-prettier`</span>避免格式化规则冲突<br><br><span class="hljs-section">## 测试规范</span><br><br><span class="hljs-bullet">-</span> 测试框架： Vitest + Testing Library + jsdom<br><span class="hljs-bullet">-</span> 新增功能至少包含一个行为级测试用例<br><br><span class="hljs-section">## 拼写检查范围</span><br><br><span class="hljs-bullet">-</span> 检查范围：<span class="hljs-code">`src`</span>、<span class="hljs-code">`public`</span>、根目录配置、<span class="hljs-code">`.github`</span>、Markdown文档<br><br><span class="hljs-section">## 工程原则：</span><br><br><span class="hljs-bullet">-</span> 优先简单可读方案，避免引入不必要的复杂度<br><span class="hljs-bullet">-</span> 仅实现当前需求，禁止提前实现未来功能<br><span class="hljs-bullet">-</span> 识别并消除重复逻辑，统一同类实现模式<br><span class="hljs-bullet">-</span> 保持职责清晰、依赖抽象、接口专一和可扩展<br><span class="hljs-bullet">-</span> 新增功能、功能迭代同步到Readme.md文件中<br></code></pre></td></tr></table></figure>
+                <h2 id="功能概览"><a href="#功能概览" class="headerlink" title="功能概览"></a>功能概览</h2><p>使用 Next.js 16 App Router、AI SDK 7、<code>@ai-sdk/react</code> 和 DeepSeek Provider 实现流式 AI 对话。</p>
+<ul>
+<li>前端通过 <code>useChat</code> 管理会话消息和请求状态。</li>
+<li>后端通过 <code>POST /api/chat</code> 接收 UI 消息，转换为模型消息并调用 DeepSeek。</li>
+<li>服务端将模型生成的文本流转换为 AI SDK UI Message Stream，供前端逐步显示。</li>
+<li>对话页面提供空状态、快捷提问、消息区、加载状态、错误提示和输入区。</li>
+</ul>
+<h2 id="请求流程"><a href="#请求流程" class="headerlink" title="请求流程"></a>请求流程</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">用户输入<br>  -&gt; page.tsx 的 sendMessage(&#123; text &#125;)<br>  -&gt; useChat 默认请求 POST /api/chat<br>  -&gt; route.ts 读取 &#123; messages &#125;<br>  -&gt; convertToModelMessages(messages)<br>  -&gt; streamText 调用 DeepSeek<br>  -&gt; toUIMessageStream(result.stream)<br>  -&gt; createUIMessageStreamResponse(&#123; stream &#125;)<br>  -&gt; useChat 接收流并更新 messages<br></code></pre></td></tr></table></figure>
+
+<h2 id="前端对话页面"><a href="#前端对话页面" class="headerlink" title="前端对话页面"></a>前端对话页面</h2><p>文件：<code>src/app/page.tsx</code></p>
+<h3 id="Client-Component-与-useChat"><a href="#Client-Component-与-useChat" class="headerlink" title="Client Component 与 useChat"></a>Client Component 与 useChat</h3><p>页面使用 React 状态、事件和 <code>useChat</code>，因此文件顶部需要声明：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-string">&quot;use client&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>通过 <code>useChat</code> 获取消息、发送方法、请求状态和错误：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> &#123; messages, sendMessage, status, error &#125; = <span class="hljs-title function_">useChat</span>()<br><span class="hljs-keyword">const</span> isLoading = status === <span class="hljs-string">&quot;submitted&quot;</span> || status === <span class="hljs-string">&quot;streaming&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><code>messages</code> 中的内容是 UIMessage。每条消息通过 <code>role</code> 区分用户和助手，正文在 <code>parts</code> 中：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs tsx">messages.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">message</span>) =&gt;</span> (<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;message.id&#125;</span>&gt;</span></span><br><span class="language-xml">    &#123;message.parts.map((part, index) =&gt;</span><br><span class="language-xml">      part.type === &quot;text&quot; ? (</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;</span>`$&#123;<span class="hljs-attr">message.id</span>&#125;<span class="hljs-attr">-</span>$&#123;<span class="hljs-attr">index</span>&#125;`&#125;&gt;</span>&#123;part.text&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">      ) : null,</span><br><span class="language-xml">    )&#125;</span><br><span class="language-xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>))<br></code></pre></td></tr></table></figure>
+
+<p>使用 <code>message.id</code> 作为消息 key；消息正文按 text part 渲染。<code>whitespace-pre-wrap</code> 可保留换行，<code>break-words</code> 可避免长文本撑破布局。</p>
+<h3 id="发送消息"><a href="#发送消息" class="headerlink" title="发送消息"></a>发送消息</h3><p>输入区使用表单处理点击发送和键盘提交，并在发送前去除首尾空白：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">handleSubmit</span> = (<span class="hljs-params"><span class="hljs-attr">event</span>: <span class="hljs-title class_">FormEvent</span>&lt;<span class="hljs-title class_">HTMLFormElement</span>&gt;</span>) =&gt; &#123;<br>  event.<span class="hljs-title function_">preventDefault</span>()<br>  <span class="hljs-keyword">const</span> text = input.<span class="hljs-title function_">trim</span>()<br>  <span class="hljs-keyword">if</span> (!text || isLoading) <span class="hljs-keyword">return</span><br><br>  <span class="hljs-title function_">sendMessage</span>(&#123; text &#125;)<br>  <span class="hljs-title function_">setInput</span>(<span class="hljs-string">&quot;&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输入框的 <code>Enter</code> 提交，<code>Shift + Enter</code> 不触发提交。发送按钮在输入为空或请求进行中时禁用。空状态中的快捷提问也直接调用 <code>sendMessage({ text })</code>。</p>
+<h3 id="页面交互状态"><a href="#页面交互状态" class="headerlink" title="页面交互状态"></a>页面交互状态</h3><ul>
+<li><code>messages.length === 0</code> 时展示欢迎文案和快捷提示。</li>
+<li><code>status</code> 为 <code>submitted</code> 或 <code>streaming</code> 时显示加载动画，并暂时禁用输入。</li>
+<li><code>error</code> 存在时显示请求失败提示。</li>
+<li><code>useEffect</code> 监听消息和加载状态，滚动到消息列表底部。</li>
+<li>新对话按钮通过刷新页面重置当前内存中的会话。</li>
+<li>使用 Tailwind 的宽度、间距和断点类适配窄屏与桌面布局。</li>
+</ul>
+<h2 id="服务端-API-Route"><a href="#服务端-API-Route" class="headerlink" title="服务端 API Route"></a>服务端 API Route</h2><p>文件：<code>src/app/api/chat/route.ts</code></p>
+<p>Next.js App Router 使用命名导出声明 HTTP 方法：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">POST</span>(<span class="hljs-params"><span class="hljs-attr">req</span>: <span class="hljs-title class_">Request</span></span>) &#123;<br>  <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="转换-UIMessage"><a href="#转换-UIMessage" class="headerlink" title="转换 UIMessage"></a>转换 UIMessage</h3><p>前端 <code>useChat</code> 发送的是 UIMessage，而模型调用需要 ModelMessage。不要把收到的 <code>messages</code> 直接放进 <code>prompt</code>；使用 AI SDK 提供的转换函数：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> &#123; messages &#125; = <span class="hljs-keyword">await</span> req.<span class="hljs-title function_">json</span>()<br><span class="hljs-keyword">const</span> modelMessages = <span class="hljs-keyword">await</span> <span class="hljs-title function_">convertToModelMessages</span>(messages)<br></code></pre></td></tr></table></figure>
+
+<p>随后将转换结果传给 <code>streamText</code> 的 <code>messages</code> 参数：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> result = <span class="hljs-title function_">streamText</span>(&#123;<br>  <span class="hljs-attr">model</span>: <span class="hljs-title function_">createDeepSeek</span>(&#123; apiKey &#125;)(<span class="hljs-string">&quot;deepseek-flash&quot;</span>),<br>  <span class="hljs-attr">messages</span>: modelMessages,<br>  <span class="hljs-attr">instructions</span>: <span class="hljs-string">&quot;你是一个女仆，按照你的性格给予用户帮助&quot;</span>,<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="AI-SDK-7-流式响应"><a href="#AI-SDK-7-流式响应" class="headerlink" title="AI SDK 7 流式响应"></a>AI SDK 7 流式响应</h3><p>AI SDK 7 已将 <code>streamText</code> result 上的 <code>toUIMessageStreamResponse()</code> 等便捷方法标记为废弃。当前推荐将 stream 转换和 Response 创建拆开：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> stream = <span class="hljs-title function_">toUIMessageStream</span>(&#123;<br>  <span class="hljs-attr">stream</span>: result.<span class="hljs-property">stream</span>,<br>&#125;)<br><br><span class="hljs-keyword">return</span> <span class="hljs-title function_">createUIMessageStreamResponse</span>(&#123; stream &#125;)<br></code></pre></td></tr></table></figure>
+
+<p>本项目保留的旧写法仅作为迁移参考，且处于注释状态：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// 旧写法：result.toUIMessageStreamResponse()</span><br><span class="hljs-comment">// 该方法在 AI SDK 7 中已废弃，后续版本可能移除。</span><br><span class="hljs-comment">// return result.toUIMessageStreamResponse()</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>Route Handler 中捕获同步解析和转换阶段的异常，写入服务端日志并返回 JSON 500：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">try</span> &#123;<br>  <span class="hljs-comment">// 解析输入、转换消息、创建模型流</span><br>&#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&quot;POST /api/chat failed:&quot;</span>, error)<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Response</span>.<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">error</span>: <span class="hljs-string">&quot;聊天请求失败&quot;</span> &#125;, &#123; <span class="hljs-attr">status</span>: <span class="hljs-number">500</span> &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意：模型流开始返回后发生的 provider 错误通常属于流式阶段，不能只依赖外围 <code>try/catch</code>；调试时还要检查服务端终端日志和客户端 AI SDK 的 <code>error</code> 状态。</p>
 
                 
               </div>
@@ -353,6 +405,17 @@
               <div class="post-metas my-3">
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Next-js/" class="print-no-link">#Next.js</a>
+      
+        <a href="/tags/AI-SDK/" class="print-no-link">#AI SDK</a>
+      
+        <a href="/tags/DeepSeek/" class="print-no-link">#DeepSeek</a>
+      
+    </div>
+  
 </div>
 
 
@@ -361,8 +424,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>常用的AGENTS.md文件配置</div>
-      <div>https://zouhualu.github.io/20260428/常用的AGENTS-md文件配置/</div>
+      <div>nextjs16+@ai-sdk实现AI对话</div>
+      <div>https://zouhualu.github.io/20260930/nextjs16-ai-sdk实现AI对话/</div>
     </div>
     <div class="license-meta">
       
@@ -374,7 +437,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年4月28日</div>
+          <div>2026年9月30日</div>
         </div>
       
       
@@ -406,18 +469,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/20260930/nextjs16-ai-sdk%E5%AE%9E%E7%8E%B0AI%E5%AF%B9%E8%AF%9D/" title="nextjs16+@ai-sdk实现AI对话">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">nextjs16+@ai-sdk实现AI对话</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/20260318/%E9%80%9A%E8%BF%87-iframe-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%90%AD%E5%BB%BA%E7%9A%84%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8%EF%BC%8C%E7%88%B6%E5%AD%90%E7%B3%BB%E7%BB%9F%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E9%80%9A%E4%BF%A1/" title="通过 iframe 的方式搭建的微前端应用，父子系统应该如何通信">
-                        <span class="hidden-mobile">通过 iframe 的方式搭建的微前端应用，父子系统应该如何通信</span>
+                      <a href="/20260428/%E5%B8%B8%E7%94%A8%E7%9A%84AGENTS-md%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE/" title="常用的AGENTS.md文件配置">
+                        <span class="hidden-mobile">常用的AGENTS.md文件配置</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
