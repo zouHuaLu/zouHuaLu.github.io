@@ -142,9 +142,9 @@
       
       <tag>工程化</tag>
       
-      <tag>构建工具</tag>
-      
       <tag>Vite</tag>
+      
+      <tag>构建工具</tag>
       
     </tags>
     
@@ -316,9 +316,9 @@
       
       <tag>工程化</tag>
       
-      <tag>Webpack</tag>
-      
       <tag>构建工具</tag>
+      
+      <tag>Webpack</tag>
       
     </tags>
     
@@ -598,9 +598,9 @@
     
     <tags>
       
-      <tag>异步编程</tag>
-      
       <tag>JavaScript</tag>
+      
+      <tag>异步编程</tag>
       
       <tag>Promise</tag>
       
@@ -737,9 +737,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>React</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -764,11 +764,11 @@
     
     <tags>
       
+      <tag>JavaScript</tag>
+      
       <tag>事件循环</tag>
       
       <tag>异步编程</tag>
-      
-      <tag>JavaScript</tag>
       
     </tags>
     
@@ -905,11 +905,11 @@
     
     <tags>
       
+      <tag>JavaScript</tag>
+      
       <tag>事件循环</tag>
       
       <tag>异步编程</tag>
-      
-      <tag>JavaScript</tag>
       
     </tags>
     
