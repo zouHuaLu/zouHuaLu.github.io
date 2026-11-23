@@ -1,0 +1,1084 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/user/wazi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="花鹿">
+  <meta name="keywords" content="blog,走花路的长颈鹿,博客,走花鹿，花鹿">
+  
+    <meta name="description" content="zustand优势：  极简的 api，较低的学习成本。只需通过 create 函数创建 store，直接定义状态和修改状态的方法，无需冗余模板。 更灵活的状态访问方式。支持选择性订阅（只监听需要的状态字段，减少不必要的重渲染，性能好）。const count &#x3D; useStore((state) &#x3D;&gt; state.count)  123456789101112131415161718192">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react状态管理方案">
+<meta property="og:url" content="https://zouhualu.github.io/20240915/react%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="花鹿">
+<meta property="og:description" content="zustand优势：  极简的 api，较低的学习成本。只需通过 create 函数创建 store，直接定义状态和修改状态的方法，无需冗余模板。 更灵活的状态访问方式。支持选择性订阅（只监听需要的状态字段，减少不必要的重渲染，性能好）。const count &#x3D; useStore((state) &#x3D;&gt; state.count)  123456789101112131415161718192">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-15T06:10:18.000Z">
+<meta property="article:modified_time" content="2026-11-23T04:11:12.416Z">
+<meta property="article:author" content="花鹿">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="Zustand">
+<meta property="article:tag" content="状态管理">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>react状态管理方案 - 花鹿</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zouhualu.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Love&amp;Share</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>全部</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/personal/" target="_self">
+                <i class="iconfont icon-bookmark"></i>
+                <span>个人记录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>我的独立文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://zouhualu.github.io/HTML/12%E5%91%A8%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C%E6%B3%95.html" target="_self">
+                    
+                    <span>十二周高效学习法</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>主页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>全部</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/personal/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-bookmark"></i>
+                  <span>个人记录</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-books"></i>
+              <span>我的独立文档</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://zouhualu.github.io/HTML/12%E5%91%A8%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C%E6%B3%95.html" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>十二周高效学习法</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>配置指南</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/bg1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="react状态管理方案"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        花鹿
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-15 14:10" pubdate>
+          2024年9月15日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          6.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          53 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">react状态管理方案</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="zustand"><a href="#zustand" class="headerlink" title="zustand"></a>zustand</h2><p>优势：</p>
+<ul>
+<li>极简的 api，较低的学习成本。只需通过 <code>create</code> 函数创建 <code>store</code>，直接定义状态和修改状态的方法，无需冗余模板。</li>
+<li>更灵活的状态访问方式。支持选择性订阅（只监听需要的状态字段，减少不必要的重渲染，性能好）。<br><code>const count = useStore((state) =&gt; state.count)</code></li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// src/stores/useCounter.ts</span><br><br><span class="hljs-comment">// 引入 zustand 库</span><br><span class="hljs-keyword">import</span> &#123;create&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zustand&#x27;</span><br><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">CounterState</span> = &#123;<br>    <span class="hljs-attr">count</span>: <span class="hljs-built_in">number</span>,<br>    <span class="hljs-attr">add</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span><br>    <span class="hljs-attr">minus</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span><br>&#125;<br><br><span class="hljs-comment">// 创建一个 zustand 状态管理 store</span><br><span class="hljs-keyword">const</span> useCounter = create&lt;<span class="hljs-title class_">CounterState</span>&gt;(<span class="hljs-function">(<span class="hljs-params">set</span>) =&gt;</span> (<br>    &#123;<br>        <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,<br>        <span class="hljs-attr">add</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">set</span>(<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">state</span>: <span class="hljs-built_in">any</span></span>) =&gt;</span> (&#123;<span class="hljs-attr">count</span>: state.<span class="hljs-property">count</span> + <span class="hljs-number">1</span>&#125;)),<br>        <span class="hljs-attr">minus</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">set</span>(<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">state</span>: <span class="hljs-built_in">any</span></span>) =&gt;</span> (&#123;<br>            <span class="hljs-attr">count</span>: state.<span class="hljs-property">count</span> - <span class="hljs-number">1</span><br>        &#125;))<br><br>    &#125;<br>))<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> useCounter<br></code></pre></td></tr></table></figure>
+
+<p>在页面上使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> useCounter <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/stores/useCounter&#x27;</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> &#123;count, add, minus&#125; = <span class="hljs-title function_">useCounter</span>()<br>    <span class="hljs-keyword">return</span> (<br>        <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">                &#123;count&#125;</span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;add&#125;</span>&gt;</span></span><br><span class="language-xml">                add</span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;minus&#125;</span>&gt;</span></span><br><span class="language-xml">                minus</span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/&gt;</span></span><br>    )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="jotai"><a href="#jotai" class="headerlink" title="jotai"></a>jotai</h2><p>jotai 的核心是 atom，atom 是 jotai 中最基本的状态单位，可以是基本类型，也可以是对象类型。atom 之间可以有依赖关系，当一个 atom<br>的值发生变化时，所有依赖它的 atom 都会重新计算。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// AgeAtom.ts</span><br><span class="hljs-keyword">import</span> &#123;atom&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;jotai&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> ageAtom = <span class="hljs-title function_">atom</span>(<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// NameAtom.ts</span><br><span class="hljs-keyword">import</span> &#123;atom&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;jotai&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> nameAtom = <span class="hljs-title function_">atom</span>(<span class="hljs-string">&#x27;&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// InfoAtom.ts</span><br><span class="hljs-keyword">import</span> &#123;atom&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;jotai&#x27;</span><br><span class="hljs-keyword">import</span> &#123;ageAtom, nameAtom&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./Atom&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> infoAtom = <span class="hljs-title function_">atom</span>(<span class="hljs-function">(<span class="hljs-params">get</span>) =&gt;</span> (&#123;<br>    <span class="hljs-attr">age</span>: <span class="hljs-title function_">get</span>(ageAtom),<br>    <span class="hljs-attr">name</span>: <span class="hljs-title function_">get</span>(nameAtom)<br>&#125;))<br></code></pre></td></tr></table></figure>
+
+<p>在页面上使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123;useAtomValue, useSetAtom&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;jotai&#x27;</span><br><span class="hljs-keyword">import</span> &#123;infoAtom, ageAtom, nameAtom&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./Atom&#x27;</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> info = <span class="hljs-title function_">useAtomValue</span>(infoAtom)<br>    <span class="hljs-keyword">const</span> setAge = <span class="hljs-title function_">useSetAtom</span>(ageAtom)<br>    <span class="hljs-keyword">const</span> setName = <span class="hljs-title function_">useSetAtom</span>(nameAtom)<br>    <span class="hljs-keyword">return</span> (<br>        <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">                &#123;info.age&#125;</span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">                &#123;info.name&#125;</span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> setAge((age) =&gt; age + 1)&#125;&gt;+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> setName((name) =&gt; name + &#x27;hualu&#x27;)&#125;&gt;add name<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/&gt;</span></span><br>    )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h2><p>redux搭配redux-toolkit来使用。</p>
+<p>实现一个计数器功能：</p>
+<h2 id="第一步：安装-Redux-Toolkit-和-React-Redux绑定库"><a href="#第一步：安装-Redux-Toolkit-和-React-Redux绑定库" class="headerlink" title="第一步：安装 Redux Toolkit 和 React-Redux绑定库"></a>第一步：安装 Redux Toolkit 和 React-Redux绑定库</h2><p><code>npm install @reduxjs/toolkit react-redux</code></p>
+<h2 id="第二步：创建-Slice-状态切片"><a href="#第二步：创建-Slice-状态切片" class="headerlink" title="第二步：创建 Slice (状态切片)"></a>第二步：创建 Slice (状态切片)</h2><p>Slice 是 RTK 的核心概念，它包含了一部分状态初始值、reducer 函数以及自动生成的 actions。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123;createSlice&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@reduxjs/toolkit&#x27;</span>;<br><br><span class="hljs-keyword">const</span> counterSlice = <span class="hljs-title function_">createSlice</span>(&#123;<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;counter&#x27;</span>, <span class="hljs-comment">// 命名空间，用于生成 action type</span><br>    <span class="hljs-attr">initialState</span>: &#123;<br>        <span class="hljs-attr">value</span>: <span class="hljs-number">0</span>,<br>    &#125;,<br>    <span class="hljs-attr">reducers</span>: &#123;<br>        <span class="hljs-comment">// 同步操作：可以直接修改 state，Immer 会处理不可变更新</span><br>        <span class="hljs-attr">increment</span>: <span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> &#123;<br>            state.<span class="hljs-property">value</span> += <span class="hljs-number">1</span>;<br>        &#125;,<br>        <span class="hljs-attr">decrement</span>: <span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> &#123;<br>            state.<span class="hljs-property">value</span> -= <span class="hljs-number">1</span>;<br>        &#125;,<br>        <span class="hljs-attr">incrementByAmount</span>: <span class="hljs-function">(<span class="hljs-params">state, action</span>) =&gt;</span> &#123;<br>            state.<span class="hljs-property">value</span> += action.<span class="hljs-property">payload</span>;<br>        &#125;,<br>    &#125;,<br>&#125;);<br><br><span class="hljs-comment">// 导出 actions</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> &#123;increment, decrement, incrementByAmount&#125; = counterSlice.<span class="hljs-property">actions</span>;<br><br><span class="hljs-comment">// 导出 reducer</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> counterSlice.<span class="hljs-property">reducer</span>;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="第三步：配置store"><a href="#第三步：配置store" class="headerlink" title="第三步：配置store"></a>第三步：配置store</h2><p>创建全局唯一的 Store，并将 slice 的 reducer 注册进去。</p>
+<p>创建文件 src/app/store.js：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123;configureStore&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@reduxjs/toolkit&#x27;</span>;<br><span class="hljs-keyword">import</span> counterReducer <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../features/counter/counterSlice&#x27;</span>;<br><br><span class="hljs-keyword">const</span> store = <span class="hljs-title function_">configureStore</span>(&#123;<br>    <span class="hljs-attr">reducer</span>: &#123;<br>        <span class="hljs-attr">counter</span>: counterReducer,<br>        <span class="hljs-comment">// 如果有其他 slice，继续添加</span><br>        <span class="hljs-comment">// user: userReducer,</span><br>    &#125;,<br>&#125;);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="第四步：将-Store-注入-React-应用"><a href="#第四步：将-Store-注入-React-应用" class="headerlink" title="第四步：将 Store 注入 React 应用"></a>第四步：将 Store 注入 React 应用</h2><p>使用 Provider 组件将 store 传递给整个 React 组件树。</p>
+<p>修改文件 src/index.js (或 main.jsx)：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactDOM</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom/client&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123;<span class="hljs-title class_">Provider</span>&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-redux&#x27;</span>;<br><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./app/store&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">App</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App&#x27;</span>;<br><br><span class="hljs-keyword">const</span> root = <span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">createRoot</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;root&#x27;</span>));<br>root.<span class="hljs-title function_">render</span>(<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">React.StrictMode</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Provider</span> <span class="hljs-attr">store</span>=<span class="hljs-string">&#123;store&#125;</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">App</span>/&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">Provider</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">React.StrictMode</span>&gt;</span></span><br>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="第五步：在组件中使用-State-和-Dispatch"><a href="#第五步：在组件中使用-State-和-Dispatch" class="headerlink" title="第五步：在组件中使用 State 和 Dispatch"></a>第五步：在组件中使用 State 和 Dispatch</h2><p>使用 useSelector 读取状态，使用 useDispatch 触发 action。</p>
+<p>创建文件 src/features/counter/Counter.js：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123;useState&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123;useSelector, useDispatch&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-redux&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123;increment, decrement, incrementByAmount&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./counterSlice&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Counter</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> count = <span class="hljs-title function_">useSelector</span>(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> state.<span class="hljs-property">counter</span>.<span class="hljs-property">value</span>);<br>    <span class="hljs-keyword">const</span> dispatch = <span class="hljs-title function_">useDispatch</span>();<br>    <span class="hljs-keyword">const</span> [incrementAmount, setIncrementAmount] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&#x27;2&#x27;</span>);<br><br>    <span class="hljs-keyword">return</span> (<br>        <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;counter&quot;</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;<span class="hljs-name">button</span></span></span><br><span class="hljs-tag"><span class="language-xml">                    <span class="hljs-attr">aria-label</span>=<span class="hljs-string">&quot;Increment value&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">                    <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> dispatch(increment())&#125;</span><br><span class="language-xml">                &gt;</span><br><span class="language-xml">                    +</span><br><span class="language-xml">                <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>&#123;count&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;<span class="hljs-name">button</span></span></span><br><span class="hljs-tag"><span class="language-xml">                    <span class="hljs-attr">aria-label</span>=<span class="hljs-string">&quot;Decrement value&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">                    <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> dispatch(decrement())&#125;</span><br><span class="language-xml">                &gt;</span><br><span class="language-xml">                    -</span><br><span class="language-xml">                <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;controls&quot;</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">                    <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">                    <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;incrementAmount&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">                    <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;(e)</span> =&gt;</span> setIncrementAmount(e.target.value)&#125;</span><br><span class="language-xml">                /&gt;</span><br><span class="language-xml">                <span class="hljs-tag">&lt;<span class="hljs-name">button</span></span></span><br><span class="hljs-tag"><span class="language-xml">                    <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span></span><br><span class="language-xml">                        dispatch(incrementByAmount(Number(incrementAmount) || 0))</span><br><span class="language-xml">                    &#125;</span><br><span class="language-xml">                &gt;</span><br><span class="language-xml">                    Add Amount</span><br><span class="language-xml">                <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    );<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>处理异步逻辑 (Thunk)</p>
+<p>在实际项目中，经常需要处理 API 请求。RTK 内置了 createAsyncThunk 来简化异步操作。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123;createSlice, createAsyncThunk&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@reduxjs/toolkit&#x27;</span>;<br><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;axios&#x27;</span>;<br><br><span class="hljs-comment">// 定义异步 thunk</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> fetchUsers = <span class="hljs-title function_">createAsyncThunk</span>(<span class="hljs-string">&#x27;users/fetchUsers&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; &#123;<br>    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> axios.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;https://jsonplaceholder.typicode.com/users&#x27;</span>);<br>    <span class="hljs-keyword">return</span> response.<span class="hljs-property">data</span>;<br>&#125;);<br><br><span class="hljs-keyword">const</span> usersSlice = <span class="hljs-title function_">createSlice</span>(&#123;<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;users&#x27;</span>,<br>    <span class="hljs-attr">initialState</span>: &#123;<br>        <span class="hljs-attr">items</span>: [],<br>        <span class="hljs-attr">status</span>: <span class="hljs-string">&#x27;idle&#x27;</span>, <span class="hljs-comment">// &#x27;idle&#x27; | &#x27;loading&#x27; | &#x27;succeeded&#x27; | &#x27;failed&#x27;</span><br>        <span class="hljs-attr">error</span>: <span class="hljs-literal">null</span>,<br>    &#125;,<br>    <span class="hljs-attr">reducers</span>: &#123;&#125;,<br>    <span class="hljs-attr">extraReducers</span>: <span class="hljs-function">(<span class="hljs-params">builder</span>) =&gt;</span> &#123;<br>        builder<br>            .<span class="hljs-title function_">addCase</span>(fetchUsers.<span class="hljs-property">pending</span>, <span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> &#123;<br>                state.<span class="hljs-property">status</span> = <span class="hljs-string">&#x27;loading&#x27;</span>;<br>            &#125;)<br>            .<span class="hljs-title function_">addCase</span>(fetchUsers.<span class="hljs-property">fulfilled</span>, <span class="hljs-function">(<span class="hljs-params">state, action</span>) =&gt;</span> &#123;<br>                state.<span class="hljs-property">status</span> = <span class="hljs-string">&#x27;succeeded&#x27;</span>;<br>                state.<span class="hljs-property">items</span> = action.<span class="hljs-property">payload</span>;<br>            &#125;)<br>            .<span class="hljs-title function_">addCase</span>(fetchUsers.<span class="hljs-property">rejected</span>, <span class="hljs-function">(<span class="hljs-params">state, action</span>) =&gt;</span> &#123;<br>                state.<span class="hljs-property">status</span> = <span class="hljs-string">&#x27;failed&#x27;</span>;<br>                state.<span class="hljs-property">error</span> = action.<span class="hljs-property">error</span>.<span class="hljs-property">message</span>;<br>            &#125;);<br>    &#125;,<br>&#125;);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> usersSlice.<span class="hljs-property">reducer</span>;<br><br></code></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>优先推荐使用zustand，zustand完全够用</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Zustand</th>
+<th>Redux Toolkit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>‌Bundle体积‌</td>
+<td>仅 ‌1.1 KB‌，几乎无额外负担</td>
+<td>约 ‌11.1 KB‌，体积是Zustand的10倍</td>
+</tr>
+<tr>
+<td>‌学习曲线‌</td>
+<td>极低，几分钟就能跑通一个完整Store</td>
+<td>中高，需要理解Slice、Reducer、Dispatch等多个概念</td>
+</tr>
+<tr>
+<td>‌样板代码‌</td>
+<td>几乎为零，一行代码就能创建基础Store</td>
+<td>中等，需要完整配置Store、注册Reducer等流程</td>
+</tr>
+<tr>
+<td>‌异步处理‌</td>
+<td>直接在Store函数里写async逻辑即可</td>
+<td>需要借助createAsyncThunk或RTK Query封装</td>
+</tr>
+<tr>
+<td>‌适配团队规模‌</td>
+<td>1-10人小团队/个人项目更顺手</td>
+<td>5-50+人大型团队、超复杂项目更适配</td>
+</tr>
+</tbody></table>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" class="category-chain-item">前端框架</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/React/" class="print-no-link">#React</a>
+      
+        <a href="/tags/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86/" class="print-no-link">#状态管理</a>
+      
+        <a href="/tags/Zustand/" class="print-no-link">#Zustand</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>react状态管理方案</div>
+      <div>https://zouhualu.github.io/20240915/react状态管理方案/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>花鹿</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20241016/babel%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" title="babel常用配置">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">babel常用配置</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20240509/webpack%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6%E5%92%8C%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="webpack基础进阶和原理剖析">
+                        <span class="hidden-mobile">webpack基础进阶和原理剖析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zouHuaLu/blog_comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <div style="max-width: 330px; margin: 16px auto;"><iframe title="网易云音乐电台" frameborder="0" border="0" marginwidth="0" marginheight="0" width="100%" height="110" src="https://music.163.com/outchain/player?type=0&id=2061000202&auto=0&height=90"></iframe></div>
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://music.163.com/#/song?id=441491828" target="_blank" rel="nofollow noopener"><span>Love</span></a> <i class="iconfont icon-love"></i> <a href="http://music.163.com/song?id=186145&userid=34198090" target="_blank" rel="nofollow noopener"><span>Share</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
